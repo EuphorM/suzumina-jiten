@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="語録を投稿する" description="涼花みなせさんの語録を投稿する">
+  <div class="breadcrumb">
+    <a href="/">すずみな事典</a>
+    <span class="breadcrumb-sep">›</span>
+    投稿する
+  </div>
+
+  <h1>語録を投稿する</h1>
+
+  <p>
+    涼花みなせさんの語録・印象的なフレーズをご存知の方は、以下のフォームからお知らせください。
+    モデレーターが内容を確認の上、掲載させていただきます。
+  </p>
+
+  <form class="submit-form" id="submit-form">
+    <div class="form-group">
+      <label for="title">
+        語録<span class="required-mark">*</span>
+      </label>
+      <p class="form-hint">涼花みなせさんが発した印象的な言葉・フレーズ</p>
+      <input type="text" id="title" name="title" required placeholder="例：虫ケラ" />
+    </div>
+
+    <div class="form-group">
+      <label for="reading">読み</label>
+      <input type="text" id="reading" name="reading" placeholder="例：むしけら" />
+    </div>
+
+    <div class="form-group">
+      <label for="meaning">
+        意味<span class="required-mark">*</span>
+      </label>
+      <textarea id="meaning" name="meaning" required placeholder="例：虫のようなものをバカにしている"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">タグ</label>
+      <p class="form-hint">カンマ区切りで入力（例：罵倒, ゲーム配信）</p>
+      <input type="text" id="tags" name="tags" placeholder="例：罵倒, ゲーム配信" />
+    </div>
+
+    <div class="form-group">
+      <label for="first_appearance">初出情報</label>
+      <p class="form-hint">配信のタイトルや日付など分かる範囲で</p>
+      <input
+        type="text"
+        id="first_appearance"
+        name="first_appearance"
+        placeholder="例：みやぢ×みなせ コラボ BIOHAZARD 5"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="youtube_url">YouTube URL</label>
+      <input
+        type="url"
+        id="youtube_url"
+        name="youtube_url"
+        placeholder="https://www.youtube.com/..."
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="explanation">解説</label>
+      <p class="form-hint">語録が生まれた経緯やエピソードなど</p>
+      <textarea id="explanation" name="explanation" style="min-height: 8rem;" placeholder="どんな場面で使われた言葉か、背景など"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="examples">使用例</label>
+      <p class="form-hint">実際に使われた文脈や例文（1行に1例）</p>
+      <textarea id="examples" name="examples" placeholder="例：虫ケラ虫ケラ、虫さん虫さん。"></textarea>
+    </div>
+
+    <!-- ハニーポット（スパム対策） -->
+    <input type="text" name="website" style="display: none;" tabindex="-1" autocomplete="off" />
+
+    <div>
+      <button type="submit" class="btn-submit" id="submit-btn">投稿する</button>
+    </div>
+
+    <div id="form-message" style="display: none;"></div>
+  </form>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('submit-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const messageEl = document.getElementById('form-message') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+
+    // ハニーポットチェック
+    if (data.get('website')) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送信中...';
+    messageEl.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(data)),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        messageEl.className = 'form-message form-message--success';
+        messageEl.textContent =
+          '投稿を受け付けました。モデレーターが確認次第、掲載いたします。ありがとうございます！';
+        messageEl.style.display = 'block';
+        form.reset();
+      } else {
+        throw new Error(result.error ?? '投稿に失敗しました');
+      }
+    } catch (err) {
+      messageEl.className = 'form-message form-message--error';
+      messageEl.textContent =
+        err instanceof Error ? err.message : '投稿に失敗しました。時間をおいて再度お試しください。';
+      messageEl.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '投稿する';
+    }
+  });
+</script>

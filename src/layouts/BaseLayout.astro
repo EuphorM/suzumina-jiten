@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = '涼花みなせさんの語録・用語を体系的にまとめたファンサイト',
+} = Astro.props;
+
+const siteTitle = 'すずみな事典';
+const pageTitle = title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="site-title">{siteTitle}</a>
+        <nav class="site-nav">
+          <a href="/quotes">語録</a>
+          <a href="/terms">用語</a>
+          <a href="/submit">投稿する</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>{siteTitle} — 涼花みなせさんのファンが作る語録・用語集</p>
+      </div>
+    </footer>
+  </body>
+</html>

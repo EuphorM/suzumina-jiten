@@ -1,0 +1,30 @@
+---
+import RarityStars from './RarityStars.astro';
+
+interface Props {
+  slug: string;
+  title: string;
+  reading: string;
+  meaning: string;
+  tags: string[];
+  rarity: number;
+}
+
+const { slug, title, reading, meaning, tags, rarity } = Astro.props;
+---
+
+<article class="quote-card">
+  <div class="quote-card__header">
+    <h3 class="quote-card__title">
+      <a href={`/quotes/${slug}`}>{title}</a>
+    </h3>
+    <span class="quote-card__reading">（{reading}）</span>
+  </div>
+  <p class="quote-card__meaning">{meaning}</p>
+  <div class="quote-card__meta">
+    <RarityStars rarity={rarity} />
+    <div class="quote-card__tags">
+      {tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</article>

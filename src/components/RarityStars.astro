@@ -1,0 +1,18 @@
+---
+interface Props {
+  rarity: number;
+}
+
+const { rarity } = Astro.props;
+const stars = Array.from({ length: 5 }, (_, i) => i < rarity);
+---
+
+<span class="rarity" title={`レア度: ${rarity}/5`}>
+  {
+    stars.map((filled) => (
+      <span class={filled ? 'star star--filled' : 'star star--empty'}>
+        {filled ? '★' : '☆'}
+      </span>
+    ))
+  }
+</span>

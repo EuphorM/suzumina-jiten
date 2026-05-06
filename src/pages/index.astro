@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuoteCard from '../components/QuoteCard.astro';
+
+const quotes = await getCollection('quotes');
+const recentQuotes = quotes.slice(0, 6);
+---
+
+<BaseLayout title="すずみな事典">
+  <div class="hero">
+    <h1 style="border-bottom: none; padding-bottom: 0; margin-bottom: 0.5rem; font-size: 1.5rem;">
+      すずみな事典へようこそ
+    </h1>
+    <p>
+      涼花みなせさんの配信で生まれた語録・用語を体系的にまとめたファンサイトです。
+      語録の意味や背景エピソードを調べたり、新しい語録を投稿することができます。
+    </p>
+  </div>
+
+  <div class="section-header">
+    <h2>語録一覧</h2>
+    <a href="/quotes">すべて見る →</a>
+  </div>
+
+  {
+    recentQuotes.length > 0 ? (
+      recentQuotes.map((entry) => (
+        <QuoteCard
+          slug={entry.id}
+          title={entry.data.title}
+          reading={entry.data.reading}
+          meaning={entry.data.meaning}
+          tags={entry.data.tags}
+          rarity={entry.data.rarity}
+        />
+      ))
+    ) : (
+      <p class="empty-state">語録はまだ登録されていません。</p>
+    )
+  }
+
+  <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-muted); border: 1px solid var(--border); border-radius: 2px;">
+    <h2 style="margin-top: 0; border-bottom: none; font-size: 1.125rem;">語録を知っている方へ</h2>
+    <p style="margin: 0; font-size: 0.9375rem;">
+      涼花みなせさんの語録をご存知の方は、ぜひ
+      <a href="/submit">投稿フォーム</a>からお知らせください。
+      モデレーターが確認の上、掲載させていただきます。
+    </p>
+  </div>
+</BaseLayout>

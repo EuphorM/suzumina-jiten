@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import QuoteCard from '../../components/QuoteCard.astro';
+
+const quotes = await getCollection('quotes');
+
+const sortedQuotes = quotes.sort((a, b) =>
+  a.data.title.localeCompare(b.data.title, 'ja')
+);
+
+const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
+  a.localeCompare(b, 'ja')
+);
+---
+
+<BaseLayout title="語録一覧" description="涼花みなせさんの語録一覧">
+  <div class="breadcrumb">
+    <a href="/">すずみな事典</a>
+    <span class="breadcrumb-sep">›</span>
+    語録
+  </div>
+
+  <h1>語録一覧</h1>
+
+  {
+    allTags.length > 0 && (
+      <div style="margin-bottom: 1.5rem;">
+        <span style="font-size: 0.875rem; color: var(--text-muted); margin-right: 0.5rem;">タグ：</span>
+        {allTags.map((tag) => (
+          <span class="tag" style="margin-right: 0.375rem;">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )
+  }
+
+  <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+    全 {quotes.length} 件
+  </p>
+
+  {
+    sortedQuotes.length > 0 ? (
+      sortedQuotes.map((entry) => (
+        <QuoteCard
+          slug={entry.id}
+          title={entry.data.title}
+          reading={entry.data.reading}
+          meaning={entry.data.meaning}
+          tags={entry.data.tags}
+          rarity={entry.data.rarity}
+        />
+      ))
+    ) : (
+      <p class="empty-state">語録はまだ登録されていません。</p>
+    )
+  }
+</BaseLayout>
