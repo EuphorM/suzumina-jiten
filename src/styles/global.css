@@ -4,8 +4,8 @@
   --border: #a2a9b1;
   --text: #202122;
   --text-muted: #54595d;
-  --link: #3366cc;
-  --link-visited: #7941a5;
+  --link: #f2668f;
+  --link-visited: #b84068;
   --star-filled: #f4c430;
   --star-empty: #c8ccd1;
   --font: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
@@ -75,6 +75,12 @@ body {
   text-decoration: underline;
 }
 
+.site-nav__official {
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: var(--text-muted) !important;
+}
+
 /* メインコンテンツ */
 .main-content {
   padding: 2rem 0 3rem;
@@ -129,8 +135,8 @@ a:visited {
 .tag {
   display: inline-block;
   padding: 0.1em 0.55em;
-  background: #eaf3fb;
-  color: #36c;
+  background: #fde8ef;
+  color: #b84068;
   border-radius: 2px;
   font-size: 0.8em;
   text-decoration: none;
@@ -155,7 +161,7 @@ a:visited {
 /* 語録カード（一覧） */
 .quote-card {
   border: 1px solid var(--border);
-  border-left: 4px solid #36c;
+  border-left: 4px solid #f2668f;
   border-radius: 2px;
   padding: 0.875rem 1rem;
   margin-bottom: 1rem;
@@ -287,8 +293,8 @@ a:visited {
 .form-group input[type="url"]:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #36c;
-  box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.2);
+  border-color: #f2668f;
+  box-shadow: 0 0 0 2px rgba(242, 102, 143, 0.3);
 }
 
 .form-group textarea {
@@ -303,7 +309,7 @@ a:visited {
 
 .btn-submit {
   padding: 0.6rem 1.75rem;
-  background: #36c;
+  background: #f2668f;
   color: #fff;
   border: none;
   border-radius: 2px;
@@ -314,7 +320,7 @@ a:visited {
 }
 
 .btn-submit:hover {
-  background: #2a55a8;
+  background: #d04070;
 }
 
 .btn-submit:disabled {

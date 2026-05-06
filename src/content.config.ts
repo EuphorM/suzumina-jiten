@@ -14,14 +14,4 @@ const quotes = defineCollection({
   }),
 });
 
-const terms = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/terms' }),
-  schema: z.object({
-    title: z.string(),
-    reading: z.string(),
-    meaning: z.string(),
-    tags: z.array(z.string()).default([]),
-  }),
-});
-
-export const collections = { quotes, terms };
+export const collections = { quotes };
