@@ -13,6 +13,7 @@ const {
 
 const siteTitle = 'すずみな語録辞典（非公式）';
 const pageTitle = title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
+const currentUrl = Astro.url.href;
 ---
 
 <!doctype html>
@@ -22,6 +23,11 @@ const pageTitle = title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <header class="site-header">
