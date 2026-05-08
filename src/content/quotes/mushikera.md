@@ -1,17 +1,17 @@
 ---
-title: 虫ケラ
+title: 虫けら
 reading: むしけら
-meaning: 虫のようなものをバカにしている
+meaning: 虫のようなものと戦っている
 tags: [罵倒]
 rarity: 4
-first_appearance: "みやぢ×みなせ コラボ BIOHAZARD 5"
-youtube_url: "https://www.youtube.com/live/GJZQPvOYXyY?si=WrgtB2BgpdPJVg1h"
+first_appearance: "【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
+youtube_url: "https://www.youtube.com/watch?v=g2h3dk5i4Fk&t=4214s"
 ---
 
 ## 解説
 
-みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫ケラを連呼した。
+みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫けらと呼んでしまった。
 
 ## 使用例
 
-- 虫ケラ虫ケラ、虫さん虫さん。
+- 虫けら！虫さん虫さん虫さん虫さん。
