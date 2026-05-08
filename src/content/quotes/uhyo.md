@@ -4,7 +4,7 @@ reading: うひょ～
 meaning: 喜んでいる
 tags: [感嘆詞]
 rarity: 1
-first_appearance: "202X/XX/XX 配信「タイトル」（調査中）"
+first_appearance: "調査中"
 ---
 
 ## 解説
