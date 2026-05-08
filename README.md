@@ -26,6 +26,7 @@ tags: [タグ1, タグ2]
 rarity: 3
 first_appearance: "配信タイトルや日付"
 youtube_url: "https://www.youtube.com/..."
+contributor: ["ハンドルネーム"]
 ---
 
 ## 解説
@@ -37,6 +38,8 @@ youtube_url: "https://www.youtube.com/..."
 - 実際に使われた文脈や例文
 ```
 
+**contributor（投稿者ハンドルネーム）**：語録を投稿・情報提供してくれた方の名前。省略可。複数人の場合はカンマ区切りで配列に記載。
+
 **rarity（レア度）の目安**
 
 | 値 | 目安 |
@@ -47,28 +50,31 @@ youtube_url: "https://www.youtube.com/..."
 | 4 | なかなか聞けない |
 | 5 | 激レア |
 
-## ローカル開発
+## ドキュメント
 
-```bash
-# 依存パッケージのインストール
-npm install
+目的に応じて以下を参照してください。
 
-# 開発サーバー起動
-npx astro dev
-```
-
-### 環境変数の設定
-
-`.env.example` をコピーして `.env` を作成し、各値を設定してください。
-
-```
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
-GITHUB_OWNER=GitHubユーザー名
-GITHUB_REPO=suzumina-jiten
-```
-
-`GITHUB_TOKEN` は GitHub の Personal Access Token（Fine-grained）で、対象リポジトリの **Issues: Read and write** 権限が必要です。
+| ドキュメント | 内容 |
+|---|---|
+| [モデレーター運用マニュアル](./docs/moderator-guide.md) | 語録の追加・審査・運用フロー |
+| [コンテンツガイドライン](./docs/content-guide.md) | 掲載基準・語録の品質基準 |
+| [システム設計書](./docs/system-design.md) | 技術仕様・ローカル開発環境の構築 |
+| [すずみな語録辞典について](./docs/about.md) | 設計思想・プロジェクトの目的と方針 |
+| [運営に参加するには](./docs/contributing.md) | 運営参加の方法・役割・流れ |
 
 ## ライセンス
 
-このサイトは涼花みなせさんの非公式ファンサイトです。掲載内容に関するお問い合わせはIssueにてお知らせください。
+本リポジトリのソースコードは [CC0 1.0 Universal](./LICENSE)（パブリックドメイン）として公開しています。
+
+CC0とは、著作権を放棄し誰でも自由に使えるようにする宣言です：
+- コードのコピー・改変・再配布が自由
+- 個人・商用問わず利用可能
+- 著作権表示も不要
+
+完全に自由に使ってください。
+
+## 免責事項
+
+- 本サイトは涼花みなせさんの非公式ファンサイトです。涼花みなせさん本人とは一切関係ありません。
+- 掲載している語録は涼花みなせさんの発言を記録したものです。そのため語録の権利は涼花みなせさんに帰属します。
+- 掲載内容に関するお問い合わせは [Issue](https://github.com/EuphorM/suzumina-jiten/issues) にてお知らせください。
