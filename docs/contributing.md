@@ -6,14 +6,13 @@
 
 | 役割 | 内容 | エンジニア不要 |
 |---|---|---|
-| 語録の投稿 | 投稿フォームから語録を送る | ✅ |
 | 語録のレビュー | 投稿された語録の内容を確認・掲載判断する | ✅ |
 | 語録の追加・編集 | GitHubのWeb UIからMarkdownファイルを作成・修正する | ✅ |
 | サイトの改善 | デザインや機能の修正・提案 | 提案のみなら✅ |
 
 ## 参加方法
 
-GitHubの [Issues](https://github.com/EuphorM/suzumina-jiten/issues) から「参加したい」とお声がけください。
+GitHubの [Issues](https://github.com/EuphorM/suzumina-jiten/issues) から「参加したい」とお声がけください。その際、ラベルに「参加希望」を付けていただけると助かります。
 
 内容を確認のうえ、GitHubのコラボレーターとして招待します。
 
