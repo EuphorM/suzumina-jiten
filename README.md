@@ -27,6 +27,9 @@ rarity: 3
 first_appearance: "配信タイトルや日付"
 youtube_url: "https://www.youtube.com/..."
 contributor: ["ハンドルネーム"]
+youtube_urls:
+  - label: "配信タイトルなど"
+    url: "https://www.youtube.com/..."
 ---
 
 ## 解説

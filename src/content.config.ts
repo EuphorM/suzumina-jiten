@@ -12,6 +12,10 @@ const quotes = defineCollection({
     first_appearance: z.string().optional(),
     youtube_url: z.string().url().optional(),
     contributor: z.array(z.string()).default([]),
+    youtube_urls: z.array(z.object({
+      label: z.string(),
+      url: z.string().url(),
+    })).default([]),
   }),
 });
 

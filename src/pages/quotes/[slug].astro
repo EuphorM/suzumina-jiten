@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, contributor } = entry.data;
+const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, contributor, youtube_urls } = entry.data;
 ---
 
 <BaseLayout title={title} description={`${title}（${reading}）— ${meaning}`}>
@@ -56,21 +56,17 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, co
         )
       }
       {
-        first_appearance && (
+        (first_appearance || youtube_url) && (
           <tr>
             <th>初出</th>
-            <td>{first_appearance}</td>
-          </tr>
-        )
-      }
-      {
-        youtube_url && (
-          <tr>
-            <th>配信</th>
             <td>
-              <a href={youtube_url} target="_blank" rel="noopener noreferrer">
-                YouTube で見る →
-              </a>
+              {youtube_url ? (
+                <a href={youtube_url} target="_blank" rel="noopener noreferrer">
+                  {first_appearance ?? 'YouTube で見る'} →
+                </a>
+              ) : (
+                first_appearance
+              )}
             </td>
           </tr>
         )
@@ -81,6 +77,21 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, co
   <div class="quote-content">
     <Content />
   </div>
+
+  {youtube_urls.length > 0 && (
+    <div class="quote-related-urls">
+      <h2>関連動画</h2>
+      <ul>
+        {youtube_urls.map((item) => (
+          <li>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.label} →
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
 
   {contributor.length > 0 && (
     <p class="quote-contributor">投稿：{contributor.join('・')}さん</p>

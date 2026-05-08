@@ -1,0 +1,16 @@
+---
+import { Content } from '../../docs/about.md';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="このサイトについて" description="すずみな語録辞典の設計思想・目的・運営方針">
+  <div class="breadcrumb">
+    <a href="/">すずみな語録辞典</a>
+    <span class="breadcrumb-sep">›</span>
+    このサイトについて
+  </div>
+
+  <div class="about-content">
+    <Content />
+  </div>
+</BaseLayout>
