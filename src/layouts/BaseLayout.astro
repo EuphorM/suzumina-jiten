@@ -30,6 +30,7 @@ const pageTitle = title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
         <nav class="site-nav">
           <a href="/quotes">語録</a>
           <a href="/submit">投稿する</a>
+          <span class="site-nav__sep" aria-hidden="true">|</span>
           <a href="https://www.szkminase.com/" target="_blank" rel="noopener noreferrer" class="site-nav__official">公式サイト ↗</a>
         </nav>
       </div>
@@ -44,11 +45,6 @@ const pageTitle = title === siteTitle ? siteTitle : `${title} - ${siteTitle}`;
     <footer class="site-footer">
       <div class="container">
         <p>{siteTitle} — 涼花みなせさんのファンが作る語録集</p>
-        <p style="margin-top: 0.375rem;">
-          <a href="https://www.szkminase.com/" target="_blank" rel="noopener noreferrer">
-            涼花みなせ 公式サイト ↗
-          </a>
-        </p>
       </div>
     </footer>
   </body>

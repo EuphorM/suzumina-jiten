@@ -61,6 +61,7 @@ body {
 
 .site-nav {
   display: flex;
+  flex: 1;
   gap: 1.25rem;
   flex-wrap: wrap;
 }
@@ -75,8 +76,13 @@ body {
   text-decoration: underline;
 }
 
-.site-nav__official {
+.site-nav__sep {
   margin-left: auto;
+  color: var(--border);
+  user-select: none;
+}
+
+.site-nav__official {
   font-size: 0.875rem;
   color: var(--text-muted) !important;
 }
