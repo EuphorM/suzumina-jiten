@@ -12,7 +12,11 @@
 
 ## 参加方法
 
-GitHubの [Issues](https://github.com/EuphorM/suzumina-jiten/issues) から「参加したい」とお声がけください。その際、ラベルに「参加希望」を付けていただけると助かります。
+1. [GitHub](https://github.com/) のアカウントを作成する（すでにお持ちの方はそのままどうぞ）
+2. [Issues ページ](https://github.com/EuphorM/suzumina-jiten/issues) を開く
+3. 右上の「New issue」ボタンをクリック
+4. 「運営への参加希望」の「Get started」をクリック
+5. 「Submit new issue」をクリック
 
 内容を確認のうえ、GitHubのコラボレーターとして招待します。
 
