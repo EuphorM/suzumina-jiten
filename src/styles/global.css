@@ -260,7 +260,7 @@ a:visited {
 
 /* 投稿フォーム */
 .submit-form {
-  max-width: 640px;
+  width: 100%;
 }
 
 .form-group {
@@ -332,6 +332,48 @@ a:visited {
 .btn-submit:disabled {
   background: var(--border);
   cursor: not-allowed;
+}
+
+/* 折りたたみ */
+.form-details {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+}
+
+.form-details__summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: var(--link);
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.form-details__summary::before {
+  content: '▶';
+  font-size: 0.75em;
+  transition: transform 0.2s;
+}
+
+.form-details[open] .form-details__summary::before {
+  transform: rotate(90deg);
+}
+
+.form-details__summary:hover {
+  background: var(--bg-muted);
+}
+
+.form-details__body {
+  padding: 0.75rem 1rem 0;
+  border-top: 1px solid var(--border);
 }
 
 .form-message {
@@ -413,6 +455,14 @@ a:visited {
 
 .breadcrumb-sep {
   margin: 0 0.4em;
+}
+
+/* 投稿者クレジット */
+.quote-contributor {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin: 0.5rem 0 0;
+  text-align: right;
 }
 
 /* レスポンシブ */

@@ -11,6 +11,7 @@ const quotes = defineCollection({
     rarity: z.number().min(1).max(5).default(1),
     first_appearance: z.string().optional(),
     youtube_url: z.string().url().optional(),
+    contributor: z.array(z.string()).default([]),
   }),
 });
 

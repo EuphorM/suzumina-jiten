@@ -9,6 +9,7 @@ interface SubmissionBody {
   youtube_url?: string;
   explanation?: string;
   examples?: string;
+  contributor?: string;
 }
 
 function buildIssueBody(data: SubmissionBody): string {
@@ -20,6 +21,10 @@ function buildIssueBody(data: SubmissionBody): string {
   if (data.tags) lines.push(`**タグ**: ${data.tags}`);
   if (data.first_appearance) lines.push(`**初出**: ${data.first_appearance}`);
   if (data.youtube_url) lines.push(`**URL**: ${data.youtube_url}`);
+  const contributors = data.contributor
+    ? data.contributor.split(',').map((s) => s.trim()).filter(Boolean)
+    : [];
+  if (contributors.length > 0) lines.push(`**投稿者**: ${contributors.join(', ')}`);
 
   if (data.explanation) {
     lines.push('', '### 解説', data.explanation);
@@ -49,6 +54,7 @@ function buildIssueBody(data: SubmissionBody): string {
     'rarity: 1',
     data.first_appearance ? `first_appearance: "${data.first_appearance}"` : '',
     data.youtube_url ? `youtube_url: "${data.youtube_url}"` : '',
+    contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : '',
     '---',
     '',
     '## 解説',

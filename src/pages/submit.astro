@@ -36,44 +36,56 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <textarea id="meaning" name="meaning" required placeholder="例：虫のようなものと戦っている"></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="tags">タグ</label>
-      <p class="form-hint">カンマ区切りで入力（例：罵倒, ゲーム配信）</p>
-      <input type="text" id="tags" name="tags" placeholder="例：罵倒, ゲーム配信" />
-    </div>
+    <details class="form-details">
+      <summary class="form-details__summary">もっと詳しく入力する（任意）</summary>
 
-    <div class="form-group">
-      <label for="first_appearance">初出情報</label>
-      <p class="form-hint">配信のタイトルや日付など分かる範囲で</p>
-      <input
-        type="text"
-        id="first_appearance"
-        name="first_appearance"
-        placeholder="例：【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
-      />
-    </div>
+      <div class="form-details__body">
+        <div class="form-group">
+          <label for="tags">タグ</label>
+          <p class="form-hint">カンマ区切りで入力（例：罵倒, ゲーム配信）</p>
+          <input type="text" id="tags" name="tags" placeholder="例：罵倒, ゲーム配信" />
+        </div>
 
-    <div class="form-group">
-      <label for="youtube_url">YouTube URL</label>
-      <input
-        type="url"
-        id="youtube_url"
-        name="youtube_url"
-        placeholder="https://www.youtube.com/..."
-      />
-    </div>
+        <div class="form-group">
+          <label for="first_appearance">初出情報</label>
+          <p class="form-hint">配信のタイトルや日付など分かる範囲で</p>
+          <input
+            type="text"
+            id="first_appearance"
+            name="first_appearance"
+            placeholder="例：【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
+          />
+        </div>
 
-    <div class="form-group">
-      <label for="explanation">解説</label>
-      <p class="form-hint">語録が生まれた経緯やエピソードなど</p>
-      <textarea id="explanation" name="explanation" style="min-height: 8rem;" placeholder="どんな場面で使われた言葉か、背景など&#10;例：みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫けらと呼んでしまった。"></textarea>
-    </div>
+        <div class="form-group">
+          <label for="youtube_url">YouTube URL</label>
+          <input
+            type="url"
+            id="youtube_url"
+            name="youtube_url"
+            placeholder="https://www.youtube.com/..."
+          />
+        </div>
 
-    <div class="form-group">
-      <label for="examples">使用例</label>
-      <p class="form-hint">実際に使われた文脈や例文（1行に1例）</p>
-      <textarea id="examples" name="examples" placeholder="例：虫けら！虫さん虫さん虫さん虫さん。"></textarea>
-    </div>
+        <div class="form-group">
+          <label for="explanation">解説</label>
+          <p class="form-hint">語録が生まれた経緯やエピソードなど</p>
+          <textarea id="explanation" name="explanation" style="min-height: 8rem;" placeholder="どんな場面で使われた言葉か、背景など&#10;例：みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫けらと呼んでしまった。"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="examples">使用例</label>
+          <p class="form-hint">実際に使われた文脈や例文（1行に1例）</p>
+          <textarea id="examples" name="examples" placeholder="例：虫けら！虫さん虫さん虫さん虫さん。"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="contributor">投稿者ハンドルネーム</label>
+          <p class="form-hint">掲載時に「投稿：○○さん」と表示されます。（匿名可）</p>
+          <input type="text" id="contributor" name="contributor" placeholder="例：とあるグ民さん" />
+        </div>
+      </div>
+    </details>
 
     <!-- ハニーポット（スパム対策） -->
     <input type="text" name="website" style="display: none;" tabindex="-1" autocomplete="off" />

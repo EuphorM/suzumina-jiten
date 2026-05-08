@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity, first_appearance, youtube_url } = entry.data;
+const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, contributor } = entry.data;
 ---
 
 <BaseLayout title={title} description={`${title}（${reading}）— ${meaning}`}>
@@ -81,6 +81,10 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url } =
   <div class="quote-content">
     <Content />
   </div>
+
+  {contributor.length > 0 && (
+    <p class="quote-contributor">投稿：{contributor.join('・')}さん</p>
+  )}
 
   <div style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted);">
     <a href="/quotes">← 語録一覧に戻る</a>
