@@ -75,13 +75,8 @@ body {
   text-decoration: underline;
 }
 
-.site-nav__sep {
-  margin-left: auto;
-  color: var(--border);
-  user-select: none;
-}
-
 .site-nav__official {
+  margin-left: auto;
   font-size: 0.875rem;
   color: var(--text-muted) !important;
 }
