@@ -42,9 +42,9 @@ body {
 
 .site-header .container {
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
 }
 
 .site-title {
@@ -52,7 +52,6 @@ body {
   font-weight: bold;
   color: var(--text);
   text-decoration: none;
-  white-space: nowrap;
 }
 
 .site-title:hover {
@@ -61,7 +60,6 @@ body {
 
 .site-nav {
   display: flex;
-  flex: 1;
   gap: 1.25rem;
   flex-wrap: wrap;
 }
