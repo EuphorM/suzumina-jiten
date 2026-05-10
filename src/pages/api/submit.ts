@@ -52,22 +52,19 @@ function buildIssueBody(data: SubmissionBody): string {
     `meaning: ${data.meaning}`,
     `tags: [${data.tags ?? ''}]`,
     'rarity: 1',
-    data.first_appearance ? `first_appearance: "${data.first_appearance}"` : '',
-    data.youtube_url ? `youtube_url: "${data.youtube_url}"` : '',
-    contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : '',
+    `first_appearance: "${data.first_appearance ?? ''}"`,
+    `youtube_url: "${data.youtube_url ?? ''}"`,
+    'image: ""',
+    contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : 'contributor: []',
+    'usage:',
+    data.examples
+      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - "${ex.trim()}"`).join('\n')
+      : '  - ""',
+    'youtube_urls: []',
     '---',
     '',
     '## 解説',
     data.explanation ?? '（追記してください）',
-    '',
-    '## 使用例',
-    data.examples
-      ? data.examples
-          .split('\n')
-          .filter(Boolean)
-          .map((ex) => `- ${ex.trim()}`)
-          .join('\n')
-      : '- （追記してください）',
     '```',
   );
 
