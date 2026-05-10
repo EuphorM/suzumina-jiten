@@ -13,7 +13,17 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, image, usage, contributor, youtube_urls } = entry.data;
+const { title, reading, meaning, tags, rarity, first_appearance, first_date, youtube_url, image, usage, contributor, youtube_urls } = entry.data;
+
+function formatDate(dateStr: string): string {
+  const uncertain = dateStr.endsWith('?');
+  const parts = dateStr.replace('?', '').split('-');
+  let formatted = '';
+  if (parts[0]) formatted += `${parts[0]}年`;
+  if (parts[1]) formatted += `${parseInt(parts[1])}月`;
+  if (parts[2]) formatted += `${parseInt(parts[2])}日`;
+  return uncertain ? `${formatted}（確認中）` : formatted;
+}
 ---
 
 <BaseLayout title={title} description={`${title}（${reading}）— ${meaning}`}>
@@ -58,7 +68,7 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, im
       {
         (first_appearance || youtube_url) && (
           <tr>
-            <th>初出</th>
+            <th>起源</th>
             <td>
               {youtube_url ? (
                 <a href={youtube_url} target="_blank" rel="noopener noreferrer">
@@ -68,6 +78,14 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, im
                 first_appearance
               )}
             </td>
+          </tr>
+        )
+      }
+      {
+        first_date && (
+          <tr>
+            <th>年月日</th>
+            <td>{formatDate(first_date)}</td>
           </tr>
         )
       }

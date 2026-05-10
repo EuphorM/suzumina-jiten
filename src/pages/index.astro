@@ -4,7 +4,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import QuoteCard from '../components/QuoteCard.astro';
 
 const quotes = await getCollection('quotes');
-const recentQuotes = quotes.slice(0, 6);
+const sortedQuotes = quotes.sort((a, b) => {
+  const dateA = a.data.first_date?.replace('?', '') ?? '';
+  const dateB = b.data.first_date?.replace('?', '') ?? '';
+  if (!dateA && !dateB) return a.data.title.localeCompare(b.data.title, 'ja');
+  if (!dateA) return 1;
+  if (!dateB) return -1;
+  return dateA.localeCompare(dateB);
+});
+const recentQuotes = sortedQuotes.slice(0, 6);
 ---
 
 <BaseLayout title="すずみな語録辞典（非公式）">

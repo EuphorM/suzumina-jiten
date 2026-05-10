@@ -5,9 +5,14 @@ import QuoteCard from '../../components/QuoteCard.astro';
 
 const quotes = await getCollection('quotes');
 
-const sortedQuotes = quotes.sort((a, b) =>
-  a.data.title.localeCompare(b.data.title, 'ja')
-);
+const sortedQuotes = quotes.sort((a, b) => {
+  const dateA = a.data.first_date?.replace('?', '') ?? '';
+  const dateB = b.data.first_date?.replace('?', '') ?? '';
+  if (!dateA && !dateB) return a.data.title.localeCompare(b.data.title, 'ja');
+  if (!dateA) return 1;
+  if (!dateB) return -1;
+  return dateA.localeCompare(dateB);
+});
 
 const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
   a.localeCompare(b, 'ja')
@@ -23,26 +28,45 @@ const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
 
   <h1>語録一覧</h1>
 
-  {
-    allTags.length > 0 && (
-      <div style="margin-bottom: 1.5rem;">
-        <span style="font-size: 0.875rem; color: var(--text-muted); margin-right: 0.5rem;">タグ：</span>
-        {allTags.map((tag) => (
-          <span class="tag" style="margin-right: 0.375rem;">
-            {tag}
-          </span>
-        ))}
-      </div>
-    )
-  }
+  <input
+    type="search"
+    id="search-input"
+    class="search-input"
+    placeholder="語録・読み・意味で検索..."
+  />
 
-  <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+  <div class="filter-section">
+    <span class="filter-label">レア度：</span>
+    {[1, 2, 3, 4, 5].map((r) => (
+      <button class="filter-btn" data-filter-rarity={r}>
+        {'★'.repeat(r)}{'☆'.repeat(5 - r)}
+      </button>
+    ))}
+  </div>
+
+  {allTags.length > 0 && (
+    <div class="filter-section">
+      <span class="filter-label">タグ：</span>
+      {allTags.map((tag) => (
+        <button class="filter-btn" data-filter-tag={tag}>{tag}</button>
+      ))}
+    </div>
+  )}
+
+  <p id="result-count" style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;">
     全 {quotes.length} 件
   </p>
 
-  {
-    sortedQuotes.length > 0 ? (
-      sortedQuotes.map((entry) => (
+  <div id="quotes-list">
+    {sortedQuotes.map((entry) => (
+      <div
+        class="quote-item"
+        data-title={entry.data.title}
+        data-reading={entry.data.reading}
+        data-meaning={entry.data.meaning}
+        data-tags={JSON.stringify(entry.data.tags)}
+        data-rarity={entry.data.rarity}
+      >
         <QuoteCard
           slug={entry.id}
           title={entry.data.title}
@@ -51,9 +75,87 @@ const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
           tags={entry.data.tags}
           rarity={entry.data.rarity}
         />
-      ))
-    ) : (
-      <p class="empty-state">語録はまだ登録されていません。</p>
-    )
-  }
+      </div>
+    ))}
+  </div>
+
+  <p id="no-results" style="display:none;" class="empty-state">
+    該当する語録が見つかりませんでした。
+  </p>
 </BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const resultCount = document.getElementById('result-count') as HTMLParagraphElement;
+  const noResults = document.getElementById('no-results') as HTMLParagraphElement;
+  const items = document.querySelectorAll<HTMLElement>('.quote-item');
+
+  let activeRarity: number | null = null;
+  let activeTag: string | null = null;
+
+  function filterQuotes() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      const title = item.dataset.title?.toLowerCase() ?? '';
+      const reading = item.dataset.reading?.toLowerCase() ?? '';
+      const meaning = item.dataset.meaning?.toLowerCase() ?? '';
+      const tags: string[] = JSON.parse(item.dataset.tags ?? '[]');
+      const rarity = Number(item.dataset.rarity);
+
+      const matchesText =
+        !query ||
+        title.includes(query) ||
+        reading.includes(query) ||
+        meaning.includes(query) ||
+        tags.some((t) => t.toLowerCase().includes(query));
+
+      const matchesRarity = activeRarity === null || rarity === activeRarity;
+      const matchesTag = activeTag === null || tags.includes(activeTag);
+
+      const visible = matchesText && matchesRarity && matchesTag;
+      item.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    resultCount.textContent = `${visibleCount} 件`;
+    noResults.style.display = visibleCount === 0 ? '' : 'none';
+  }
+
+  searchInput.addEventListener('input', filterQuotes);
+
+  document.querySelectorAll<HTMLElement>('.filter-btn[data-filter-rarity]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const r = Number(btn.dataset.filterRarity);
+      if (activeRarity === r) {
+        activeRarity = null;
+        btn.classList.remove('filter-btn--active');
+      } else {
+        activeRarity = r;
+        document.querySelectorAll<HTMLElement>('.filter-btn[data-filter-rarity]').forEach((b) =>
+          b.classList.remove('filter-btn--active')
+        );
+        btn.classList.add('filter-btn--active');
+      }
+      filterQuotes();
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('.filter-btn[data-filter-tag]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.filterTag!;
+      if (activeTag === tag) {
+        activeTag = null;
+        btn.classList.remove('filter-btn--active');
+      } else {
+        activeTag = tag;
+        document.querySelectorAll<HTMLElement>('.filter-btn[data-filter-tag]').forEach((b) =>
+          b.classList.remove('filter-btn--active')
+        );
+        btn.classList.add('filter-btn--active');
+      }
+      filterQuotes();
+    });
+  });
+</script>

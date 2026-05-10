@@ -28,6 +28,7 @@ reading: よみがな
 meaning: 一言で意味を説明
 tags: [タグ1, タグ2]
 rarity: 3
+first_date: ""
 first_appearance: ""
 youtube_url: ""
 image: ""
@@ -53,6 +54,7 @@ youtube_urls:
 | `meaning` | ○ | 短く分かりやすく意味を説明 |
 | `tags` | ○ | 後述のタグ一覧から選ぶ |
 | `rarity` | ○ | 1〜5の数字（後述） |
+| `first_date` | △ | 初出日。`YYYY-MM-DD` 形式。年・月のみも可。不確かな場合は末尾に `?` を付ける（例: `2024-03?`）。空欄可 |
 | `first_appearance` | △ | 分かる範囲で配信タイトル・日付を記載。空欄可 |
 | `youtube_url` | △ | 初出のYouTube URL。空欄可 |
 | `image` | △ | 配信シーンのスクリーンショット。`/images/quotes/ファイル名.jpg` の形式で記載。空欄可 |
