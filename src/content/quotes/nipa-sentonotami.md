@@ -4,16 +4,16 @@ reading: にぱーせんとのたみ
 meaning: 冗談でも本当に傷ついてしまう人が2%くらい存在すること
 tags: [ファン, ひとがら]
 rarity: 1
-first_date: ""
+first_date: "2026-05-06"
 first_appearance: ""
-youtube_url: "https://m.youtube.com/watch?v=2kcXhb-VGQ4&t=4575s"
+youtube_url: ""
 image: ""
 contributor: []
 usage:
   - "また2%の民が傷ついちゃうからね"
 youtube_urls:
-  - label: ""
-    url: ""
+  - label: "色んな音でお耳癒しながらお喋り♡【KU100／ブラシ・スクイーズ・耳かき・耳ふぅ】"
+    url: "https://m.youtube.com/watch?v=2kcXhb-VGQ4&t=4575s"
 ---
 
 ## 解説
