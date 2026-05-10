@@ -5,9 +5,9 @@ meaning: 冗談でも本当に傷ついてしまう人が2%くらい存在する
 tags: [ファン, ひとがら, 生き様]
 rarity: 2
 updated_at: "2026-05-10"
-first_date: "2026-05-06"
-first_appearance: ""
-youtube_url: ""
+first_date: "2025-05-17"
+first_appearance: "俺はドリル！【ほりほりドリル】"
+youtube_url: "https://www.youtube.com/live/ZZNaL0LAKbU?t=4796"
 image: "/images/quotes/nipa-sentonotami.jpg"
 contributor: []
 usage:
