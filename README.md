@@ -26,9 +26,14 @@ reading: よみがな
 meaning: 意味の説明
 tags: [タグ1, タグ2]
 rarity: 3
+first_date: "YYYY-MM-DD"
 first_appearance: "配信タイトルや日付"
-youtube_url: "https://www.youtube.com/..."
+youtube_url: ""
+image: ""
 contributor: ["ハンドルネーム"]
+usage:
+  - text: "実際に使われた例文"
+    date: "YYYY-MM-DD"
 youtube_urls:
   - label: "配信タイトルなど"
     url: "https://www.youtube.com/..."
@@ -37,23 +42,19 @@ youtube_urls:
 ## 解説
 
 語録が生まれた背景や経緯。
-
-## 使用例
-
-- 実際に使われた文脈や例文
 ```
 
-**contributor（投稿者ハンドルネーム）**：語録を投稿・情報提供してくれた方の名前。省略可。複数人の場合はカンマ区切りで配列に記載。
+詳しくは[コンテンツガイドライン](./docs/content-guide.md)を参照してください。
 
 **rarity（レア度）の目安**
 
 | 値 | 目安 |
 |---|---|
-| 1 | よく使う定番フレーズ |
-| 2 | たまに使う |
-| 3 | 印象的な場面で登場 |
-| 4 | なかなか聞けない |
-| 5 | 激レア |
+| 1 | 新規ファン必見 |
+| 2 | よく使う |
+| 3 | 印象的・記憶に残る |
+| 4 | 知る人ぞ知る |
+| 5 | 激レア・名言・格言 |
 
 ## ドキュメント
 
