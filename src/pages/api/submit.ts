@@ -60,7 +60,9 @@ function buildIssueBody(data: SubmissionBody): string {
     data.examples
       ? data.examples.split('\n').filter(Boolean).map((ex) => `  - "${ex.trim()}"`).join('\n')
       : '  - ""',
-    'youtube_urls: []',
+    'youtube_urls:',
+    '  - label: ""',
+    '    url: ""',
     '---',
     '',
     '## 解説',

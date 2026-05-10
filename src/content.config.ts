@@ -14,10 +14,10 @@ const quotes = defineCollection({
     image: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     usage: z.array(z.string()).default([]),
     contributor: z.array(z.string()).default([]),
-    youtube_urls: z.array(z.object({
-      label: z.string(),
-      url: z.string().url(),
-    })).default([]),
+    youtube_urls: z.preprocess(
+      (val) => Array.isArray(val) ? val.filter((item: any) => item?.url && item.url !== '') : val,
+      z.array(z.object({ label: z.string(), url: z.string().url() })).default([])
+    ),
   }),
 });
 
