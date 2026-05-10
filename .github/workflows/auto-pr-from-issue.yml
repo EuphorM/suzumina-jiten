@@ -24,66 +24,19 @@ jobs:
             const body = issue.body || '';
             const issueNumber = issue.number;
 
-            let mdContent;
-
-            // パターン1: ```yaml ... ``` ブロックがある場合（投稿フォーム経由）
-            const yamlMatch = body.match(/```yaml\n([\s\S]*?)```/);
-            if (yamlMatch) {
-              mdContent = yamlMatch[1];
-            } else {
-              // パターン2: GitHubテンプレートのフォーム形式（**フィールド名**：値）
-              function extractField(body, fieldName) {
-                const regex = new RegExp(`\\*\\*${fieldName}\\*\\*[^：]*：(.*)`, '');
-                const match = body.match(regex);
-                return match ? match[1].trim() : '';
-              }
-
-              const title = extractField(body, '語録');
-              const reading = extractField(body, '読み');
-              const meaning = extractField(body, '意味');
-              const tagsRaw = extractField(body, 'タグ');
-              const rarityRaw = extractField(body, 'レア度');
-              const firstAppearance = extractField(body, '初出');
-              const youtubeUrl = extractField(body, 'YouTube URL');
-              const contributorRaw = extractField(body, '投稿者ハンドルネーム');
-
-              const explanationMatch = body.match(/## 解説\n([\s\S]*?)(?=\n##|$)/);
-              const explanation = explanationMatch ? explanationMatch[1].trim() : '';
-
-              if (!title || !meaning) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issueNumber,
-                  body: '⚠️ 語録と意味は必須です。内容を確認してください。',
-                });
-                return;
-              }
-
-              const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
-              const tagsYaml = tags.length > 0 ? `[${tags.join(', ')}]` : '[]';
-              const rarity = parseInt(rarityRaw) || 3;
-              const contributors = contributorRaw ? contributorRaw.split(',').map(c => c.trim()).filter(Boolean) : [];
-              const today = new Date().toISOString().split('T')[0];
-
-              mdContent = [
-                `title: ${title}`,
-                `reading: ${reading}`,
-                `meaning: ${meaning}`,
-                `tags: ${tagsYaml}`,
-                `rarity: ${rarity}`,
-                `updated_at: "${today}"`,
-                `first_appearance: "${firstAppearance}"`,
-                'image: ""',
-                `contributor: [${contributors.map(c => `"${c}"`).join(', ')}]`,
-                'usage: []',
-                youtubeUrl ? `youtube_urls:\n  - label: ""\n    url: "${youtubeUrl}"` : 'youtube_urls: []',
-                ...(explanation ? ['', '## 解説', explanation] : []),
-              ].join('\n');
-
-              mdContent = `---\n${mdContent}\n---\n`;
+            // Issue本文の ```yaml ... ``` ブロックを抽出
+            const match = body.match(/```yaml\n([\s\S]*?)```/);
+            if (!match) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: '⚠️ MDテンプレートが見つかりませんでした。手動での対応をお願いします。',
+              });
+              return;
             }
 
+            const mdContent = match[1];
             const branchName = `quote/issue-${issueNumber}`;
             const filePath = `src/content/quotes/quote-issue-${issueNumber}.md`;
 
@@ -146,7 +99,7 @@ jobs:
               const { data: pr } = await github.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `[語録ドラフト] ${issue.title.replace('[語録投稿] ', '').replace('[語録提案] ', '')}`,
+                title: `[語録ドラフト] ${issue.title.replace('[語録投稿] ', '')}`,
                 body: [
                   '## 概要',
                   '',
@@ -154,7 +107,7 @@ jobs:
                   '',
                   '**モデレーターへ：**',
                   `- [ ] ファイル名をローマ字表記に変更（現在: \`${filePath}\`）`,
-                  '- [ ] 内容を確認・修正（rarity・reading の設定など）',
+                  '- [ ] 内容を確認・修正（rarity の設定など）',
                   '- [ ] 必要に応じて画像を追加（`public/images/quotes/`）',
                   '- [ ] 問題なければドラフト解除してマージ',
                   '',
