@@ -1,7 +1,7 @@
 ---
 title: かにっく！
 reading: かにっく
-meaning: パニック
+meaning: パニックすぎてかにっく！
 tags: [ゲーム]
 rarity: 3
 first_appearance: "調査中"
