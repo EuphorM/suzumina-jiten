@@ -67,6 +67,28 @@ suzumina-jiten/
 └── package.json
 ```
 
+## 語録データの構造
+
+語録は `src/content/quotes/` 以下のMarkdownファイルで管理する。ファイル名はローマ字表記。
+
+主なフィールド：
+
+| フィールド | 説明 |
+|---|---|
+| `title` | 語録のタイトル |
+| `reading` | ひらがなの読み |
+| `meaning` | 一言で意味を説明 |
+| `tags` | 任意のタグ（配列） |
+| `rarity` | レア度 1〜5 |
+| `updated_at` | 掲載日・更新日（YYYY-MM-DD）。MDファイル作成時に入力。トップページの新着順に使用 |
+| `first_date` | 語録の初出日（YYYY-MM-DD）。語録一覧の並び順に使用 |
+| `first_appearance` | 初出の配信タイトル。未設定時はサイト上に「調査中」と表示 |
+| `youtube_url` | 初出のYouTube URL |
+| `image` | 配信シーンのスクリーンショット（`public/images/quotes/` に配置） |
+| `usage` | 使用例。`{text, date}` 形式。dateがある場合は吹き出しに引用元を表示 |
+| `contributor` | 情報提供者のハンドルネーム（配列） |
+| `youtube_urls` | 関連動画。`{label, url}` 形式 |
+
 ## 環境変数
 
 Vercel のプロジェクト設定と、ローカル開発時の `.env` ファイルに以下を設定する。
