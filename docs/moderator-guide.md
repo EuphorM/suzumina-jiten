@@ -123,6 +123,11 @@ youtube_urls:
     url: "https://www.youtube.com/..."
 ```
 
+初出日を追加する場合（`---` の中に追記する）：
+```yaml
+first_date: "2025-08-20"   # 年月のみ可: "2025-08"、不確かな場合: "2025-08?"
+```
+
 画像を追加する場合（`---` の中に追記する）：
 ```yaml
 image: "/images/quotes/ファイル名.jpg"
