@@ -5,9 +5,9 @@ import QuoteCard from '../components/QuoteCard.astro';
 
 const quotes = await getCollection('quotes');
 const sortedQuotes = quotes.sort((a, b) => {
-  const dateA = a.data.first_date?.replace('?', '') ?? '';
-  const dateB = b.data.first_date?.replace('?', '') ?? '';
-  if (!dateA && !dateB) return a.data.title.localeCompare(b.data.title, 'ja');
+  const dateA = a.data.updated_at ?? '';
+  const dateB = b.data.updated_at ?? '';
+  if (!dateA && !dateB) return 0;
   if (!dateA) return 1;
   if (!dateB) return -1;
   return dateB.localeCompare(dateA);

@@ -4,6 +4,7 @@ reading: うひょ～
 meaning: 喜びを表している
 tags: [感嘆詞]
 rarity: 1
+updated_at: "2026-05-10"
 first_appearance: "調査中"
 usage:
   - text: "（マイクラでダイヤが出てきたとき）うひょ～"

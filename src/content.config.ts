@@ -9,6 +9,7 @@ const quotes = defineCollection({
     meaning: z.string(),
     tags: z.array(z.string()).default([]),
     rarity: z.number().min(1).max(5).default(1),
+    updated_at: z.string().optional(),
     first_appearance: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     first_date: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     youtube_url: z.preprocess((val) => val === '' ? undefined : val, z.string().url().optional()),

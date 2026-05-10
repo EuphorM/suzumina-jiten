@@ -52,6 +52,7 @@ function buildIssueBody(data: SubmissionBody): string {
     `meaning: ${data.meaning}`,
     `tags: [${data.tags ?? ''}]`,
     'rarity: 1',
+    `updated_at: "${new Date().toISOString().slice(0, 10)}"`,
     `first_date: ""`,
     `first_appearance: "${data.first_appearance ?? ''}"`,
     'youtube_url: ""',

@@ -4,6 +4,7 @@ reading: おつみなでした
 meaning: おつかれさまでした
 tags: [挨拶]
 rarity: 1
+updated_at: "2026-05-10"
 usage:
   - text: "おつみなでした～"
 ---
