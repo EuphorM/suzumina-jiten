@@ -1,7 +1,7 @@
 ---
 title: 虫けら
 reading: むしけら
-meaning: 虫のようなものを指すとき
+meaning: 虫のようなもの
 tags: [罵倒]
 rarity: 4
 first_appearance: "【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
@@ -13,4 +13,4 @@ usage:
 
 ## 解説
 
-みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫けらと呼んでしまった。
+みやぢさんとのBIOHAZARDコラボで、敵モンスターを無意識に虫けらと呼んでしまう。
