@@ -78,31 +78,33 @@ const { title, reading, meaning, tags, rarity, first_appearance, youtube_url, im
     <Content />
   </div>
 
-  {usage.length > 0 && (
-    image ? (
-      <div class="quote-scene-wrapper">
-        <p class="quote-scene__label">使用例</p>
-        <div class="quote-scene">
-          <div class="quote-scene__avatar">
-            <img src={image} alt={title} />
-          </div>
+  {image && (
+    <div class="quote-scene-wrapper">
+      {usage.length > 0 && <p class="quote-scene__label">使用例</p>}
+      <div class="quote-scene">
+        <div class="quote-scene__avatar">
+          <img src={image} alt={title} />
+        </div>
+        {usage.length > 0 && (
           <div class="quote-scene__bubbles">
             {usage.map((line) => (
               <div class="quote-bubble">{line}</div>
             ))}
           </div>
-        </div>
+        )}
       </div>
-    ) : (
-      <div class="quote-usage">
-        <h2>使用例</h2>
-        <ul>
-          {usage.map((line) => (
-            <li>{line}</li>
-          ))}
-        </ul>
-      </div>
-    )
+    </div>
+  )}
+
+  {!image && usage.length > 0 && (
+    <div class="quote-usage">
+      <h2>使用例</h2>
+      <ul>
+        {usage.map((line) => (
+          <li>{line}</li>
+        ))}
+      </ul>
+    </div>
   )}
 
   {youtube_urls.length > 0 && (
