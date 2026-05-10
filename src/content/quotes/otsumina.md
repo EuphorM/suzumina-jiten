@@ -1,7 +1,7 @@
 ---
 title: おつみなでした
 reading: おつみなでした
-meaning: おつかれさまでした。
+meaning: おつかれさまでした
 tags: [挨拶]
 rarity: 1
 usage:
