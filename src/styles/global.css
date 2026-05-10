@@ -244,6 +244,57 @@ a:visited {
   white-space: nowrap;
 }
 
+.quote-usage ul {
+  padding-left: 1.5rem;
+}
+
+.quote-usage li {
+  margin-bottom: 0.25rem;
+}
+
+.quote-scene-wrapper {
+  margin: 1.5rem 0;
+}
+
+.quote-scene {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.quote-scene__avatar img {
+  width: 400px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.quote-scene__bubbles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.25rem;
+}
+
+.quote-scene__label {
+  font-size: 1.375rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.25rem;
+  margin: 1.75rem 0 0.75rem;
+}
+
+.quote-bubble {
+  position: relative;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: 0 1rem 1rem 1rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  max-width: 480px;
+}
+
 .quote-content ul {
   padding-left: 1.5rem;
 }
