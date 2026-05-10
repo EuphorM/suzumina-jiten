@@ -42,7 +42,7 @@ const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
     <span class="filter-label">レア度：</span>
     {[1, 2, 3, 4, 5].map((r) => (
       <button class="filter-btn" data-filter-rarity={r}>
-        {'★'.repeat(r)}{'☆'.repeat(5 - r)}
+        ★{r}
       </button>
     ))}
   </div>
