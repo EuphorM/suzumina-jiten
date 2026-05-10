@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Content } from '../../docs/how-to-find-quotes.md';
+---
+
+<BaseLayout title="語録を探すヒント" description="YouTubeの文字起こしを使って涼花みなせさんの語録を探す方法">
+  <div class="breadcrumb">
+    <a href="/">すずみな語録辞典</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="/submit">投稿する</a>
+    <span class="breadcrumb-sep">›</span>
+    語録の見つけ方
+  </div>
+
+  <Content />
+
+  <div style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted);">
+    <a href="/submit">← 投稿フォームに戻る</a>
+  </div>
+</BaseLayout>
