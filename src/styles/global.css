@@ -288,9 +288,15 @@ a:visited {
 .quote-scene__bubbles {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 0.625rem;
   padding-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .quote-scene__bubbles {
+    align-items: flex-start;
+  }
 }
 
 .quote-scene__label {
