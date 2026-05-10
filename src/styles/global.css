@@ -253,7 +253,7 @@ a:visited {
 }
 
 .quote-scene-wrapper {
-  margin: 1rem 0;
+  margin: 0;
 }
 
 .quote-scene {
@@ -298,7 +298,7 @@ a:visited {
   font-weight: bold;
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.25rem;
-  margin: 1rem 0 0.5rem;
+  margin: 0 0 0.25rem;
 }
 
 .quote-bubble {
