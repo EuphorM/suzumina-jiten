@@ -1,7 +1,7 @@
 ---
 title: 虫けら
 reading: むしけら
-meaning: 虫のようなものと戦っている
+meaning: 虫のようなものを指すとき
 tags: [罵倒]
 rarity: 4
 first_appearance: "【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
