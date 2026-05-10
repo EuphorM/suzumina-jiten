@@ -65,22 +65,20 @@ function formatDate(dateStr: string): string {
           </tr>
         )
       }
-      {
-        (first_appearance || youtube_url) && (
-          <tr>
-            <th>起源</th>
-            <td>
-              {youtube_url ? (
-                <a href={youtube_url} target="_blank" rel="noopener noreferrer">
-                  {first_appearance ?? 'YouTube で見る'} →
-                </a>
-              ) : (
-                first_appearance
-              )}
-            </td>
-          </tr>
-        )
-      }
+      <tr>
+        <th>起源</th>
+        <td>
+          {youtube_url ? (
+            <a href={youtube_url} target="_blank" rel="noopener noreferrer">
+              {first_appearance ?? 'YouTube で見る'} →
+            </a>
+          ) : first_appearance ? (
+            first_appearance
+          ) : (
+            <span style="color: var(--text-muted);">調査中</span>
+          )}
+        </td>
+      </tr>
     </tbody>
   </table>
 
@@ -97,10 +95,10 @@ function formatDate(dateStr: string): string {
         </div>
         {usage.length > 0 && (
           <div class="quote-scene__bubbles">
-            {usage.map((line) => (
+            {usage.map((item) => (
               <div class="quote-bubble">
-                {line}
-                {first_date && <span class="quote-bubble__attr">――{formatDate(first_date)}涼花みなせ</span>}
+                {item.text}
+                {item.date && <span class="quote-bubble__attr">――{formatDate(item.date)}涼花みなせ</span>}
               </div>
             ))}
           </div>
@@ -113,10 +111,10 @@ function formatDate(dateStr: string): string {
     <div class="quote-usage">
       <h2>使用例</h2>
       <ul>
-        {usage.map((line) => (
+        {usage.map((item) => (
           <li>
-            {line}
-            {first_date && <span class="quote-bubble__attr">――{formatDate(first_date)}涼花みなせ</span>}
+            {item.text}
+            {item.date && <span class="quote-bubble__attr">――{formatDate(item.date)}涼花みなせ</span>}
           </li>
         ))}
       </ul>

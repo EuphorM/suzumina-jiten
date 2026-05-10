@@ -9,7 +9,7 @@ youtube_url: "https://youtu.be/vgdl2nb5eeE"
 image: "/images/quotes/ipposusundenikaionemu.jpg"
 contributor: ["ivan"]
 usage:
-  - ""
+  - text: ""
 youtube_urls:
   - label: ""
     url: ""

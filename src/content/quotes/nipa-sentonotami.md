@@ -10,7 +10,8 @@ youtube_url: ""
 image: "/images/quotes/nipa-sentonotami.jpg"
 contributor: []
 usage:
-  - "また2%の民が傷ついちゃうからね"
+  - text: "また2%の民が傷ついちゃうからね"
+    date: "2026-05-06"
 youtube_urls:
   - label: "色んな音でお耳癒しながらお喋り♡【KU100／ブラシ・スクイーズ・耳かき・耳ふぅ】"
     url: "https://m.youtube.com/watch?v=2kcXhb-VGQ4&t=4575s"

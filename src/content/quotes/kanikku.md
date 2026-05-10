@@ -10,7 +10,8 @@ youtube_url: ""
 contributor: ["ゆうほー"]
 image: "/images/quotes/kanikku.jpg"
 usage:
-  - "パニック！かにっく！"
+  - text: "パニック！かにっく！"
+    date: "2026-04-11"
 youtube_urls:
   - label: "やりたいこと沢山！！！まったり雑談しながら色々やるよ♡【#すみっこキングダム／Minecraft】"
     url: "https://www.youtube.com/live/SI7wo8NRTbk?t=15006"

@@ -54,16 +54,17 @@ function buildIssueBody(data: SubmissionBody): string {
     'rarity: 1',
     `first_date: ""`,
     `first_appearance: "${data.first_appearance ?? ''}"`,
-    `youtube_url: "${data.youtube_url ?? ''}"`,
+    'youtube_url: ""',
     'image: ""',
     contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : 'contributor: []',
     'usage:',
     data.examples
-      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - "${ex.trim()}"`).join('\n')
-      : '  - ""',
+      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - text: "${ex.trim()}"`).join('\n')
+      : '  - text: ""',
     'youtube_urls:',
-    '  - label: ""',
-    '    url: ""',
+    data.youtube_url
+      ? `  - label: "${data.first_appearance ?? '参考動画'}"\n    url: "${data.youtube_url}"`
+      : '  - label: ""\n    url: ""',
     '---',
     '',
     '## 解説',

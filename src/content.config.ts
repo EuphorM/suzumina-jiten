@@ -14,8 +14,19 @@ const quotes = defineCollection({
     youtube_url: z.preprocess((val) => val === '' ? undefined : val, z.string().url().optional()),
     image: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     usage: z.preprocess(
-      (val) => Array.isArray(val) ? val.filter((s: any) => s !== '') : val,
-      z.array(z.string()).default([])
+      (val) => {
+        if (!Array.isArray(val)) return val;
+        return val
+          .map((item: any) => {
+            if (typeof item === 'string') return item === '' ? null : { text: item };
+            return item?.text ? item : null;
+          })
+          .filter(Boolean);
+      },
+      z.array(z.object({
+        text: z.string(),
+        date: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
+      })).default([])
     ),
     contributor: z.array(z.string()).default([]),
     youtube_urls: z.preprocess(
