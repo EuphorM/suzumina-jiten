@@ -3,7 +3,7 @@ title: 2%の民
 reading: にぱーせんとのたみ
 meaning: 冗談でも本当に傷ついてしまう人が2%くらい存在すること
 tags: [ファン, ひとがら]
-rarity: 1
+rarity: 2
 first_date: "2026-05-06"
 first_appearance: ""
 youtube_url: ""
