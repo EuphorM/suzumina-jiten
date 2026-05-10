@@ -39,8 +39,13 @@ Vercel が自動でビルド・デプロイ
 
 ```
 suzumina-jiten/
+├── .github/                     # GitHubの設定
+│   ├── ISSUE_TEMPLATE/          # Issueテンプレート
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── docs/                        # ドキュメント
-├── quotes/                      # サンプル語録（参考用）
+├── public/
+│   └── images/
+│       └── quotes/              # 語録の画像ファイル
 ├── src/
 │   ├── content/
 │   │   └── quotes/              # 語録データ（Markdownファイル）
@@ -48,6 +53,7 @@ suzumina-jiten/
 │   ├── layouts/                 # ページ共通レイアウト
 │   ├── pages/
 │   │   ├── index.astro          # トップページ
+│   │   ├── about.astro          # このサイトについて
 │   │   ├── quotes/              # 語録一覧・詳細ページ
 │   │   ├── submit.astro         # 投稿フォーム
 │   │   └── api/submit.ts        # 投稿受付API
