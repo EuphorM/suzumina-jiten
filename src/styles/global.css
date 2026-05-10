@@ -262,8 +262,13 @@ a:visited {
   gap: 1rem;
 }
 
+.quote-scene__avatar {
+  flex: 0 0 50%;
+}
+
 .quote-scene__avatar img {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   display: block;
