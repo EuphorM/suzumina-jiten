@@ -5,9 +5,17 @@ interface Props {
 
 const { rarity } = Astro.props;
 const stars = Array.from({ length: 5 }, (_, i) => i < rarity);
+
+const labels: Record<number, string> = {
+  1: '定番・新規ファン必見',
+  2: 'よく使う',
+  3: '印象的・記憶に残る',
+  4: '知る人ぞ知る',
+  5: '激レア・名言・格言',
+};
 ---
 
-<span class="rarity" title={`レア度: ${rarity}/5`}>
+<span class="rarity">
   {
     stars.map((filled) => (
       <span class={filled ? 'star star--filled' : 'star star--empty'}>
@@ -15,4 +23,5 @@ const stars = Array.from({ length: 5 }, (_, i) => i < rarity);
       </span>
     ))
   }
+  <span class="rarity-label">（{labels[rarity]}）</span>
 </span>

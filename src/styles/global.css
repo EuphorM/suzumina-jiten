@@ -145,9 +145,17 @@ a:visited {
 
 /* レア度 */
 .rarity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.1em;
   line-height: 1;
-  white-space: nowrap;
+}
+
+.rarity-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: normal;
 }
 
 .star--filled {
