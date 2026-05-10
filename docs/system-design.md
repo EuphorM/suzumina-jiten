@@ -26,9 +26,11 @@ Vercel の API（/api/submit）が GitHub API を呼び出す
     ↓
 GitHub Issue が自動作成される（ラベル: submission）
     ↓
-モデレーターが Issue の内容を確認・審査する
+GitHub Actions が自動でMDドラフトのブランチ・PRを作成する
     ↓
-承認 → src/content/quotes/ にMarkdownファイルを作成してコミット
+モデレーターが PR の内容を確認・修正（ファイル名変更・画像追加など）する
+    ↓
+承認 → PRをマージ
     ↓
 Vercel が自動でビルド・デプロイ
     ↓
@@ -41,6 +43,7 @@ Vercel が自動でビルド・デプロイ
 suzumina-jiten/
 ├── .github/                     # GitHubの設定
 │   ├── ISSUE_TEMPLATE/          # Issueテンプレート
+│   ├── workflows/               # GitHub Actions（自動PR生成など）
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── docs/                        # ドキュメント
 ├── public/
