@@ -5,10 +5,14 @@ meaning: パニック
 tags: [ゲーム]
 rarity: 3
 first_appearance: "調査中"
-youtube_url: "https://www.youtube.com/live/SI7wo8NRTbk?t=15006"
+youtube_url: ""
 contributor: ["ゆうほー"]
+image: "/images/quotes/kanikku.jpg"
 usage:
   - "パニック！かにっく！"
+youtube_urls:
+  - label: "やりたいこと沢山！！！まったり雑談しながら色々やるよ♡【#すみっこキングダム／Minecraft】"
+    url: "https://www.youtube.com/live/SI7wo8NRTbk?t=15006"
 ---
 
 ## 解説
