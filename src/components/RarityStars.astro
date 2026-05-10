@@ -16,12 +16,14 @@ const labels: Record<number, string> = {
 ---
 
 <span class="rarity">
-  {
-    stars.map((filled) => (
-      <span class={filled ? 'star star--filled' : 'star star--empty'}>
-        {filled ? '★' : '☆'}
-      </span>
-    ))
-  }
+  <span class="rarity-stars">
+    {
+      stars.map((filled) => (
+        <span class={filled ? 'star star--filled' : 'star star--empty'}>
+          {filled ? '★' : '☆'}
+        </span>
+      ))
+    }
+  </span>
   <span class="rarity-label">（{labels[rarity]}）</span>
 </span>

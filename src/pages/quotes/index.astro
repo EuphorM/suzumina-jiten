@@ -26,7 +26,10 @@ const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
     語録
   </div>
 
-  <h1>語録一覧</h1>
+  <div class="quotes-list-header">
+    <h1>語録一覧</h1>
+    <p id="result-count" style="font-size: 0.875rem; color: var(--text-muted); margin: 0;">全 {quotes.length} 件</p>
+  </div>
 
   <input
     type="search"
@@ -45,17 +48,16 @@ const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
   </div>
 
   {allTags.length > 0 && (
-    <div class="filter-section">
-      <span class="filter-label">タグ：</span>
-      {allTags.map((tag) => (
-        <button class="filter-btn" data-filter-tag={tag}>{tag}</button>
-      ))}
-    </div>
+    <details class="filter-details">
+      <summary class="filter-details__summary">タグで絞り込む</summary>
+      <div class="filter-section filter-section--tags">
+        {allTags.map((tag) => (
+          <button class="filter-btn" data-filter-tag={tag}>{tag}</button>
+        ))}
+      </div>
+    </details>
   )}
 
-  <p id="result-count" style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-    全 {quotes.length} 件
-  </p>
 
   <div id="quotes-list">
     {sortedQuotes.map((entry) => (

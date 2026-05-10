@@ -40,12 +40,12 @@ function formatDate(dateStr: string): string {
   <table class="quote-info-table">
     <tbody>
       <tr>
-        <th>読み</th>
-        <td>{reading}</td>
-      </tr>
-      <tr>
         <th>意味</th>
         <td>{meaning}</td>
+      </tr>
+      <tr>
+        <th>読み</th>
+        <td>{reading}</td>
       </tr>
       <tr>
         <th>レア度</th>
@@ -81,14 +81,6 @@ function formatDate(dateStr: string): string {
           </tr>
         )
       }
-      {
-        first_date && (
-          <tr>
-            <th>年月日</th>
-            <td>{formatDate(first_date)}</td>
-          </tr>
-        )
-      }
     </tbody>
   </table>
 
@@ -106,7 +98,10 @@ function formatDate(dateStr: string): string {
         {usage.length > 0 && (
           <div class="quote-scene__bubbles">
             {usage.map((line) => (
-              <div class="quote-bubble">{line}</div>
+              <div class="quote-bubble">
+                {line}
+                {first_date && <span class="quote-bubble__attr">――{formatDate(first_date)} 涼花みなせ</span>}
+              </div>
             ))}
           </div>
         )}
@@ -119,7 +114,10 @@ function formatDate(dateStr: string): string {
       <h2>使用例</h2>
       <ul>
         {usage.map((line) => (
-          <li>{line}</li>
+          <li>
+            {line}
+            {first_date && <span class="quote-bubble__attr">――{formatDate(first_date)} 涼花みなせ</span>}
+          </li>
         ))}
       </ul>
     </div>
