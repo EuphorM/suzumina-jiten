@@ -258,25 +258,37 @@ a:visited {
 
 .quote-scene {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
   gap: 1rem;
-}
-
-.quote-scene__avatar {
-  flex: 0 0 50%;
 }
 
 .quote-scene__avatar img {
   width: 100%;
-  max-width: 400px;
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   display: block;
 }
 
+@media (min-width: 640px) {
+  .quote-scene {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .quote-scene__avatar {
+    flex-shrink: 0;
+  }
+
+  .quote-scene__avatar img {
+    width: 400px;
+    max-width: 50vw;
+  }
+}
+
 .quote-scene__bubbles {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.625rem;
   padding-top: 0.25rem;
 }
