@@ -7,7 +7,7 @@ rarity: 1
 first_date: "2026-05-06"
 first_appearance: ""
 youtube_url: ""
-image: ""
+image: "/images/quotes/nipa-sentonotami.jpg"
 contributor: []
 usage:
   - "また2%の民が傷ついちゃうからね"
