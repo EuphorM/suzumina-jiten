@@ -1,0 +1,101 @@
+name: Issue → MD Draft PR
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  create-draft-pr:
+    if: github.event.label.name == 'submission'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create MD draft and PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const issueNumber = issue.number;
+
+            // Issue本文の ```yaml ... ``` ブロックを抽出
+            const match = body.match(/```yaml\n([\s\S]*?)```/);
+            if (!match) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: '⚠️ MDテンプレートが見つかりませんでした。手動での対応をお願いします。',
+              });
+              return;
+            }
+
+            const mdContent = match[1];
+            const branchName = `quote/issue-${issueNumber}`;
+            const filePath = `src/content/quotes/quote-issue-${issueNumber}.md`;
+
+            // mainブランチの最新SHAを取得
+            const { data: ref } = await github.rest.git.getRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'heads/main',
+            });
+
+            // ブランチを作成
+            try {
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/heads/${branchName}`,
+                sha: ref.object.sha,
+              });
+            } catch (e) {
+              if (!e.message.includes('Reference already exists')) throw e;
+            }
+
+            // MDファイルを作成
+            await github.rest.repos.createOrUpdateFileContents({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: filePath,
+              message: `draft: Issue #${issueNumber} から語録ドラフトを自動生成`,
+              content: Buffer.from(mdContent).toString('base64'),
+              branch: branchName,
+            });
+
+            // ドラフトPRを作成
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[語録ドラフト] ${issue.title.replace('[語録投稿] ', '')}`,
+              body: [
+                '## 概要',
+                '',
+                `Issue #${issueNumber} から自動生成されたMDドラフトです。`,
+                '',
+                '**モデレーターへ：**',
+                `- [ ] ファイル名をローマ字表記に変更（現在: \`${filePath}\`）`,
+                '- [ ] 内容を確認・修正（rarity の設定など）',
+                '- [ ] 必要に応じて画像を追加（`public/images/quotes/`）',
+                '- [ ] 問題なければドラフト解除してマージ',
+                '',
+                `Closes #${issueNumber}`,
+              ].join('\n'),
+              head: branchName,
+              base: 'main',
+              draft: true,
+            });
+
+            // Issueにコメント
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `📝 MDドラフトPRを自動生成しました：${pr.html_url}\n\nモデレーターがPRを確認・修正してマージすると語録が公開されます。`,
+            });
