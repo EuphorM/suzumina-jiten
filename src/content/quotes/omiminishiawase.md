@@ -12,7 +12,7 @@ image: ""
 contributor: []
 usage:
   - text: ""
-youtube_urls:
+related_links:
   - label: "【オリジナル曲】お耳に幸せ【涼花みなせ】"
     url: "https://youtu.be/ufDcHHAp93g"
 ---

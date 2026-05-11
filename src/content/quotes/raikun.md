@@ -12,7 +12,7 @@ image: ""
 contributor: []
 usage:
   - text: ""
-youtube_urls:
+related_links:
   - label: ""
     url: ""
 ---

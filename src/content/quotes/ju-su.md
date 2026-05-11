@@ -13,7 +13,7 @@ contributor: []
 usage:
   - text: "（攻撃喰らって体力減ってしまった時）ジュースジュース！ジュース飲まなきゃ！"
     date: "2021-05-21"
-youtube_urls:
+related_links:
   - label: "みやぢさんと狩り♥初めてのマルチ！！【定期配信第37回】"
     url: "https://youtu.be/BnILigrp7ww?t=912"
 ---

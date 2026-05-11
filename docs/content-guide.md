@@ -37,7 +37,7 @@ contributor: []
 usage:
   - text: ""
     date: ""
-youtube_urls:
+related_links:
   - label: ""
     url: ""
 ---
@@ -63,7 +63,7 @@ youtube_urls:
 | `image` | △ | 配信シーンのスクリーンショット。`/images/quotes/ファイル名.jpg` の形式で記載。空欄可 |
 | `contributor` | △ | 投稿・情報提供者のハンドルネーム。複数人可 |
 | `usage` | △ | 実際の使用例。`text`（セリフ）と`date`（日付、任意）をセットで記載。複数可。空欄可 |
-| `youtube_urls` | △ | 関連動画のリンク（初出以外）。`label` と `url` をセットで記載。空欄可 |
+| `related_links` | △ | 関連リンク（YouTube・X など）。`label` と `url` をセットで記載。空欄可 |
 
 空欄の場合は `""` または `[]` のまま残してもエラーにはなりません。
 

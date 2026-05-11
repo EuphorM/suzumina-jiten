@@ -13,7 +13,7 @@ image: "/images/quotes/kanikku.jpg"
 usage:
   - text: "パニック！かにっく！"
     date: "2026-04-11"
-youtube_urls:
+related_links:
   - label: "やりたいこと沢山！！！まったり雑談しながら色々やるよ♡【#すみっこキングダム／Minecraft】"
     url: "https://www.youtube.com/live/SI7wo8NRTbk?t=15006"
 ---

@@ -87,7 +87,24 @@ suzumina-jiten/
 | `image` | 配信シーンのスクリーンショット（`public/images/quotes/` に配置） |
 | `usage` | 使用例。`{text, date}` 形式。dateがある場合は吹き出しに引用元を表示 |
 | `contributor` | 情報提供者のハンドルネーム（配列） |
-| `youtube_urls` | 関連動画。`{label, url}` 形式 |
+| `related_links` | 関連リンク（YouTube・X など）。`{label, url}` 形式 |
+
+## スキーマフィールドを変更・追加するときの影響範囲
+
+フィールドの追加・削除・リネームを行う場合は、以下のファイルをすべて確認・更新する。
+
+| ファイル | 対応内容 |
+|---|---|
+| `src/content.config.ts` | スキーマ定義を変更する |
+| `src/content/quotes/*.md` | フロントマターのキー名を変更する |
+| `src/pages/quotes/[slug].astro` | デストラクチャリングと使用箇所を変更する |
+| `src/pages/api/submit.ts` | Issue作成時のyamlテンプレートを変更する |
+| `.github/workflows/auto-pr-from-issue.yml` | MDドラフト生成スクリプトを確認する |
+| `.github/ISSUE_TEMPLATE/quote_proposal.md` | Issueテンプレートを確認する |
+| `README.md` | データ構造のサンプルを更新する |
+| `docs/content-guide.md` | フィールド説明・テンプレートを更新する |
+| `docs/moderator-guide.md` | 記載例を更新する |
+| `docs/system-design.md` | フィールド一覧を更新する |
 
 ## 環境変数
 

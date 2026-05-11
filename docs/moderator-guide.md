@@ -54,10 +54,10 @@ GitHubアカウントがあれば、ブラウザだけで操作できる。
 
 Issueの中に「モデレーター向け」として用意されたMarkdownテンプレートをコピーしてエディタに貼り付ける。必要に応じて内容を修正する。
 
-関連動画を追加する場合は以下の形式で記載する：
+関連リンクを追加する場合は以下の形式で記載する：
 
 ```yaml
-youtube_urls:
+related_links:
   - label: "配信タイトルなど"
     url: "https://www.youtube.com/..."
 ```
@@ -115,9 +115,9 @@ usage:
   - text: "例文2"
 ```
 
-関連動画を追加する場合（`---` の中に追記する）：
+関連リンクを追加する場合（`---` の中に追記する）：
 ```yaml
-youtube_urls:
+related_links:
   - label: "配信タイトルなど"
     url: "https://www.youtube.com/..."
   - label: "2本目の場合はこのように追加"

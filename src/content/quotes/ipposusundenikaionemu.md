@@ -11,7 +11,7 @@ image: "/images/quotes/ipposusundenikaionemu.jpg"
 contributor: ["ivan"]
 usage:
   - text: ""
-youtube_urls:
+related_links:
   - label: ""
     url: ""
 ---

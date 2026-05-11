@@ -35,7 +35,7 @@ contributor: ["ハンドルネーム"]
 usage:
   - text: "実際に使われた例文"
     date: "YYYY-MM-DD"
-youtube_urls:
+related_links:
   - label: "配信タイトルなど"
     url: "https://www.youtube.com/..."
 ---

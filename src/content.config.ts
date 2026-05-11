@@ -30,7 +30,7 @@ const quotes = defineCollection({
       })).default([])
     ),
     contributor: z.array(z.string()).default([]),
-    youtube_urls: z.preprocess(
+    related_links: z.preprocess(
       (val) => Array.isArray(val) ? val.filter((item: any) => item?.url && item.url !== '') : val,
       z.array(z.object({ label: z.string(), url: z.string().url() })).default([])
     ),
