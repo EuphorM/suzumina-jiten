@@ -27,6 +27,7 @@ meaning: 意味の説明
 tags: [タグ1, タグ2]
 rarity: 3
 updated_at: "YYYY-MM-DD"
+first_date: "YYYY-MM-DD"  # 後方互換のため保持・非表示
 first_appearance: "配信タイトルや日付"
 image: ""
 contributor: ["ハンドルネーム"]
