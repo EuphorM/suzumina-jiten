@@ -29,7 +29,7 @@ rarity: 3
 updated_at: "YYYY-MM-DD"
 first_date: "YYYY-MM-DD"  # 後方互換のため保持・非表示
 first_appearance: "配信タイトルや日付"
-youtube_url: ""  # 後方互換のため保持・非表示（新規はyoutube_urlsを使う）
+youtube_url: ""
 image: ""
 contributor: ["ハンドルネーム"]
 usage:

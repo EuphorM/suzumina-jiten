@@ -83,7 +83,7 @@ suzumina-jiten/
 | `updated_at` | 掲載日・更新日（YYYY-MM-DD）。MDファイル作成時に入力。トップページの新着順に使用 |
 | `first_date` | 後方互換のため保持。非表示。新規ファイルでは空欄でよい |
 | `first_appearance` | 初出の配信タイトル。未設定時はサイト上に「調査中」と表示 |
-| `youtube_url` | 後方互換のため保持。非表示。新規ファイルでは `youtube_urls` を使う |
+| `youtube_url` | 初出のYouTube URL |
 | `image` | 配信シーンのスクリーンショット（`public/images/quotes/` に配置） |
 | `usage` | 使用例。`{text, date}` 形式。dateがある場合は吹き出しに引用元を表示 |
 | `contributor` | 情報提供者のハンドルネーム（配列） |
