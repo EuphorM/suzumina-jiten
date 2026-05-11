@@ -3,7 +3,7 @@ title: お耳に幸せ
 reading: おみみにしあわせ
 meaning: リスナーの「お耳に幸せ」を届けるというみなせさんの声優としての活動コンセプト
 tags: [オリジナル曲, 歌詞, 生き様]
-rarity: 1
+rarity: 5
 updated_at: "2026-05-10"
 first_date: ""
 first_appearance: ""
