@@ -26,9 +26,8 @@ reading: よみがな
 meaning: 意味の説明
 tags: [タグ1, タグ2]
 rarity: 3
-first_date: "YYYY-MM-DD"
+updated_at: "YYYY-MM-DD"
 first_appearance: "配信タイトルや日付"
-youtube_url: ""
 image: ""
 contributor: ["ハンドルネーム"]
 usage:
