@@ -22,19 +22,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         語録<span class="required-mark">*</span>
       </label>
       <p class="form-hint">涼花みなせさんが発した印象的な言葉・フレーズ</p>
-      <input type="text" id="title" name="title" required placeholder="例：虫けら" />
+      <input type="text" id="title" name="title" required placeholder="例：2%の民" />
     </div>
 
     <div class="form-group">
       <label for="reading">読み</label>
-      <input type="text" id="reading" name="reading" placeholder="例：むしけら" />
+      <input type="text" id="reading" name="reading" placeholder="例：にぱーせんとのたみ" />
     </div>
 
     <div class="form-group">
       <label for="meaning">
         意味<span class="required-mark">*</span>
       </label>
-      <textarea id="meaning" name="meaning" required placeholder="例：虫のようなものと戦っている"></textarea>
+      <textarea id="meaning" name="meaning" required placeholder="例：冗談でも本当に傷ついてしまう人が2%くらい存在すること"></textarea>
     </div>
 
     <details class="form-details">
@@ -44,7 +44,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="form-group">
           <label for="tags">タグ</label>
           <p class="form-hint">カンマ区切りで入力（例：罵倒, ゲーム配信）</p>
-          <input type="text" id="tags" name="tags" placeholder="例：罵倒, ゲーム配信" />
+          <input type="text" id="tags" name="tags" placeholder="例：ファン, ひとがら, 生き様" />
         </div>
 
         <div class="form-group">
@@ -54,7 +54,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             type="text"
             id="first_appearance"
             name="first_appearance"
-            placeholder="例：【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】"
+            placeholder="例：俺はドリル！【ほりほりドリル】"
           />
         </div>
 
@@ -72,13 +72,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="form-group">
           <label for="explanation">解説</label>
           <p class="form-hint">語録が生まれた経緯やエピソードなど</p>
-          <textarea id="explanation" name="explanation" style="min-height: 8rem;" placeholder="どんな場面で使われた言葉か、背景など&#10;例：みやぢさんとのBIOHAZARDコラボで、敵モンスターを意識せずに虫けらと呼んでしまった。"></textarea>
+          <textarea id="explanation" name="explanation" style="min-height: 8rem;" placeholder="どんな場面で使われた言葉か、背景など&#10;例：冗談のつもりでも2%の人は本気に受け取って傷ついてしまうと気づき、相手を責めるのではなく自分を省みた思慮深い言葉。"></textarea>
         </div>
 
         <div class="form-group">
           <label for="examples">使用例</label>
           <p class="form-hint">実際に使われた文脈や例文（1行に1例）</p>
-          <textarea id="examples" name="examples" placeholder="例：虫けら！虫さん虫さん虫さん虫さん。"></textarea>
+          <textarea id="examples" name="examples" placeholder="例：また2%の民が傷ついちゃうからね"></textarea>
         </div>
 
         <div class="form-group">
