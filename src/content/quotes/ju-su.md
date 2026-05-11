@@ -2,7 +2,7 @@
 title: ジュース
 reading: じゅーす
 meaning: ゲーム内の回復薬、特に飲むタイプの物を指す。
-tags: [ゲーム配信]
+tags: [ゲーム]
 rarity: 3
 updated_at: "2026-05-11"
 first_date: "2021-05-21"
