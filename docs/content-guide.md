@@ -31,6 +31,7 @@ rarity: 3
 updated_at: "YYYY-MM-DD"
 first_date: ""  # 後方互換のため保持・非表示
 first_appearance: ""
+youtube_url: ""  # 後方互換のため保持・非表示（新規はyoutube_urlsを使う）
 image: ""
 contributor: []
 usage:
@@ -58,6 +59,7 @@ youtube_urls:
 | `updated_at` | △ | 掲載日・更新日。`YYYY-MM-DD` 形式。MDファイル作成時に今日の日付を入れる。大幅更新時も書き換える |
 | `first_date` | － | 後方互換のため保持。非表示。新規ファイルでは空欄でよい |
 | `first_appearance` | △ | 分かる範囲で配信タイトル・日付を記載。空欄可 |
+| `youtube_url` | － | 後方互換のため保持。非表示。新規ファイルでは `youtube_urls` を使う |
 | `image` | △ | 配信シーンのスクリーンショット。`/images/quotes/ファイル名.jpg` の形式で記載。空欄可 |
 | `contributor` | △ | 投稿・情報提供者のハンドルネーム。複数人可 |
 | `usage` | △ | 実際の使用例。`text`（セリフ）と`date`（日付、任意）をセットで記載。複数可。空欄可 |
