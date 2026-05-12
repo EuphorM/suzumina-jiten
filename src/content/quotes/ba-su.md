@@ -6,6 +6,8 @@ tags: []
 rarity: 1
 updated_at: "2026-05-11"
 first_appearance: ""
+first_date: ""
+first_appearance_url: ""
 image: ""
 contributor: []
 usage:
