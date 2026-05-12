@@ -7,7 +7,7 @@ rarity: 5
 updated_at: "2026-05-10"
 first_date: "2021-07-09"
 first_appearance: "いろいろ告知します♪【定期配信第44回】"
-youtube_url: "https://www.youtube.com/live/9gOkCti2I2w?si=CwlxVFePpGOSUWwB"
+first_appearance_url: "https://www.youtube.com/live/9gOkCti2I2w?si=CwlxVFePpGOSUWwB"
 image: ""
 contributor: []
 usage:

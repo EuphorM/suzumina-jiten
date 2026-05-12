@@ -51,15 +51,17 @@ function buildIssueBody(data: SubmissionBody): string {
     `reading: ${data.reading ?? ''}`,
     `meaning: ${data.meaning}`,
     `tags: [${data.tags ?? ''}]`,
-    'rarity: 1',
+    'rarity: 2',
     `updated_at: "${new Date().toISOString().slice(0, 10)}"`,
+    'first_date: ""',
     `first_appearance: "${data.first_appearance ?? ''}"`,
+    'first_appearance_url: ""',
     'image: ""',
     contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : 'contributor: []',
     'usage:',
     data.examples
-      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - text: "${ex.trim()}"`).join('\n')
-      : '  - text: ""',
+      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - text: "${ex.trim()}"\n    date: ""`).join('\n')
+      : '  - text: ""\n    date: ""',
     'related_links:',
     data.youtube_url
       ? `  - label: "${data.first_appearance ?? '参考動画'}"\n    url: "${data.youtube_url}"`

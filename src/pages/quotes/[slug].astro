@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity, first_appearance, first_date, youtube_url, image, usage, contributor, related_links } = entry.data;
+const { title, reading, meaning, tags, rarity, first_appearance, first_date, first_appearance_url, image, usage, contributor, related_links } = entry.data;
 
 function formatDate(dateStr: string): string {
   const uncertain = dateStr.endsWith('?');
@@ -68,8 +68,8 @@ function formatDate(dateStr: string): string {
       <tr>
         <th>起源</th>
         <td>
-          {youtube_url ? (
-            <a href={youtube_url} target="_blank" rel="noopener noreferrer">
+          {first_appearance_url ? (
+            <a href={first_appearance_url} target="_blank" rel="noopener noreferrer">
               {first_appearance ?? 'YouTube で見る'}
             </a>
           ) : first_appearance ? (

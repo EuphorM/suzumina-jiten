@@ -26,15 +26,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <div class="form-group">
-      <label for="reading">読み</label>
-      <input type="text" id="reading" name="reading" placeholder="例：にぱーせんとのたみ" />
+      <label for="reading">読み<span class="required-mark">*</span></label>
+      <input type="text" id="reading" name="reading" required placeholder="例：にぱーせんとのたみ" />
     </div>
 
     <div class="form-group">
       <label for="meaning">
         意味<span class="required-mark">*</span>
       </label>
-      <textarea id="meaning" name="meaning" required placeholder="例：冗談でも本当に傷ついてしまう人が2%くらい存在すること"></textarea>
+      <input type="text" id="meaning" name="meaning" required placeholder="例：冗談でも本当に傷ついてしまう人が2%くらい存在すること" />
     </div>
 
     <details class="form-details">

@@ -7,7 +7,7 @@ rarity: 3
 updated_at: "2026-05-10"
 first_date: "2026-04-11"
 first_appearance: "調査中"
-youtube_url: ""
+first_appearance_url: ""
 contributor: ["ゆうほー"]
 image: "/images/quotes/kanikku.jpg"
 usage:

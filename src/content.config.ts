@@ -12,7 +12,7 @@ const quotes = defineCollection({
     updated_at: z.string().optional(),
     first_appearance: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     first_date: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
-    youtube_url: z.preprocess((val) => val === '' ? undefined : val, z.string().url().optional()),
+    first_appearance_url: z.preprocess((val) => val === '' ? undefined : val, z.string().url().optional()),
     image: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     usage: z.preprocess(
       (val) => {

@@ -7,7 +7,7 @@ rarity: 3
 updated_at: "2026-05-11"
 first_date: "2021-05-21"
 first_appearance: "みやぢさんと狩り♥初めてのマルチ！！【定期配信第37回】"
-youtube_url: "https://youtu.be/BnILigrp7ww?t=912"
+first_appearance_url: "https://youtu.be/BnILigrp7ww?t=912"
 image: "/images/quotes/ju-su.jpg"
 contributor: []
 usage:
