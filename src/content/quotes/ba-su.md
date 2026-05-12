@@ -1,7 +1,7 @@
 ---
 title: バース
 reading: ばーす
-meaning: 「ひとことお誕生日お祝い」コーナー。
+meaning: 「ひとことお誕生日お祝い」コーナー
 tags: []
 rarity: 1
 updated_at: "2026-05-11"
