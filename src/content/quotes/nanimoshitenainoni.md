@@ -3,18 +3,18 @@ title: なにもしてないのに
 reading: なにもしてないのに
 meaning: 何もしてないのに
 tags: [ゲーム, 言い訳, 自爆]
-rarity: 2
+rarity: 3
 updated_at: "2026-05-18"
 first_date: ""
 first_appearance: "調査中"
 first_appearance_url: ""
-image: ""
+image: "/images/quotes/nanimoshitenainoni.jpg"
 contributor: ["ゆうほー"]
 usage:
   - text: "あたしなにもしてないのに！！"
-    date: ""
+    date: "2021-08-06"
 related_links:
-  - label: "調査中"
+  - label: "【Euro Truck Simulator 2】ドライブしたい！【定期配信第48回】"
     url: "https://www.youtube.com/live/NHHqcphbeuk?t=4357"
 ---
 
