@@ -7,7 +7,7 @@ rarity: 1
 updated_at: "2026-05-11"
 first_appearance: "【マリパ】リバーでサバイバル＆なりきりビートYO！【定期配信第15回】"
 first_date: "2020-11-15"
-first_appearance_url: "https://www.youtube.com/live/ws3lPwRz0Og?si=4fbEeSxaFVvWGUqR"
+first_appearance_url: "https://www.youtube.com/live/ws3lPwRz0Og?t=3800s"
 image: ""
 contributor: []
 usage:
@@ -17,7 +17,7 @@ usage:
     date: ""
 related_links:
   - label: "【マリパ】リバーでサバイバル＆なりきりビートYO！【定期配信第15回】"
-    url: "https://www.youtube.com/live/ws3lPwRz0Og?si=4fbEeSxaFVvWGUqR"
+    url: "https://www.youtube.com/live/ws3lPwRz0Og?t=3800s"
 ---
 
 ## 解説
