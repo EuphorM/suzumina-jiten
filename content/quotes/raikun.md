@@ -2,13 +2,10 @@
 title: ライくん
 reading: らいくん
 meaning: みなせさんの家族（飼い猫）の名前。
+first_appearance: 調査中
 tags: [名前, 家族]
 rarity: 1
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | 調査中 |
 
 ## 解説
 

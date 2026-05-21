@@ -13,7 +13,11 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity } = entry.data;
+const { title, reading, meaning, first_appearance, tags, rarity } = entry.data;
+
+function parseMdLinks(text: string): string {
+  return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+}
 ---
 
 <BaseLayout title={title ?? '語録'}>
@@ -28,8 +32,7 @@ const { title, reading, meaning, tags, rarity } = entry.data;
   {title && <h1>{title}</h1>}
 
   <div class="md-content">
-    <Content />
-    <table class="quote-info-table rarity-tags-section">
+    <table class="quote-info-table">
       <tbody>
         <tr>
           <th>読み</th>
@@ -53,32 +56,18 @@ const { title, reading, meaning, tags, rarity } = entry.data;
             </td>
           </tr>
         )}
+        {first_appearance && (
+          <tr>
+            <th>起源</th>
+            <td set:html={parseMdLinks(first_appearance)} />
+          </tr>
+        )}
       </tbody>
     </table>
+    <Content />
   </div>
 
   <script>
-    // レア度・タグをマークダウンテーブルの直後に移動
-    const mdTable = document.querySelector('.md-content table:not(.rarity-tags-section)');
-    const raritySection = document.querySelector('.rarity-tags-section');
-    if (mdTable && raritySection) {
-      mdTable.after(raritySection);
-    }
-
-    // 起源行をレア度・タグテーブルの末尾に移動
-    if (mdTable && raritySection) {
-      const rows = mdTable.querySelectorAll('tr');
-      rows.forEach(row => {
-        const firstCell = row.querySelector('td');
-        if (firstCell && firstCell.textContent.trim() === '起源') {
-          raritySection.querySelector('tbody').appendChild(row);
-        }
-      });
-      if (mdTable.querySelectorAll('tr').length === 0) {
-        (mdTable as HTMLElement).style.display = 'none';
-      }
-    }
-
     // 「情報提供者：」で始まる段落をクレジットとしてスタイル適用
     document.querySelectorAll('.md-content p').forEach(p => {
       if (p.textContent.trimStart().startsWith('情報提供者：')) {
@@ -114,39 +103,32 @@ const { title, reading, meaning, tags, rarity } = entry.data;
 </BaseLayout>
 
 <style>
-  .md-content :global(table) {
+  .md-content :global(.quote-info-table) {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 0;
+    margin-bottom: 1.5rem;
     background: var(--bg-muted);
     border: 1px solid var(--border);
     font-size: 0.9375rem;
   }
 
-  .md-content :global(.rarity-tags-section) {
-    border-top: none;
-    margin-bottom: 1.5rem;
-  }
-
-  .md-content :global(thead) {
-    display: none;
-  }
-
-  .md-content :global(td) {
+  .md-content :global(.quote-info-table th),
+  .md-content :global(.quote-info-table td) {
     padding: 0.5rem 0.75rem;
     text-align: left;
     vertical-align: top;
     border-bottom: 1px solid var(--border);
   }
 
-  .md-content :global(td:first-child) {
+  .md-content :global(.quote-info-table th) {
     width: 5em;
     color: var(--text-muted);
     font-weight: normal;
     white-space: nowrap;
   }
 
-  .md-content :global(tr:last-child td) {
+  .md-content :global(.quote-info-table tr:last-child th),
+  .md-content :global(.quote-info-table tr:last-child td) {
     border-bottom: none;
   }
 

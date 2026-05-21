@@ -2,13 +2,10 @@
 title: お耳に幸せ
 reading: おみみにしあわせ
 meaning: みなせさんの声優としての活動コンセプト
+first_appearance: "[いろいろ告知します♪【定期配信第44回】](https://www.youtube.com/live/9gOkCti2I2w?si=CwlxVFePpGOSUWwB)（2021年7月9日）"
 tags: [オリジナル曲, 歌詞, 生き様]
 rarity: 5
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | [いろいろ告知します♪【定期配信第44回】](https://www.youtube.com/live/9gOkCti2I2w?si=CwlxVFePpGOSUWwB)（2021年7月9日） |
 
 ## 解説
 

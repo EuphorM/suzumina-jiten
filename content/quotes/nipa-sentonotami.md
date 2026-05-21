@@ -2,13 +2,10 @@
 title: 2%の民
 reading: にぱーせんとのたみ
 meaning: 冗談でも本当に傷ついてしまう人が2%くらい存在すること
+first_appearance: "[俺はドリル！【ほりほりドリル】](https://www.youtube.com/live/ZZNaL0LAKbU?t=4796)（2025年5月17日）"
 tags: [ファン, ひとがら, 生き様]
 rarity: 2
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | [俺はドリル！【ほりほりドリル】](https://www.youtube.com/live/ZZNaL0LAKbU?t=4796)（2025年5月17日） |
 
 ## 解説
 
@@ -16,7 +13,7 @@ rarity: 2
 
 ## 使用例
 
-![2%の民](/images/quotes/nipa-sentonotami.jpg)
+![2%の民](/images/nipa-sentonotami.jpg)
 
 > また2%の民が傷ついちゃうからね<br>——2026年5月6日 涼花みなせ
 

@@ -2,13 +2,10 @@
 title: かにっく！
 reading: かにっく
 meaning: パニックすぎてかにっく！
+first_appearance: 調査中
 tags: [ゲーム]
 rarity: 3
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | 調査中 |
 
 ## 解説
 
@@ -16,7 +13,7 @@ rarity: 3
 
 ## 使用例
 
-![かにっく！](/images/quotes/kanikku.jpg)
+![かにっく！](/images/kanikku.jpg)
 
 > パニック！かにっく！<br>——2026年4月11日 涼花みなせ
 

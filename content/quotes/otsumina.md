@@ -2,13 +2,10 @@
 title: おつみなでした
 reading: おつみなでした
 meaning: おつかれさまでした
+first_appearance: 調査中
 tags: [挨拶]
 rarity: 1
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | 調査中 |
 
 ## 解説
 

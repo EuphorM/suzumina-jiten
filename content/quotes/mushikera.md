@@ -2,13 +2,10 @@
 title: 虫けら
 reading: むしけら
 meaning: 虫のようなもの
+first_appearance: "[【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】](https://www.youtube.com/watch?v=g2h3dk5i4Fk&t=4214s)（2025年8月20日）"
 tags: [罵倒]
 rarity: 4
 ---
-
-| 項目 | 内容 |
-|------|------|
-| 起源 | [【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】](https://www.youtube.com/watch?v=g2h3dk5i4Fk&t=4214s)（2025年8月20日） |
 
 ## 解説
 
@@ -16,6 +13,6 @@ rarity: 4
 
 ## 使用例
 
-![虫けら](/images/quotes/mushikera.jpg)
+![虫けら](/images/mushikera.jpg)
 
 > 虫けら！虫さん虫さん<br>——2025年8月20日 涼花みなせ
