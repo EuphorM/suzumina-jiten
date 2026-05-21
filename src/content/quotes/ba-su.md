@@ -1,25 +1,27 @@
 ---
 title: バース
 reading: ばーす
-meaning: 「ひとことお誕生日お祝い」コーナー
+meaning: バースデー
 tags: []
 rarity: 1
 updated_at: "2026-05-11"
-first_appearance: ""
-first_date: ""
-first_appearance_url: ""
+first_appearance: "【マリパ】リバーでサバイバル＆なりきりビートYO！【定期配信第15回】"
+first_date: "2020-11-15"
+first_appearance_url: "https://www.youtube.com/live/ws3lPwRz0Og?t=3800s"
 image: ""
 contributor: []
 usage:
+  - text: "今日はバースあります。（今日誕生日のリスナーがいます。）"
+    date: ""
   - text: "バース！バース！"
     date: ""
 related_links:
-  - label: ""
-    url: ""
+  - label: "【マリパ】リバーでサバイバル＆なりきりビートYO！【定期配信第15回】"
+    url: "https://www.youtube.com/live/ws3lPwRz0Og?t=3800s"
 ---
 
 ## 解説
 
-「ひとことお誕生日お祝い」コーナーのこと。リスナー全員でお祝いする。
+誕生日のこと。転じて「ひとことお誕生日お祝い」コーナーのこと。
 
-配信概要欄にフォームがあるよ。
+リスナー全員でお祝いをしている。配信概要欄にフォームがあり、誰でも応募が可能。
