@@ -1,14 +1,14 @@
 ---
 title: すみっこキングダム
 reading: すみっこきんぐだむ
-meaning: 苺氷えな、夢星もか、涼花みなせの3名によって設立された、Minecraft(マインクラフト)サーバーの名称
+meaning: 苺氷えな、夢星もか、涼花みなせの3名によって設立されたMinecraftサーバーの名称
 tags: [ゲーム, 固有名詞]
 rarity: 2
 updated_at: "2026-05-21"
 first_date: "2026-04-05"
 first_appearance: "新サーバー「#すみっこキングダム」はじまるよ～♡【苺氷えな・夢星もか／Minecraft】"
 first_appearance_url: "https://www.youtube.com/live/GxPivHrntNk?t=3087s"
-image: ""
+image: "/images/quotes/sumikkokingudamu.jpg"
 contributor: []
 usage:
   - text: ""
