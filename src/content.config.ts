@@ -43,7 +43,7 @@ const quotesMarkdown = defineCollection({
     title: z.string(),
     reading: z.string(),
     meaning: z.string(),
-    first_appearance: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
+    origin: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
     tags: z.array(z.string()).default([]),
     rarity: z.number().min(1).max(5).default(1),
     updated_at: z.string().optional(),

@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, first_appearance, tags, rarity } = entry.data;
+const { title, reading, meaning, origin, tags, rarity } = entry.data;
 
 function parseMdLinks(text: string): string {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
@@ -56,10 +56,10 @@ function parseMdLinks(text: string): string {
             </td>
           </tr>
         )}
-        {first_appearance && (
+        {origin && (
           <tr>
-            <th>起源</th>
-            <td set:html={parseMdLinks(first_appearance)} />
+            <th>由来</th>
+            <td set:html={parseMdLinks(origin)} />
           </tr>
         )}
       </tbody>

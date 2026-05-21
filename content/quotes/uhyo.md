@@ -2,9 +2,9 @@
 title: うひょ～
 reading: うひょ～
 meaning: 喜びを表している
-first_appearance: 調査中
 tags: [感嘆詞]
 rarity: 1
+origin: 調査中
 ---
 
 ## 解説

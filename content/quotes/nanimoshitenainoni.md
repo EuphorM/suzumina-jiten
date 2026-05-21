@@ -2,9 +2,9 @@
 title: なにもしてないのに
 reading: なにもしてないのに
 meaning: 重大な事態を招きながら、無実を訴える言い訳
-first_appearance: 調査中
 tags: [ゲーム, 言い訳, 自爆]
 rarity: 3
+origin: 調査中
 ---
 
 ## 解説

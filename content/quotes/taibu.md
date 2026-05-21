@@ -2,9 +2,9 @@
 title: 退部
 reading: たいぶ
 meaning: 所属している部活動やクラブなどから自ら抜けること。転じてゲーム、習慣、サブスクなどをやめること。
-first_appearance: 調査中
 tags: []
 rarity: 2
+origin: 調査中
 ---
 
 ## 使用例
