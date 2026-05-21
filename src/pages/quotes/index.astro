@@ -3,16 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import QuoteCard from '../../components/QuoteCard.astro';
 
-const quotes = await getCollection('quotes');
+const quotes = await getCollection('quotesMarkdown');
 
-const sortedQuotes = quotes.sort((a, b) => {
-  const dateA = a.data.first_date?.replace('?', '') ?? '';
-  const dateB = b.data.first_date?.replace('?', '') ?? '';
-  if (!dateA && !dateB) return a.data.title.localeCompare(b.data.title, 'ja');
-  if (!dateA) return 1;
-  if (!dateB) return -1;
-  return dateA.localeCompare(dateB);
-});
+const sortedQuotes = quotes.sort((a, b) =>
+  a.data.title.localeCompare(b.data.title, 'ja')
+);
 
 const allTags = [...new Set(quotes.flatMap((q) => q.data.tags))].sort((a, b) =>
   a.localeCompare(b, 'ja')

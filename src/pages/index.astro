@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import QuoteCard from '../components/QuoteCard.astro';
 
-const quotes = await getCollection('quotes');
+const quotes = await getCollection('quotesMarkdown');
 const sortedQuotes = quotes.sort((a, b) => {
   const dateA = a.data.updated_at ?? '';
   const dateB = b.data.updated_at ?? '';

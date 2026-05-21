@@ -38,11 +38,14 @@ const quotes = defineCollection({
 });
 
 const quotesMarkdown = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/quotes-md' }),
+  loader: glob({ pattern: '**/*.md', base: './content/quotes' }),
   schema: z.object({
-    title: z.string().optional(),
+    title: z.string(),
+    reading: z.string(),
+    meaning: z.string(),
     tags: z.array(z.string()).default([]),
     rarity: z.number().min(1).max(5).default(1),
+    updated_at: z.string().optional(),
   }),
 });
 
