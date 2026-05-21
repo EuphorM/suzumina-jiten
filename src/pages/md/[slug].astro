@@ -1,0 +1,196 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RarityStars from '../../components/RarityStars.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('quotesMarkdown');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, tags, rarity } = entry.data;
+---
+
+<BaseLayout title={title ?? 'プレビュー'}>
+  <div class="breadcrumb">
+    <a href="/">すずみな語録辞典</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="/quotes">語録</a>
+    <span class="breadcrumb-sep">›</span>
+    {title}
+  </div>
+
+  {title && <h1>{title}</h1>}
+
+  <div class="md-content">
+    <Content />
+    <table class="quote-info-table rarity-tags-section">
+      <tbody>
+        <tr>
+          <th>レア度</th>
+          <td><RarityStars rarity={rarity} /></td>
+        </tr>
+        {tags.length > 0 && (
+          <tr>
+            <th>タグ</th>
+            <td>
+              <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
+                {tags.map((tag) => <span class="tag">{tag}</span>)}
+              </div>
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // レア度・タグをマークダウンテーブルの直後に移動
+    const mdTable = document.querySelector('.md-content table:not(.rarity-tags-section)');
+    const raritySection = document.querySelector('.rarity-tags-section');
+    if (mdTable && raritySection) {
+      mdTable.after(raritySection);
+    }
+
+    // img + blockquote を quote-scene 構造にラップ
+    // マークダウンの img は <p> でラップされるため parentElement で確認
+    document.querySelectorAll('.md-content img').forEach(img => {
+      const imgContainer = img.parentElement?.tagName === 'P' ? img.parentElement : img;
+      const next = imgContainer.nextElementSibling;
+      if (next && next.tagName === 'BLOCKQUOTE') {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'quote-scene';
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'quote-scene__avatar';
+        const bubblesDiv = document.createElement('div');
+        bubblesDiv.className = 'quote-scene__bubbles';
+        next.style.marginLeft = 'auto';
+        avatarDiv.appendChild(img);
+        bubblesDiv.appendChild(next);
+        wrapper.appendChild(avatarDiv);
+        wrapper.appendChild(bubblesDiv);
+        wrapper.classList.add('md-quote-scene');
+        imgContainer.replaceWith(wrapper);
+      }
+    });
+  </script>
+
+  <div style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted);">
+    <a href="/quotes">← 語録一覧に戻る</a>
+  </div>
+</BaseLayout>
+
+<style>
+  /* テーブル全体を quote-info-table に合わせる */
+  .md-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+    background: var(--bg-muted);
+    border: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  /* レア度・タグテーブルは上境界を消して連続して見せる */
+  .md-content :global(.rarity-tags-section) {
+    border-top: none;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ヘッダー行（「項目」「内容」）は非表示 */
+  .md-content :global(thead) {
+    display: none;
+  }
+
+  .md-content :global(td) {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* 1列目を th 風に */
+  .md-content :global(td:first-child) {
+    width: 5em;
+    color: var(--text-muted);
+    font-weight: normal;
+    white-space: nowrap;
+  }
+
+  .md-content :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  /* 画像を quote-scene__avatar 風に */
+  .md-content :global(img) {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .md-content :global(img) {
+      width: 400px;
+      max-width: 50vw;
+    }
+  }
+
+  /* 使用例のブロック引用を quote-bubble 風に */
+  .md-content :global(blockquote) {
+    position: relative;
+    background: var(--bg-muted);
+    border: 1px solid var(--border);
+    border-left: none;
+    border-radius: 0 1rem 1rem 1rem;
+    padding: 0.625rem 0.875rem;
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    max-width: 480px;
+  }
+
+  .md-content :global(blockquote p) {
+    margin: 0;
+  }
+
+  /* quote-scene 内では幅を縮めて右寄せ */
+  .md-content :global(.quote-scene__bubbles blockquote) {
+    width: fit-content;
+    align-self: flex-end;
+  }
+
+  /* quote-scene__bubbles 内 blockquote のquote-scene__bubbles内: モバイルのみ幅制限 */
+  /* (グローバルCSSで対応 → 下の style is:global を参照) */
+
+  /* hr 以降の段落を投稿者クレジット風に */
+  .md-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0 1rem;
+  }
+
+  .md-content :global(hr + p) {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    text-align: right;
+    margin: 0;
+  }
+</style>
+
+<style is:global>
+  .md-quote-scene .quote-scene__bubbles blockquote {
+    max-width: 480px;
+  }
+  @media (max-width: 639px) {
+    .md-quote-scene .quote-scene__bubbles blockquote {
+      max-width: 70%;
+    }
+  }
+</style>
