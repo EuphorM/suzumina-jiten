@@ -12,12 +12,12 @@
 
 - **フレームワーク**: [Astro](https://astro.build/)
 - **ホスティング**: [Vercel](https://vercel.com/)
-- **コンテンツ管理**: Markdown ファイル（`src/content/quotes/`）
+- **コンテンツ管理**: Markdown ファイル（`content/quotes/`）
 - **投稿受付**: Vercel Serverless Function → GitHub Issues
 
 ## 語録の追加方法（モデレーター向け）
 
-`src/content/quotes/` にMarkdownファイルを作成してください。ファイル名はローマ字表記を推奨します。
+`content/quotes/` にMarkdownファイルを作成してください。ファイル名はローマ字表記を推奨します。
 
 ```markdown
 ---
@@ -26,18 +26,8 @@ reading: よみがな
 meaning: 意味の説明
 tags: [タグ1, タグ2]
 rarity: 3
+origin: "[配信タイトル](https://www.youtube.com/...)（YYYY年M月D日）"
 updated_at: "YYYY-MM-DD"
-first_date: "YYYY-MM-DD"  # 後方互換のため保持・非表示
-first_appearance: "配信タイトルや日付"
-first_appearance_url: ""
-image: ""
-contributor: ["ハンドルネーム"]
-usage:
-  - text: "実際に使われた例文"
-    date: "YYYY-MM-DD"
-related_links:
-  - label: "配信タイトルなど"
-    url: "https://www.youtube.com/..."
 ---
 
 ## 解説

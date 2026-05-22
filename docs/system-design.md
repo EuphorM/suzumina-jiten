@@ -92,7 +92,7 @@ suzumina-jiten/
 | ファイル | 対応内容 |
 |---|---|
 | `src/content.config.ts` | スキーマ定義を変更する |
-| `src/content/quotes/*.md` | フロントマターのキー名を変更する |
+| `content/quotes/*.md` | フロントマターのキー名を変更する |
 | `src/pages/quotes/[slug].astro` | デストラクチャリングと使用箇所を変更する |
 | `src/pages/api/submit.ts` | Issue作成時のyamlテンプレートを変更する |
 | `.github/workflows/auto-pr-from-issue.yml` | MDドラフト生成スクリプトを確認する |
