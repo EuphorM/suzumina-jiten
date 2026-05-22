@@ -19,6 +19,32 @@
 - スペースは使わず、単語をつなげるかハイフンで区切る
 - すでに同じ語録のファイルがないか確認してから作成する
 
+## 画像の追加方法
+
+語録に画像（スクリーンショットなど）を添付する場合は以下の手順で行う。
+
+**1. 画像ファイルを `content/images/` に置く**
+
+ファイル名はMDファイルと同じローマ字名にする（例: `mushikera.md` → `mushikera.jpg`）。
+
+**2. MDファイルから `../images/` の相対パスで参照する**
+
+```markdown
+![語録名](../images/ファイル名.jpg)
+```
+
+例：
+```markdown
+![虫けら](../images/mushikera.jpg)
+```
+
+**パスについての注意**
+
+`/images/mushikera.jpg`（スラッシュ始まり）ではなく `../images/mushikera.jpg`（`../` 始まり）を使うこと。
+
+- `../images/`（相対パス）→ AstroサイトでもGitHubのPreviewでも画像が表示される ✅
+- `/images/`（絶対パス）→ AstroサイトでのみSでは表示、GitHubのPreviewでは表示されない ❌
+
 ## Markdownのテンプレート
 
 ```markdown

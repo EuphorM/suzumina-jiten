@@ -67,6 +67,18 @@ suzumina-jiten/
 └── package.json
 ```
 
+## 画像パスの仕組み
+
+`astro.config.mjs` に `publicDir: 'content'` を設定しているため、Astroの静的ファイルルートは `content/` ディレクトリになる。
+
+これにより：
+- `content/images/foo.jpg` が存在すると、ブラウザからは `/images/foo.jpg` でアクセスできる
+- MDファイル内で `/images/foo.jpg` と書くとAstroサイトでは動くが、GitHubのMarkdownプレビューでは画像が表示されない（GitHubはリポジトリルートを基点に解決するため）
+
+**統一ルール：MDファイル内の画像パスは `../images/` の相対パスで記述する。**
+
+相対パスの場合、GitHubは `content/quotes/` を基点に `content/images/` を解決するため、GitHub PreviewでもAstroサイトでも両方で画像が表示される。
+
 ## 語録データの構造
 
 語録は `content/quotes/` 以下のMarkdownファイルで管理する。ファイル名はローマ字表記。
