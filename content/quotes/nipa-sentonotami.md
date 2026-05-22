@@ -5,6 +5,7 @@ meaning: 冗談でも本当に傷ついてしまう人が2%くらい存在する
 tags: [ファン, ひとがら, 生き様]
 rarity: 2
 origin: "[俺はドリル！【ほりほりドリル】](https://www.youtube.com/live/ZZNaL0LAKbU?t=4796)（2025年5月17日）"
+updated_at: "2026-05-10"
 ---
 
 ## 解説

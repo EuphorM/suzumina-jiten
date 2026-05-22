@@ -5,6 +5,7 @@ meaning: ゲーム内の回復薬、特に飲むタイプの物を指す。
 tags: [ゲーム]
 rarity: 3
 origin: "[みやぢさんと狩り♥初めてのマルチ！！【定期配信第37回】](https://youtu.be/BnILigrp7ww?t=912)(2021年5月21日)"
+updated_at: "2026-05-11"
 ---
 
 ## 解説

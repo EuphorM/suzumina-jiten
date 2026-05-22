@@ -45,13 +45,13 @@ suzumina-jiten/
 │   ├── ISSUE_TEMPLATE/          # Issueテンプレート
 │   ├── workflows/               # GitHub Actions（自動PR生成など）
 │   └── PULL_REQUEST_TEMPLATE.md
+├── content/                     ← 運営が編集する場所（エンジニア不要）
+│   ├── images/                  # 語録の画像ファイル
+│   └── quotes/                  # 語録データ（Markdownファイル）
 ├── docs/                        # ドキュメント
-├── public/
-│   └── images/
-│       └── quotes/              # 語録の画像ファイル
-├── src/
+├── src/                         ← 開発者のみ触る領域
 │   ├── content/
-│   │   └── quotes/              # 語録データ（Markdownファイル）
+│   │   └── quotes/              # YAMLコレクション（旧形式・参照のみ）
 │   ├── components/              # UIパーツ
 │   ├── layouts/                 # ページ共通レイアウト
 │   ├── pages/
@@ -69,9 +69,9 @@ suzumina-jiten/
 
 ## 語録データの構造
 
-語録は `src/content/quotes/` 以下のMarkdownファイルで管理する。ファイル名はローマ字表記。
+語録は `content/quotes/` 以下のMarkdownファイルで管理する。ファイル名はローマ字表記。
 
-主なフィールド：
+主なフィールド（YAMLフロントマター）：
 
 | フィールド | 説明 |
 |---|---|
@@ -80,14 +80,10 @@ suzumina-jiten/
 | `meaning` | 一言で意味を説明 |
 | `tags` | 任意のタグ（配列） |
 | `rarity` | レア度 1〜5 |
-| `updated_at` | 掲載日・更新日（YYYY-MM-DD）。MDファイル作成時に入力。トップページの新着順に使用 |
-| `first_date` | 後方互換のため保持。非表示。新規ファイルでは空欄でよい |
-| `first_appearance` | 初出の配信タイトル。未設定時はサイト上に「調査中」と表示 |
-| `first_appearance_url` | 初出のYouTube URL |
-| `image` | 配信シーンのスクリーンショット（`public/images/quotes/` に配置） |
-| `usage` | 使用例。`{text, date}` 形式。dateがある場合は吹き出しに引用元を表示 |
-| `contributor` | 情報提供者のハンドルネーム（配列） |
-| `related_links` | 関連リンク（YouTube・X など）。`{label, url}` 形式 |
+| `origin` | 由来の配信タイトル・URL・日付（MDリンク記法）。不明な場合は `調査中` |
+| `updated_at` | 掲載日・更新日（YYYY-MM-DD）。トップページの新着順に使用 |
+
+使用例・関連リンク・情報提供者はMarkdown本文に `## 使用例` `## 関連リンク` `情報提供者：` として記載する。
 
 ## スキーマフィールドを変更・追加するときの影響範囲
 

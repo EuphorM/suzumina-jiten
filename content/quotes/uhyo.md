@@ -5,6 +5,7 @@ meaning: 喜びを表している
 tags: [感嘆詞]
 rarity: 1
 origin: 調査中
+updated_at: "2026-05-10"
 ---
 
 ## 解説

@@ -5,6 +5,7 @@ meaning: 配信終了時のお別れの挨拶
 tags: [挨拶]
 rarity: 1
 origin: 調査中
+updated_at: "2026-05-10"
 ---
 
 ## 解説
