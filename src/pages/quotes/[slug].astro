@@ -4,8 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import RarityStars from '../../components/RarityStars.astro';
 
 export async function getStaticPaths() {
-  const quotes = await getCollection('quotes');
-  return quotes.map((entry) => ({
+  const entries = await getCollection('quotesMarkdown');
+  return entries.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
   }));
@@ -13,20 +13,14 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, reading, meaning, tags, rarity, first_appearance, first_date, first_appearance_url, image, usage, contributor, related_links } = entry.data;
+const { title, reading, meaning, origin, tags, rarity } = entry.data;
 
-function formatDate(dateStr: string): string {
-  const uncertain = dateStr.endsWith('?');
-  const parts = dateStr.replace('?', '').split('-');
-  let formatted = '';
-  if (parts[0]) formatted += `${parts[0]}年`;
-  if (parts[1]) formatted += `${parseInt(parts[1])}月`;
-  if (parts[2]) formatted += `${parseInt(parts[2])}日`;
-  return uncertain ? `${formatted}（確認中）` : formatted;
+function parseMdLinks(text: string): string {
+  return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 ---
 
-<BaseLayout title={title} description={`${title}（${reading}）— ${meaning}`}>
+<BaseLayout title={title ?? '語録'}>
   <div class="breadcrumb">
     <a href="/">すずみな語録辞典</a>
     <span class="breadcrumb-sep">›</span>
@@ -35,112 +29,168 @@ function formatDate(dateStr: string): string {
     {title}
   </div>
 
-  <h1>{title}</h1>
+  {title && <h1>{title}</h1>}
 
-  <table class="quote-info-table">
-    <tbody>
-      <tr>
-        <th>読み</th>
-        <td>{reading}</td>
-      </tr>
-      <tr>
-        <th>意味</th>
-        <td>{meaning}</td>
-      </tr>
-      <tr>
-        <th>レア度</th>
-        <td><RarityStars rarity={rarity} /></td>
-      </tr>
-      {
-        tags.length > 0 && (
+  <div class="md-content">
+    <table class="quote-info-table">
+      <tbody>
+        <tr>
+          <th>読み</th>
+          <td>{reading}</td>
+        </tr>
+        <tr>
+          <th>意味</th>
+          <td>{meaning}</td>
+        </tr>
+        <tr>
+          <th>レア度</th>
+          <td><RarityStars rarity={rarity} /></td>
+        </tr>
+        {tags.length > 0 && (
           <tr>
             <th>タグ</th>
             <td>
               <div style="display: flex; gap: 0.375rem; flex-wrap: wrap;">
-                {tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
+                {tags.map((tag) => <span class="tag">{tag}</span>)}
               </div>
             </td>
           </tr>
-        )
-      }
-      <tr>
-        <th>起源</th>
-        <td>
-          {first_appearance_url ? (
-            <a href={first_appearance_url} target="_blank" rel="noopener noreferrer">
-              {first_appearance ?? 'YouTube で見る'}
-            </a>
-          ) : first_appearance ? (
-            first_appearance
-          ) : (
-            <span style="color: var(--text-muted);">調査中</span>
-          )}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="quote-content">
+        )}
+        {origin && (
+          <tr>
+            <th>由来</th>
+            <td set:html={parseMdLinks(origin)} />
+          </tr>
+        )}
+      </tbody>
+    </table>
     <Content />
   </div>
 
-  {image && (
-    <div class="quote-scene-wrapper">
-      {usage.length > 0 && <p class="quote-scene__label">使用例</p>}
-      <div class="quote-scene">
-        <div class="quote-scene__avatar">
-          <img src={image} alt={title} />
-        </div>
-        {usage.length > 0 && (
-          <div class="quote-scene__bubbles">
-            {usage.map((item) => (
-              <div class="quote-bubble">
-                {item.text}
-                {item.date && <span class="quote-bubble__attr">――{formatDate(item.date)}涼花みなせ</span>}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  )}
+  <script>
+    // 「情報提供者：」で始まる段落をクレジットとしてスタイル適用
+    document.querySelectorAll('.md-content p').forEach(p => {
+      if (p.textContent.trimStart().startsWith('情報提供者：')) {
+        p.classList.add('quote-contributor');
+      }
+    });
 
-  {!image && usage.length > 0 && (
-    <div class="quote-usage">
-      <h2>使用例</h2>
-      <ul>
-        {usage.map((item) => (
-          <li>
-            {item.text}
-            {item.date && <span class="quote-bubble__attr">――{formatDate(item.date)}涼花みなせ</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )}
-
-  {related_links.length > 0 && (
-    <div class="quote-related-urls">
-      <h2>関連リンク</h2>
-      <ul>
-        {related_links.map((item) => (
-          <li>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )}
-
-  {contributor.length > 0 && (
-    <p class="quote-contributor">情報提供者：{contributor.join('・')}さん</p>
-  )}
+    // img + blockquote を quote-scene 構造にラップ
+    document.querySelectorAll('.md-content img').forEach(img => {
+      const imgContainer = img.parentElement?.tagName === 'P' ? img.parentElement : img;
+      const next = imgContainer.nextElementSibling;
+      if (next && next.tagName === 'BLOCKQUOTE') {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'quote-scene';
+        const avatarDiv = document.createElement('div');
+        avatarDiv.className = 'quote-scene__avatar';
+        const bubblesDiv = document.createElement('div');
+        bubblesDiv.className = 'quote-scene__bubbles';
+        avatarDiv.appendChild(img);
+        let sibling = next;
+        while (sibling && sibling.tagName === 'BLOCKQUOTE') {
+          const nextSibling = sibling.nextElementSibling;
+          bubblesDiv.appendChild(sibling);
+          sibling = nextSibling;
+        }
+        wrapper.appendChild(avatarDiv);
+        wrapper.appendChild(bubblesDiv);
+        wrapper.classList.add('md-quote-scene');
+        imgContainer.replaceWith(wrapper);
+      }
+    });
+  </script>
 
   <div style="margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted);">
     <a href="/quotes">← 語録一覧に戻る</a>
   </div>
 </BaseLayout>
+
+<style>
+  .md-content :global(.quote-info-table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    background: var(--bg-muted);
+    border: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .md-content :global(.quote-info-table th),
+  .md-content :global(.quote-info-table td) {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .md-content :global(.quote-info-table th) {
+    width: 5em;
+    color: var(--text-muted);
+    font-weight: normal;
+    white-space: nowrap;
+  }
+
+  .md-content :global(.quote-info-table tr:last-child th),
+  .md-content :global(.quote-info-table tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .md-content :global(img) {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .md-content :global(.quote-scene__avatar img) {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 640px) {
+    .md-content :global(img) {
+      width: 400px;
+      max-width: 50vw;
+    }
+  }
+
+  .md-content :global(blockquote) {
+    position: relative;
+    background: var(--bg-muted);
+    border: 1px solid var(--border);
+    border-radius: 0 1rem 1rem 1rem;
+    padding: 0.625rem 0.875rem;
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    max-width: 480px;
+  }
+
+  .md-content :global(blockquote p) {
+    margin: 0;
+  }
+
+  .md-content :global(.quote-scene__bubbles blockquote) {
+    width: fit-content;
+    margin-bottom: 0;
+  }
+
+  .md-content :global(.quote-contributor) {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    text-align: right;
+    margin: 0.5rem 0 0;
+  }
+</style>
+
+<style is:global>
+  .md-quote-scene .quote-scene__bubbles blockquote {
+    max-width: 480px;
+  }
+  @media (max-width: 639px) {
+    .md-quote-scene .quote-scene__bubbles blockquote {
+      max-width: 70%;
+    }
+  }
+</style>

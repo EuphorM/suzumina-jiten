@@ -38,12 +38,18 @@ function buildIssueBody(data: SubmissionBody): string {
       .forEach((ex) => lines.push(`- ${ex.trim()}`));
   }
 
+  const origin = data.youtube_url
+    ? `"[${data.first_appearance || '参考動画'}](${data.youtube_url})"`
+    : data.first_appearance
+      ? `"${data.first_appearance}"`
+      : '調査中';
+
   lines.push(
     '',
     '---',
     '*このIssueは投稿フォームから自動作成されました。*',
     '',
-    '**モデレーター向け:** 内容を確認し、問題なければ `src/content/quotes/` にMarkdownファイルを作成してください。',
+    '**モデレーター向け:** 内容を確認し、問題なければ `content/quotes/` にMarkdownファイルを作成してください。',
     '',
     '```yaml',
     '---',
@@ -52,26 +58,27 @@ function buildIssueBody(data: SubmissionBody): string {
     `meaning: ${data.meaning}`,
     `tags: [${data.tags ?? ''}]`,
     'rarity: 2',
+    `origin: ${origin}`,
     `updated_at: "${new Date().toISOString().slice(0, 10)}"`,
-    'first_date: ""',
-    `first_appearance: "${data.first_appearance ?? ''}"`,
-    'first_appearance_url: ""',
-    'image: ""',
-    contributors.length > 0 ? `contributor: [${contributors.map((c) => `"${c}"`).join(', ')}]` : 'contributor: []',
-    'usage:',
-    data.examples
-      ? data.examples.split('\n').filter(Boolean).map((ex) => `  - text: "${ex.trim()}"\n    date: ""`).join('\n')
-      : '  - text: ""\n    date: ""',
-    'related_links:',
-    data.youtube_url
-      ? `  - label: "${data.first_appearance ?? '参考動画'}"\n    url: "${data.youtube_url}"`
-      : '  - label: ""\n    url: ""',
     '---',
     '',
     '## 解説',
     data.explanation ?? '（追記してください）',
-    '```',
   );
+
+  if (data.examples) {
+    lines.push(
+      '',
+      '## 使用例',
+      ...data.examples.split('\n').filter(Boolean).map((ex) => `- ${ex.trim()}`),
+    );
+  }
+
+  if (contributors.length > 0) {
+    lines.push('', `情報提供者：${contributors.join(', ')}`);
+  }
+
+  lines.push('```');
 
   return lines.filter((l) => l !== undefined).join('\n');
 }

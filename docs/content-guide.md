@@ -12,7 +12,7 @@
 
 ## ファイルの作成方法
 
-`src/content/quotes/` フォルダにMarkdownファイルを作成する。
+`content/quotes/` フォルダにMarkdownファイルを作成する。
 
 **ファイル名のルール:**
 - ローマ字表記を使う（例: `mushikera.md`、`otsumina.md`）
@@ -28,23 +28,29 @@ reading: よみがな
 meaning: 一言で意味を説明
 tags: [タグ1, タグ2]
 rarity: 3
+origin: 調査中
 updated_at: "YYYY-MM-DD"
-first_date: ""  # 後方互換のため保持・非表示
-first_appearance: ""
-first_appearance_url: ""
-image: ""
-contributor: []
-usage:
-  - text: ""
-    date: ""
-related_links:
-  - label: ""
-    url: ""
 ---
 
 ## 解説
 
 語録が生まれた背景・経緯・エピソードを書く。
+
+## 使用例
+
+> セリフ<br>——YYYY年M月D日 涼花みなせ
+
+## 関連リンク
+
+- [配信タイトル](https://www.youtube.com/...)
+
+情報提供者：ハンドルネーム
+```
+
+`origin` に配信リンクがある場合は以下の形式で記載する：
+
+```
+origin: "[配信タイトル](https://www.youtube.com/...)（YYYY年M月D日）"
 ```
 
 ## 各フィールドの説明
@@ -56,16 +62,10 @@ related_links:
 | `meaning` | ○ | 短く分かりやすく意味を説明 |
 | `tags` | ○ | 後述のタグ一覧から選ぶ |
 | `rarity` | ○ | 1〜5の数字（後述） |
+| `origin` | △ | 由来の配信タイトル・URL・日付を `[タイトル](URL)（日付）` の形式で記載。不明な場合は `調査中` |
 | `updated_at` | △ | 掲載日・更新日。`YYYY-MM-DD` 形式。MDファイル作成時に今日の日付を入れる。大幅更新時も書き換える |
-| `first_date` | － | 後方互換のため保持。非表示。新規ファイルでは空欄でよい |
-| `first_appearance` | △ | 分かる範囲で配信タイトル・日付を記載。空欄可 |
-| `first_appearance_url` | △ | 初出のYouTube URL。空欄可 |
-| `image` | △ | 配信シーンのスクリーンショット。`/images/quotes/ファイル名.jpg` の形式で記載。空欄可 |
-| `contributor` | △ | 投稿・情報提供者のハンドルネーム。複数人可 |
-| `usage` | △ | 実際の使用例。`text`（セリフ）と`date`（日付、任意）をセットで記載。複数可。空欄可 |
-| `related_links` | △ | 関連リンク（YouTube・X など）。`label` と `url` をセットで記載。空欄可 |
 
-空欄の場合は `""` または `[]` のまま残してもエラーにはなりません。
+`## 使用例`・`## 関連リンク`・`情報提供者：` はMarkdown本文に自由に記載できる。省略可。
 
 ## 解説の書き方
 

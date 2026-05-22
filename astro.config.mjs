@@ -4,4 +4,5 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   output: 'static',
   adapter: vercel(),
+  publicDir: 'content',
 });

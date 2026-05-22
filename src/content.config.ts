@@ -37,4 +37,17 @@ const quotes = defineCollection({
   }),
 });
 
-export const collections = { quotes };
+const quotesMarkdown = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './content/quotes' }),
+  schema: z.object({
+    title: z.string(),
+    reading: z.string(),
+    meaning: z.string(),
+    origin: z.preprocess((val) => val === '' ? undefined : val, z.string().optional()),
+    tags: z.array(z.string()).default([]),
+    rarity: z.number().min(1).max(5).default(1),
+    updated_at: z.string().optional(),
+  }),
+});
+
+export const collections = { quotes, quotesMarkdown };

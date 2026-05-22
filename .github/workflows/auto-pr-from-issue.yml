@@ -38,7 +38,7 @@ jobs:
 
             const mdContent = match[1];
             const branchName = `quote/issue-${issueNumber}`;
-            const filePath = `src/content/quotes/quote-issue-${issueNumber}.md`;
+            const filePath = `content/quotes/quote-issue-${issueNumber}.md`;
 
             // mainブランチの最新SHAを取得
             const { data: ref } = await github.rest.git.getRef({
@@ -106,9 +106,9 @@ jobs:
                   `Issue #${issueNumber} から自動生成されたMDドラフトです。`,
                   '',
                   '**モデレーターへ：**',
-                  `- [ ] ファイル名をローマ字表記に変更（現在: \`${filePath}\`）`,
-                  '- [ ] 内容を確認・修正（rarity の設定など）',
-                  '- [ ] 必要に応じて画像を追加（`public/images/quotes/`）',
+                  `- [ ] ファイルを \`content/quotes/ローマ字名.md\` にリネーム（現在: \`${filePath}\`）`,
+                  '- [ ] 内容を確認・修正（rarity・origin の設定など）',
+                  '- [ ] 必要に応じて画像を `content/images/` に追加し、本文に記載',
                   '- [ ] 問題なければドラフト解除してマージ',
                   '',
                   `Closes #${issueNumber}`,

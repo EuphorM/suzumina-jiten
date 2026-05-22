@@ -42,7 +42,7 @@ GitHubアカウントがあれば、ブラウザだけで操作できる。
 **1. 新しいファイルを作成する**
 
 1. `https://github.com/EuphorM/suzumina-jiten` を開く
-2. `src` → `content` → `quotes` フォルダを開く
+2. `content` → `quotes` フォルダを開く
 3. 右上の「Add file」→「Create new file」をクリック
 
 **2. ファイル名を入力する**
@@ -53,14 +53,6 @@ GitHubアカウントがあれば、ブラウザだけで操作できる。
 **3. 内容を貼り付ける**
 
 Issueの中に「モデレーター向け」として用意されたMarkdownテンプレートをコピーしてエディタに貼り付ける。必要に応じて内容を修正する。
-
-関連リンクを追加する場合は以下の形式で記載する：
-
-```yaml
-related_links:
-  - label: "配信タイトルなど"
-    url: "https://www.youtube.com/..."
-```
 
 **4. コミットする**
 
@@ -82,7 +74,7 @@ git clone https://github.com/EuphorM/suzumina-jiten.git
 cd suzumina-jiten
 
 # ファイルを作成・編集後
-git add src/content/quotes/ファイル名.md
+git add content/quotes/ファイル名.md
 git commit -m "feat: 語録「語録名」を追加 (closes #Issue番号)"
 git push
 ```
@@ -93,48 +85,43 @@ git push
 
 投稿内容がすでに掲載済みの語録への追加情報である場合は、新規ファイルを作成せず既存ファイルを編集する。
 
-1. `src/content/quotes/` から対象の `.md` ファイルを開く
+1. `content/quotes/` から対象の `.md` ファイルを開く
 2. 鉛筆アイコンをクリックして編集する
 3. 情報を追記・修正してコミットする
 4. Issueに「〇〇の語録に追記しました」とコメントしてクローズする
 
 **よくある追記パターン（コピペ用）**
 
-解説を追加する場合（本文に記載）：
+解説を追加する場合：
 ```markdown
 ## 解説
 
 ここに背景・経緯を書く。
 ```
 
-使用例を追加する場合（`---` の中に追記する）：
-```yaml
-usage:
-  - text: "例文1"
-    date: "2025-08-20"   # 任意。その発言の日付
-  - text: "例文2"
+使用例を追加する場合：
+```markdown
+## 使用例
+
+> セリフ<br>——YYYY年M月D日 涼花みなせ
 ```
 
-関連リンクを追加する場合（`---` の中に追記する）：
-```yaml
-related_links:
-  - label: "配信タイトルなど"
-    url: "https://www.youtube.com/..."
-  - label: "2本目の場合はこのように追加"
-    url: "https://www.youtube.com/..."
+関連リンクを追加する場合：
+```markdown
+## 関連リンク
+
+- [配信タイトルなど](https://www.youtube.com/...)
 ```
 
-初出日を追加する場合（`---` の中に追記する）：
+由来を追加する場合（`---` の中に追記する）：
 ```yaml
-first_date: "2025-08-20"   # 年月のみ可: "2025-08"、不確かな場合: "2025-08?"
+origin: "[配信タイトル](https://www.youtube.com/...)（YYYY年M月D日）"
 ```
 
-画像を追加する場合（`---` の中に追記する）：
-```yaml
-image: "/images/quotes/ファイル名.jpg"
+情報提供者を追加する場合（本文末尾に記載）：
 ```
-
-> ⚠️ YAMLの `url:` の後は必ずスペースを1つ入れ、インデントは半角スペース2つで揃えてください。ずれるとエラーになります。
+情報提供者：ハンドルネーム
+```
 
 ---
 
@@ -163,7 +150,7 @@ image: "/images/quotes/ファイル名.jpg"
 | やること | 操作 |
 |---|---|
 | 投稿を確認する | GitHub Issues を開いて `submission` ラベルで絞り込む |
-| 語録を公開する | `src/content/quotes/` にMarkdownファイルを作成してコミット |
+| 語録を公開する | `content/quotes/` にMarkdownファイルを作成してコミット |
 | Issueをクローズする | Issueを開いて「Close issue」 |
-| 掲載済みの語録を修正する | GitHub上で対象ファイルを開き、鉛筆アイコンから編集 |
+| 掲載済みの語録を修正する | GitHub上で `content/quotes/` の対象ファイルを開き、鉛筆アイコンから編集 |
 | 参加希望を確認する | GitHub Issues を開いて `参加希望` ラベルで絞り込む |
