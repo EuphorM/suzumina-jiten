@@ -4,7 +4,7 @@ reading: いっぽすすんでにかいおねむ
 meaning: 焦らずにゆっくる物事を進むこと
 tags: [オリジナル曲, 歌詞, 生き様]
 rarity: 5
-origin: "[【オリジナル曲】オトナリティ【涼花みなせ】](https://youtu.be/vgdl2nb5eeE)"
+origin: "[【オリジナル曲】オトナリティ【涼花みなせ】](https://youtu.be/vgdl2nb5eeE)（2024年6月21日）"
 updated_at: "2026-05-10"
 ---
 
