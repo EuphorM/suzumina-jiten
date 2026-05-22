@@ -12,6 +12,6 @@ updated_at: "2026-05-10"
 
 オリジナル曲である｢オトナリティ｣の歌詞の一節。｢自分らしい｣とみなせさんが語ったことも。
 
-![一歩進んで二回おねむ](/images/ipposusundenikaionemu.jpg)
+![一歩進んで二回おねむ](../images/ipposusundenikaionemu.jpg)
 
 情報提供者：ivan

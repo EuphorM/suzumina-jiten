@@ -14,6 +14,6 @@ updated_at: "2026-05-10"
 
 ## 使用例
 
-![かにっく！](/images/kanikku.jpg)
+![かにっく！](../images/kanikku.jpg)
 
 > パニック！かにっく！

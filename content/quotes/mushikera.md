@@ -14,6 +14,6 @@ updated_at: "2026-05-10"
 
 ## 使用例
 
-![虫けら](/images/mushikera.jpg)
+![虫けら](../images/mushikera.jpg)
 
 > 虫けら！虫さん虫さん<br>—2025年8月20日 涼花みなせ

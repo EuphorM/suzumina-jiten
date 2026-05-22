@@ -16,7 +16,7 @@ updated_at: "2026-05-10"
 
 ## 使用例
 
-![2%の民](/images/nipa-sentonotami.jpg)
+![2%の民](../images/nipa-sentonotami.jpg)
 
 > また2%の民が傷ついちゃうからね<br>—2026年5月6日 涼花みなせ
 

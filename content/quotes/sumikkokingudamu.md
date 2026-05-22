@@ -14,4 +14,4 @@ updated_at: "2026-05-21"
 
 なお、3人とも「カースト上位」に憧れている。
 
-![すみっこキングダム](/images/sumikkokingudamu.jpg)
+![すみっこキングダム](../images/sumikkokingudamu.jpg)
