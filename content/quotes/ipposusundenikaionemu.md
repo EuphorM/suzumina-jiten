@@ -1,7 +1,7 @@
 ---
 title: 一歩進んで二回おねむ
 reading: いっぽすすんでにかいおねむ
-meaning: 焦らずにゆっくる物事を進むこと
+meaning: 焦らずにゆっくり物事を進めること
 tags: [オリジナル曲, 歌詞, 生き様]
 rarity: 5
 origin: "[【オリジナル曲】オトナリティ【涼花みなせ】](https://youtu.be/vgdl2nb5eeE)（2024年6月21日）"
