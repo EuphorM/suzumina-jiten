@@ -86,9 +86,13 @@ function parseMdLinks(text: string): string {
         avatarDiv.className = 'quote-scene__avatar';
         const bubblesDiv = document.createElement('div');
         bubblesDiv.className = 'quote-scene__bubbles';
-        next.style.marginLeft = 'auto';
         avatarDiv.appendChild(img);
-        bubblesDiv.appendChild(next);
+        let sibling = next;
+        while (sibling && sibling.tagName === 'BLOCKQUOTE') {
+          const nextSibling = sibling.nextElementSibling;
+          bubblesDiv.appendChild(sibling);
+          sibling = nextSibling;
+        }
         wrapper.appendChild(avatarDiv);
         wrapper.appendChild(bubblesDiv);
         wrapper.classList.add('md-quote-scene');
@@ -169,7 +173,7 @@ function parseMdLinks(text: string): string {
 
   .md-content :global(.quote-scene__bubbles blockquote) {
     width: fit-content;
-    align-self: flex-end;
+    margin-bottom: 0;
   }
 
   .md-content :global(.quote-contributor) {
