@@ -3,8 +3,8 @@ title: お局
 reading: おきょく
 meaning: お局様（おつぼねさま）のこと。一般には威圧的なベテラン女性のことをいう。
 tags: []
-rarity: 2
-origin: "[参考動画](https://www.youtube.com/live/GsOI8Cl6dBk?t=1370s)"
+rarity: 3
+origin: "調査中"
 updated_at: "2026-05-27"
 ---
 
@@ -14,4 +14,6 @@ updated_at: "2026-05-27"
 最近ではすみキンへのみなせさんのIN率が高すぎることから、参加メンバーにボスと呼ばれている？ことを気にしており、自分がお局様にならないように気をつけている。
 
 ## 使用例
-- - お局ムーブにならないように気を付けないと
+- お局ムーブにならないように気を付けないと
+## 関連動画
+- [のんびりマイクラたいむ♡【#すみっこキングダム／Minecraft】](https://www.youtube.com/live/GsOI8Cl6dBk?t=1370s)
