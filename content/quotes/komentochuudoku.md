@@ -3,7 +3,7 @@ title: コメント中毒
 reading: こめんとちゅうどく
 meaning: ファンのコメントが読みたくて仕方なくなってしまう病。
 tags: [ファン, ひとがら]
-rarity: 2
+rarity: 4
 origin: 調査中
 updated_at: "2026-05-27"
 ---
