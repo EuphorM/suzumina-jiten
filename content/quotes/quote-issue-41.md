@@ -17,6 +17,6 @@ updated_at: "2026-05-27"
 - あたしまたコメ中でちゃった？
 
 ## 関連動画
-- [](https://www.youtube.com/live/4FLuwAG--VA?t=1084s)
+- [【Euro Truck Simulator 2】涼花と夜のまったりドライブ…💗](https://www.youtube.com/live/4FLuwAG--VA?t=1059s)
 
 情報提供者：ゆうほー
