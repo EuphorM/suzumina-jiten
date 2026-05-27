@@ -38,11 +38,9 @@ function buildIssueBody(data: SubmissionBody): string {
       .forEach((ex) => lines.push(`- ${ex.trim()}`));
   }
 
-  const origin = data.youtube_url
-    ? `"[${data.first_appearance || '参考動画'}](${data.youtube_url})"`
-    : data.first_appearance
-      ? `"${data.first_appearance}"`
-      : '調査中';
+  const origin = data.first_appearance
+    ? `"${data.first_appearance}"`
+    : '調査中';
 
   lines.push(
     '',
@@ -72,6 +70,11 @@ function buildIssueBody(data: SubmissionBody): string {
       '## 使用例',
       ...data.examples.split('\n').filter(Boolean).map((ex) => `- ${ex.trim()}`),
     );
+  }
+
+  if (data.youtube_url) {
+    const linkLabel = data.first_appearance ?? data.youtube_url;
+    lines.push('', '## 関連動画', `- [${linkLabel}](${data.youtube_url})`);
   }
 
   if (contributors.length > 0) {
