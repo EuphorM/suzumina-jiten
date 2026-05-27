@@ -27,7 +27,7 @@ function buildIssueBody(data: SubmissionBody): string {
   if (contributors.length > 0) lines.push(`**投稿者**: ${contributors.join(', ')}`);
 
   if (data.explanation) {
-    lines.push('', '### 解説', data.explanation);
+    lines.push('', '### 解説', data.explanation.replace(/\n(?!\n)/g, '\n\n'));
   }
 
   if (data.examples) {
@@ -61,7 +61,7 @@ function buildIssueBody(data: SubmissionBody): string {
     '---',
     '',
     '## 解説',
-    data.explanation ?? '（追記してください）',
+    (data.explanation ?? '（追記してください）').replace(/\n(?!\n)/g, '\n\n'),
   );
 
   if (data.examples) {
