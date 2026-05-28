@@ -4,7 +4,7 @@ reading: てんけい
 meaning: 答えが閃いた時やパズルが解けた時によく叫ぶワード。
 tags: [感嘆詞, 叫び]
 rarity: 2
-origin: 調査中
+origin: "[かわいいにゃんこのパズルゲームで遊ぶ♥【 Cats Organized Neatly／KU100バイノーラル】](https://www.youtube.com/live/Ge9n9oRYz8Y?t=2788s) (2025年4月6日)"
 updated_at: "2026-05-28"
 ---
 
@@ -14,9 +14,9 @@ updated_at: "2026-05-28"
 ひらめきが天から啓示が来たように例えている。
 
 ## 使用例
-- まって、天啓が来た！
 
-## 関連動画
-- [](https://www.youtube.com/live/Ge9n9oRYz8Y?t=2788s)
+![天啓](../images/tenkei.jpg)
+
+> まって、天啓が来た！<br>—2025年4月6日 涼花みなせ
 
 情報提供者：Siang*
