@@ -1,7 +1,7 @@
 ---
 title: お局
 reading: おきょく
-meaning: お局様（おつぼねさま）のこと。一般には威圧的なベテラン女性のことをいう。
+meaning: お局様（おつぼねさま）のこと。
 tags: []
 rarity: 3
 origin: "調査中"
