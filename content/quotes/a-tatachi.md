@@ -2,8 +2,8 @@
 title: あーたたち
 reading: あーたたち
 meaning: "みなせさんのファンへの二人称。"
-tags: [感嘆詞]
-rarity: 2
+tags: [ファン]
+rarity: 1
 origin: 調査中
 updated_at: "2026-05-31"
 ---
