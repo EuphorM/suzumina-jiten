@@ -3,7 +3,7 @@ title: シュレディンガーのオホ
 reading: しゅれでぃんがーのおほ
 meaning: 自分の収録している声が外に漏れているか分からない状態
 tags: [声優]
-rarity: 2
+rarity: 5
 origin: "調査中"
 updated_at: "2026-05-30"
 ---
