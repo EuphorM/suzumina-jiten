@@ -23,6 +23,6 @@ updated_at: "2026-05-10"
 ## 関連リンク
 
 - [色んな音でお耳癒しながらお喋り♡【KU100／ブラシ・スクイーズ・耳かき・耳ふぅ】](https://m.youtube.com/watch?v=2kcXhb-VGQ4&t=4575s)
-- [グ民](./gumin.md)
+- [グ民](./gumin)
 
 情報提供者：ゆうほー

@@ -21,6 +21,6 @@ updated_at: "2026-06-01"
 ## 関連リンク
 
 - [ざつだん🌟](https://www.youtube.com/live/FeZ3F5dr6H8?t=1880&si=0mztzc_LJ2NPFgzc)
-- [グ民](./gumin.md)
+- [グ民](./gumin)
 
 情報提供者：Siang*
