@@ -37,14 +37,14 @@
 
 | ロール | できること |
 |--------|-----------|
-| Admin（EuphorM） | PRのマージ、mainへの直接push |
+| Admin（オーナー） | PRのマージ、mainへの直接push |
 | モデレーター（write） | Draft PRの確認・編集、ドラフト解除 |
 
 ---
 
 ## 語録を公開する手順
 
-投稿Issueに`submission`ラベルが付与されると、GitHub Actionsが自動でブランチ・MDドラフト・Draft PRを作成する。モデレーターはそのDraft PRを確認・編集してからAdmin（EuphorM）のマージを待つ。
+投稿Issueに`submission`ラベルが付与されると、GitHub Actionsが自動でブランチ・MDドラフト・Draft PRを作成する。モデレーターはそのDraft PRを確認・編集してからAdminのマージを待つ。
 
 **1. Draft PRを確認する**
 
@@ -77,22 +77,9 @@ PRページ下部の「Ready for review」ボタンをクリックする。
 
 **5. Adminのマージを待つ**
 
-Admin（EuphorM）が確認してマージする。マージ後、Vercelが自動でビルド・デプロイを開始する（1〜2分程度）。
+Adminが確認してマージする。マージ後、Vercelが自動でビルド・デプロイを開始する（1〜2分程度）。
 
 ---
-
-### ローカルで編集する場合（エンジニア向け）
-
-```bash
-git fetch origin
-git checkout quote/issue-XX   # 対象のIssue番号に合わせる
-
-# ファイルを編集後
-git add content/quotes/
-git commit -m "fix: 語録「語録名」の内容を修正"
-git push origin quote/issue-XX
-# GitHub上でDraft PRを「Ready for review」に変更する
-```
 
 ---
 
