@@ -20,6 +20,6 @@ updated_at: "2026-05-31"
 
 ## 関連リンク
 
-- [ざつだん🌟](https://www.youtube.com/live/FeZ3F5dr6H8?si=GdLJByBYk5BG6qod&t=2013)
+- [ざつだん🌟](https://www.youtube.com/live/FeZ3F5dr6H8?t=1880&si=0mztzc_LJ2NPFgzc)
 
 情報提供者：Siang*
