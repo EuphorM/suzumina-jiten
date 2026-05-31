@@ -3,7 +3,7 @@ title: なにもしてないのに
 reading: なにもしてないのに
 meaning: 重大な事態を招きながら、無実を訴える言い訳
 tags: [ゲーム, 言い訳, 自爆]
-rarity: 3
+rarity: 4
 origin: 調査中
 updated_at: "2026-05-21"
 ---
