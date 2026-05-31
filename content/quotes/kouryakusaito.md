@@ -4,7 +4,7 @@ reading: こうりゃくさいと
 meaning: ①自らカンニング疑惑を提起する際のそのカンニング先。 ②ゲームに詳しいグ民さんたちのこと。
 tags: [ゲーム, ファン]
 rarity: 3
-origin: "[かわいいにゃんこのパズルゲームで遊ぶ♥【 Cats Organized Neatly／KU100バイノーラル】](https://www.youtube.com/live/Ge9n9oRYz8Y?t=4111&si=EdKxfuqKSRtROEwv)(2025年4月6日)"
+origin: "[かわいいにゃんこのパズルゲームで遊ぶ♥【 Cats Organized Neatly／KU100バイノーラル】](https://www.youtube.com/live/Ge9n9oRYz8Y?t=4111&si=EdKxfuqKSRtROEwv)（2025年4月6日）"
 updated_at: "2026-06-01"
 ---
 
@@ -17,7 +17,7 @@ updated_at: "2026-06-01"
 
 ![攻略サイト](../images/kouryakusaito.jpg)
 
-> 私攻略サイト見てないからね！
+> 私攻略サイト見てないからね！<br>—2025年5月21日 涼花みなせ
 
 - 攻略サイトのみんなを待とう(2026年5月30日)
 
