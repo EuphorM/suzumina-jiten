@@ -1,7 +1,7 @@
 ---
 title: 攻略サイト
 reading: こうりゃくさいと
-meaning: ①自らカンニング疑惑を提起する時のそのカンニング先。②ゲームに詳しいグ民さんたちのこと。
+meaning: "①自らカンニング疑惑を提起する時のそのカンニング先。\n②ゲームに詳しいグ民さんたちのこと。"
 tags: [ゲーム, ファン]
 rarity: 3
 origin: "[かわいいにゃんこのパズルゲームで遊ぶ♥【 Cats Organized Neatly／KU100バイノーラル】](https://www.youtube.com/live/Ge9n9oRYz8Y?t=4111&si=EdKxfuqKSRtROEwv)（2025年4月6日）"
