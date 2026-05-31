@@ -337,36 +337,6 @@ a:visited {
   flex-wrap: wrap;
 }
 
-/* 語録詳細ページ */
-.quote-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  background: var(--bg-muted);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-}
-
-.quote-info-table th,
-.quote-info-table td {
-  padding: 0.5rem 0.75rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.9375rem;
-}
-
-.quote-info-table tr:last-child th,
-.quote-info-table tr:last-child td {
-  border-bottom: none;
-}
-
-.quote-info-table th {
-  width: 5em;
-  color: var(--text-muted);
-  font-weight: normal;
-  white-space: nowrap;
-}
 
 .quote-usage ul {
   padding-left: 1.5rem;
@@ -672,7 +642,5 @@ a:visited {
     font-size: 1.5rem;
   }
 
-  .quote-info-table th {
-    width: 4.5em;
-  }
+
 }
