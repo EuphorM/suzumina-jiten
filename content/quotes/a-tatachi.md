@@ -5,7 +5,7 @@ meaning: "みなせさんのファンへの二人称"
 tags: [ファン]
 rarity: 1
 origin: 調査中
-updated_at: "2026-05-31"
+updated_at: "2026-06-01"
 ---
 
 ## 解説
