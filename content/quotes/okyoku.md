@@ -2,7 +2,7 @@
 title: お局
 reading: おきょく
 meaning: お局様（おつぼねさま）のこと。
-tags: []
+tags: [悪口]
 rarity: 3
 origin: "調査中"
 updated_at: "2026-05-27"
