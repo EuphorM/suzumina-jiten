@@ -24,4 +24,4 @@ updated_at: "2026-05-11"
 
 ## 関連リンク
 
-- [【ひとりで】マリパであそぶ！！【定期配信第14回】](https://www.youtube.com/live/z7DX75B9r9s?t=4729&si=O0fNjLS7MPgY1w6)
+- [バース、始まりのマシュマロ](https://www.youtube.com/live/z7DX75B9r9s?t=4729&si=O0fNjLS7MPgY1w6)
