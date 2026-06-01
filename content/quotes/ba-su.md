@@ -2,7 +2,7 @@
 title: バース
 reading: ばーす
 meaning: バースデー、誕生日のこと。転じてYoutube配信のリスナーの誕生日お祝いコーナーのこと。
-tags: []
+tags: [恒例企画]
 rarity: 1
 origin: "[【マリパ】リバーでサバイバル＆なりきりビートYO！【定期配信第15回】](https://www.youtube.com/live/ws3lPwRz0Og?t=3800s)(2020年11月15日)"
 updated_at: "2026-05-11"
