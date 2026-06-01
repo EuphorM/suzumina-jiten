@@ -10,7 +10,7 @@ updated_at: "2026-06-01"
 
 ## 解説
 
-ゲーム内のNPCのこと。人格を持たない者たちには、普段のみなせさんの温かい人柄は一切適用されない。
+ゲーム内のNPCのこと。人格を持たない者たちに、みなせさんの温かい人柄は一切適用されない。
 
 ## 使用例
 
@@ -20,4 +20,3 @@ updated_at: "2026-06-01"
 ## 関連URL
 - [こいつらってコンピューター？](https://www.youtube.com/live/fLXbsQWbGuk?si=TvnfyOO_G3NM_aI8&t=2912)
 - [こいつらなら礼言わんでいいわ](https://www.youtube.com/live/fLXbsQWbGuk?si=l77RYVZ6hoBh30Ba&t=3925)
-
