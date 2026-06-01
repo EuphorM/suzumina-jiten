@@ -2,7 +2,7 @@
 title: 虫けら
 reading: むしけら
 meaning: 虫のようなもの
-tags: [罵倒]
+tags: [悪口]
 rarity: 4
 origin: "[【みやぢ×みなせ】シェバは俺の女。まもる！！！【BIOHAZARD 5／#3】](https://www.youtube.com/watch?v=g2h3dk5i4Fk&t=4214s)（2025年8月20日）"
 updated_at: "2026-05-10"
