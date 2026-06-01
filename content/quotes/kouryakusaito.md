@@ -19,6 +19,6 @@ updated_at: "2026-06-01"
 
 > 私攻略サイト見てないからね！<br>—2025年5月21日 涼花みなせ
 
-- [攻略サイトのみんなを待とう](https://www.youtube.com/live/LpkHvKg_DX8?t=1073&si=uQyIfx-u5v8NWEQR)(2026年5月30日)
+- [攻略サイトのみんなを待とう](https://www.youtube.com/live/LpkHvKg_DX8?t=1073&si=uQyIfx-u5v8NWEQR)
 
 情報提供者：ゆうほー
