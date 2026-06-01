@@ -17,6 +17,6 @@ updated_at: "2026-06-01"
 ![無機物](../images/mukibutsu.jpg)
 > 無機物相手になら私は1位になれるかもしれない<br>-2020年11月8日涼花みなせ
 
-## 関連URL
+## 関連リンク
 - [こいつらってコンピューター？](https://www.youtube.com/live/fLXbsQWbGuk?si=TvnfyOO_G3NM_aI8&t=2912)
 - [こいつらなら礼言わんでいいわ](https://www.youtube.com/live/fLXbsQWbGuk?si=l77RYVZ6hoBh30Ba&t=3925)
