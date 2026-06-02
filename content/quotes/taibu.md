@@ -1,7 +1,7 @@
 ---
 title: 退部
 reading: たいぶ
-meaning: 所属している部活動から抜けること。転じてゲーム、習慣、サブスクなどをやめること。
+meaning: 部活動から抜けること。転じてゲーム、習慣、サブスクなどをやめること。
 tags: [部活, ゲーム]
 rarity: 2
 origin: "[6月8日】23：00～⭐switchスポーツ⭐涼花みなせさんと遊びます(⋈◍＞◡＜◍)。✧♡💗](https://m.youtube.com/watch?v=GN7oNyYcw8c&t=1267s&pp=2AHzCZACAYoIAkAB&ra=m) (2022年6月8日)"
