@@ -4,21 +4,24 @@ reading: たいぶ
 meaning: 所属している部活動から抜けること。転じてゲーム、習慣、サブスクなどをやめること。
 tags: [部活, ゲーム]
 rarity: 2
-origin: 調査中
+origin: "[6月8日】23：00～⭐switchスポーツ⭐涼花みなせさんと遊びます(⋈◍＞◡＜◍)。✧♡💗](https://m.youtube.com/watch?v=GN7oNyYcw8c&t=1267s&pp=2AHzCZACAYoIAkAB&ra=m) (2022年6月8日)"
 updated_at: "2026-06-03"
 ---
 
 ## 解説
 
+MOMOKA。さんとの突発SwitchSportsコラボにて、バドミントンのコーチをしてもらっていたが、ストレート負けを喫したことで「もうこのバドミントンクラブは辞めます」と宣言し退部した。
+
+また、浅木式さんとの[SwitchSportsコラボ](https://m.youtube.com/watch?v=FfY3dPu8FgE&t=4469s&pp=2AH1IpACAYoIAkAB&ra=m)でも部活に入っては退部を繰り返しており、とうとうグ民さんに「もう入る部活がない」と言われてしまったが、式さんは「いいんだよ、楽しければどんな部活入ってもいいんだよ」と温かい言葉を掛けていた。
+
+ちなみにこの時の対戦成績は17戦中、式さん15勝、みなせさん2勝(チャンバラでの勝利)であり、元剣道部として充分すぎる結果を残した。
 
 
-浅木式さんとの[Switch Sportsコラボ](https://m.youtube.com/watch?v=FfY3dPu8FgE&t=4469s&pp=2AH1IpACAYoIAkAB&ra=m)では退部を繰り返しており、グ民さんに「もう入る部活がない」と言われてしまった。
-
-対戦成績は式さん15勝、みなせさん2勝(勝ち星はすべてチャンバラ)という元剣道部としては充分すぎる結果を残した👏
+<figure>
+  <img src="../images/taibu.jpg" alt="退部">
+  <figcaption>式さんに勝利した数少ない瞬間</figcaption>
+</figure>
 
 ## 使用例
-
+- もう退部退部
 - めんどくさいからジム退部しちゃった。
-
-## 関連リンク
-- []
