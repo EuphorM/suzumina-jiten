@@ -16,6 +16,6 @@ updated_at: "2026-05-30"
 
 ## 参考
 
-[シュレーディンガーの猫 - wikipedia](https://ja.wikipedia.org/wiki/シュレーディンガーの猫) とは、「箱の中の猫が生きているか死んでいるかは開けるまで分からない」という量子力学のコペンハーゲン解釈を説明した思考実験である。
+[シュレーディンガーの猫 - wikipedia](https://ja.wikipedia.org/wiki/シュレーディンガーの猫)
 
 情報提供者：Siang*
