@@ -1,7 +1,7 @@
 ---
 title: ビーストモード
 reading: びーすともーど
-meaning: みなせさんかみやぢさんが暴走した状態
+meaning: みなせさん、みやぢさんのどちらかが暴走した状態
 tags: [配信, 声優]
 rarity: 3
 origin: "調査中"
