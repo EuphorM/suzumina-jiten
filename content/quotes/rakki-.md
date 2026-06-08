@@ -1,7 +1,7 @@
 ---
 title: ラッキー
 reading: らっきー
-meaning: 欲しいものを手に入れた時や幸運な時の喜びの声
+meaning: 欲しいものを手に入れた時や幸運な時に出る喜びの声
 tags: [ゲーム, 感嘆詞]
 rarity: 3
 origin: 調査中
