@@ -27,7 +27,6 @@ updated_at: "2026-06-08"
 
 [腕相撲大会＆カエル装備限定参加型延長戦🐸！詳細は概要欄みてね🌸【モンスターハンターワイルズ／ネタバレ含みます】](https://www.youtube.com/watch?v=MFnXJLPg_sc&t=6597s)
 
-
 [【みやぢ×みなせ】怖がり2人で初見協力プレイ。【BIOHAZARD 5／#2】](https://www.youtube.com/watch?v=MFnXJLPg_sc&t=6597s)
 
 情報提供者：Bullard
