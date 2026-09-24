@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aircombat-selfplay"
+version = "0.1.0"
+description = "空戦AIチャレンジ（第5回ルール相当）の自己対戦環境"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "CC0-1.0" }
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+train = ["torch>=2.1"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+aircombat = "aircombat.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["aircombat*"]
+
+[tool.setuptools.package-data]
+aircombat = ["viewer/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

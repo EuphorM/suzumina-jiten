@@ -1,0 +1,15 @@
+{
+  "env": {
+    "scenario": {"mode": "2d", "fixed_altitude": 10000}
+  },
+  "train": {
+    "iterations": 200,
+    "episodes_per_iter": 32,
+    "num_workers": 3,
+    "envs_per_worker": 4,
+    "eval_opponents": ["rule", "rule_defensive"],
+    "league": {
+      "initial_opponents": ["rule", "rule_aggressive", "rule_defensive", "random", "straight"]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "env": {
+    "scenario": {"mode": "3d", "time_limit": 900}
+  },
+  "train": {
+    "iterations": 5,
+    "episodes_per_iter": 8,
+    "num_workers": 2,
+    "envs_per_worker": 4,
+    "hidden": 64,
+    "snapshot_interval": 2,
+    "eval_interval": 5,
+    "eval_episodes": 4,
+    "replay_interval": 5
+  }
+}

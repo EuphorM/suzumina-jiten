@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>空戦リプレイ</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #1d232b;
+  --muted: #5f6b7a;
+  --line: #d7dde5;
+  --grid: #e8ecf1;
+  --blue: #1f6fd1;
+  --blue-soft: rgba(31, 111, 209, 0.28);
+  --red: #d23a3a;
+  --red-soft: rgba(210, 58, 58, 0.28);
+  --accent: #0f7b6c;
+  --warn: #b7791f;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151b;
+    --panel: #1a2029;
+    --ink: #e6ebf2;
+    --muted: #9aa6b5;
+    --line: #2d3643;
+    --grid: #222a35;
+    --blue: #5ea2ff;
+    --blue-soft: rgba(94, 162, 255, 0.3);
+    --red: #ff6b6b;
+    --red-soft: rgba(255, 107, 107, 0.3);
+    --accent: #3cc4ae;
+    --warn: #f0b85a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11151b;
+  --panel: #1a2029;
+  --ink: #e6ebf2;
+  --muted: #9aa6b5;
+  --line: #2d3643;
+  --grid: #222a35;
+  --blue: #5ea2ff;
+  --blue-soft: rgba(94, 162, 255, 0.3);
+  --red: #ff6b6b;
+  --red-soft: rgba(255, 107, 107, 0.3);
+  --accent: #3cc4ae;
+  --warn: #f0b85a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+main { max-width: 1180px; margin: 0 auto; padding: 16px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 12px; }
+h1 { font-size: 18px; margin: 0; }
+.vs { font-weight: 600; }
+.vs .b { color: var(--blue); }
+.vs .r { color: var(--red); }
+.muted { color: var(--muted); }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 12px; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+canvas { display: block; width: 100%; height: auto; touch-action: none; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.controls input[type=range] { flex: 1 1 200px; min-width: 0; accent-color: var(--accent); }
+button, select {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 4px 10px; cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+.time { font-variant-numeric: tabular-nums; min-width: 92px; text-align: right; }
+.score { display: grid; grid-template-columns: 1fr auto auto; gap: 2px 10px; font-variant-numeric: tabular-nums; }
+.score .h { color: var(--muted); font-size: 12px; }
+.teamb { color: var(--blue); font-weight: 600; }
+.teamr { color: var(--red); font-weight: 600; }
+h2 { font-size: 14px; margin: 0 0 6px; }
+.log { max-height: 360px; overflow-y: auto; font-size: 12px; font-variant-numeric: tabular-nums; }
+.log div { padding: 2px 0; border-bottom: 1px solid var(--grid); }
+.log .future { opacity: 0.35; }
+.legend { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.side { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>空戦リプレイ</h1>
+    <span class="vs"><span class="b" id="blueName"></span> vs <span class="r" id="redName"></span></span>
+    <span class="muted" id="meta"></span>
+  </header>
+  <div class="layout">
+    <div class="panel">
+      <canvas id="top" width="1000" height="760" aria-label="上面図"></canvas>
+      <canvas id="side" width="1000" height="170" aria-label="高度（横から見た図）"></canvas>
+      <div class="controls">
+        <button id="play" type="button">再生</button>
+        <select id="speed" aria-label="再生速度">
+          <option value="5">5倍速</option>
+          <option value="10" selected>10倍速</option>
+          <option value="30">30倍速</option>
+          <option value="60">60倍速</option>
+        </select>
+        <input id="seek" type="range" min="0" max="0" value="0" aria-label="時刻">
+        <span class="time" id="clock"></span>
+      </div>
+      <div class="legend">▲ 戦闘機　◆ 護衛対象機　× 撃墜　● 誘導弾（実線はシーカー捕捉中）　外周の枠は戦闘空域</div>
+    </div>
+    <div class="side">
+      <div class="panel">
+        <h2>結果</h2>
+        <div class="score" id="score"></div>
+      </div>
+      <div class="panel">
+        <h2>イベント</h2>
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const R = /*__REPLAY_DATA__*/null;
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const top = $("top"), side = $("side");
+  const tctx = top.getContext("2d"), sctx = side.getContext("2d");
+  const frames = R.frames, N = frames.length;
+  const ac = R.aircraft;
+  const XL = R.arena.x_limit, YL = R.arena.y_limit, AMAX = R.arena.alt_max;
+  const nameOf = (i) => {
+    const a = ac[i];
+    if (a.escort) return (a.team === 0 ? "青" : "赤") + "護衛";
+    const idx = ac.filter((b) => b.team === a.team && !b.escort && b.id <= a.id).length;
+    return (a.team === 0 ? "青" : "赤") + idx;
+  };
+  $("blueName").textContent = R.blue;
+  $("redName").textContent = R.red;
+  $("meta").textContent = `${R.mode.toUpperCase()}・seed ${R.seed ?? "-"}・${frames[N - 1].t.toFixed(0)} 秒`;
+
+  // 結果
+  const o = R.outcome || {};
+  const winText = o.winner === 0 ? "青の勝ち" : o.winner === 1 ? "赤の勝ち" : "引き分け";
+  const reasons = { escort_destroyed: "護衛対象機を撃墜", both_escorts_destroyed: "双方の護衛対象機が撃墜",
+    time_limit: "時間切れ", no_means: "双方とも攻撃手段なし" };
+  const sc = $("score");
+  const rows = [
+    ["", "青", "赤"],
+    ["スコア", (o.scores || [0, 0])[0].toFixed(3), (o.scores || [0, 0])[1].toFixed(3)],
+    ["発射数", (o.launched || [0, 0])[0], (o.launched || [0, 0])[1]],
+    ["命中数", (o.hits || [0, 0])[0], (o.hits || [0, 0])[1]],
+    ["喪失した戦闘機", (o.fighters_lost || [0, 0])[0], (o.fighters_lost || [0, 0])[1]],
+  ];
+  rows.forEach((r, i) => r.forEach((c, j) => {
+    const d = document.createElement("div");
+    d.textContent = c;
+    if (i === 0) d.className = j === 1 ? "teamb" : j === 2 ? "teamr" : "h";
+    else if (j === 0) d.className = "h";
+    sc.appendChild(d);
+  }));
+  const res = document.createElement("div");
+  res.style.gridColumn = "1 / -1";
+  res.style.marginTop = "6px";
+  res.textContent = `${winText}（${reasons[o.reason] || o.reason || ""}、${(o.time ?? 0).toFixed(0)} 秒）`;
+  sc.appendChild(res);
+
+  // イベントログ
+  const kinds = { launch: "発射", hit: "命中", miss: "外れ", destroyed: "撃墜" };
+  const causes = { missile: "", crash: "（墜落）", out_of_bounds: "（空域外）" };
+  const log = $("log");
+  const evEls = R.events.map((e) => {
+    const d = document.createElement("div");
+    let text;
+    if (e.kind === "destroyed") text = `${nameOf(e.target)} ${kinds[e.kind]}${causes[e.detail] ?? ""}`;
+    else if (e.kind === "miss") text = `${nameOf(e.actor)} → ${nameOf(e.target)} ${kinds[e.kind]}`;
+    else text = `${nameOf(e.actor)} → ${nameOf(e.target)} ${kinds[e.kind]}`;
+    d.textContent = `${e.t.toFixed(1).padStart(6)} 秒  ${text}`;
+    d.style.color = e.team === 0 ? css("--blue") : css("--red");
+    log.appendChild(d);
+    return [e.t, d];
+  });
+
+  // 描画
+  const W = top.width, H = top.height, pad = 24;
+  const sx = (x) => pad + (x + XL) / (2 * XL) * (W - 2 * pad);
+  const sy = (y) => pad + (YL - y) / (2 * YL) * (H - 2 * pad);
+  const SW = side.width, SH = side.height;
+  const hx = sx;
+  const hy = (z) => SH - 18 - z / AMAX * (SH - 30);
+  const TRAIL = 60;
+
+  // キャンバスが縮小表示されても文字や記号が読める大きさになるよう拡大率を掛ける
+  const zoom = (cv) => Math.min(3, Math.max(1, cv.width / Math.max(1, cv.getBoundingClientRect().width)));
+
+  function drawTop(fi) {
+    const z = zoom(top);
+    const C = { blue: css("--blue"), red: css("--red"), grid: css("--grid"), line: css("--line"),
+      muted: css("--muted"), bs: css("--blue-soft"), rs: css("--red-soft") };
+    tctx.clearRect(0, 0, W, H);
+    tctx.strokeStyle = C.grid; tctx.lineWidth = 1;
+    for (let x = -XL; x <= XL + 1; x += 20000) { tctx.beginPath(); tctx.moveTo(sx(x), sy(YL)); tctx.lineTo(sx(x), sy(-YL)); tctx.stroke(); }
+    for (let y = -YL; y <= YL + 1; y += 25000) { tctx.beginPath(); tctx.moveTo(sx(-XL), sy(y)); tctx.lineTo(sx(XL), sy(y)); tctx.stroke(); }
+    tctx.strokeStyle = C.line; tctx.lineWidth = 2; tctx.strokeRect(sx(-XL), sy(YL), sx(XL) - sx(-XL), sy(-YL) - sy(YL));
+    tctx.fillStyle = C.muted; tctx.font = `${12 * z}px system-ui`; tctx.fillText("格子 20 km", sx(-XL) + 4, sy(-YL) - 6);
+    const f = frames[fi];
+    const lo = Math.max(0, fi - TRAIL);
+    // 航跡
+    for (let i = 0; i < ac.length; i++) {
+      tctx.strokeStyle = ac[i].team === 0 ? C.bs : C.rs; tctx.lineWidth = 2;
+      tctx.beginPath();
+      for (let k = lo; k <= fi; k++) {
+        const a = frames[k].a[i];
+        if (k === lo) tctx.moveTo(sx(a[0]), sy(a[1])); else tctx.lineTo(sx(a[0]), sy(a[1]));
+      }
+      tctx.stroke();
+    }
+    // 誘導弾
+    const trails = {};
+    for (let k = Math.max(0, fi - 20); k <= fi; k++) for (const m of frames[k].m) (trails[m[0]] ||= []).push(m);
+    for (const m of f.m) {
+      const col = m[1] === 0 ? C.blue : C.red;
+      const tr = trails[m[0]] || [];
+      tctx.strokeStyle = col; tctx.lineWidth = 1; tctx.setLineDash([3, 3]);
+      tctx.beginPath(); tr.forEach((p, j) => j ? tctx.lineTo(sx(p[2]), sy(p[3])) : tctx.moveTo(sx(p[2]), sy(p[3]))); tctx.stroke();
+      tctx.setLineDash([]);
+      const tg = f.a[m[5]];
+      if (m[6]) { tctx.globalAlpha = 0.6; tctx.beginPath(); tctx.moveTo(sx(m[2]), sy(m[3])); tctx.lineTo(sx(tg[0]), sy(tg[1])); tctx.stroke(); tctx.globalAlpha = 1; }
+      tctx.fillStyle = col; tctx.beginPath(); tctx.arc(sx(m[2]), sy(m[3]), 3 * z, 0, 2 * Math.PI); tctx.fill();
+    }
+    // 機体
+    for (let i = 0; i < ac.length; i++) {
+      const a = f.a[i], col = ac[i].team === 0 ? C.blue : C.red;
+      const x = sx(a[0]), y = sy(a[1]);
+      tctx.save(); tctx.translate(x, y); tctx.scale(z, z);
+      tctx.fillStyle = col; tctx.strokeStyle = col;
+      if (!a[4]) {
+        tctx.lineWidth = 2; tctx.beginPath(); tctx.moveTo(-5, -5); tctx.lineTo(5, 5); tctx.moveTo(5, -5); tctx.lineTo(-5, 5); tctx.stroke();
+      } else {
+        tctx.rotate(-a[3] * Math.PI / 180);
+        tctx.beginPath();
+        if (ac[i].escort) { tctx.moveTo(9, 0); tctx.lineTo(0, 7); tctx.lineTo(-9, 0); tctx.lineTo(0, -7); }
+        else { tctx.moveTo(9, 0); tctx.lineTo(-6, 5.5); tctx.lineTo(-3, 0); tctx.lineTo(-6, -5.5); }
+        tctx.closePath(); tctx.fill();
+      }
+      tctx.restore();
+      // レーダー航跡に載っているか（相手陣営に探知されている機体に輪）
+      const enemyTeam = 1 - ac[i].team;
+      if (a[4] && f.trk[enemyTeam].includes(i)) {
+        tctx.strokeStyle = enemyTeam === 0 ? C.blue : C.red; tctx.lineWidth = 1; tctx.globalAlpha = 0.5;
+        tctx.beginPath(); tctx.arc(x, y, 12 * z, 0, 2 * Math.PI); tctx.stroke(); tctx.globalAlpha = 1;
+      }
+      tctx.fillStyle = C.muted; tctx.font = `${11 * z}px system-ui`;
+      tctx.fillText(nameOf(i) + (ac[i].escort || !a[4] ? "" : ` ${a[5]}`), x + 10 * z, y - 8 * z);
+    }
+  }
+
+  function drawSide(fi) {
+    const k = zoom(side);
+    const C = { blue: css("--blue"), red: css("--red"), grid: css("--grid"), muted: css("--muted") };
+    sctx.clearRect(0, 0, SW, SH);
+    sctx.strokeStyle = C.grid; sctx.lineWidth = 1;
+    for (let z = 0; z <= AMAX; z += 5000) { sctx.beginPath(); sctx.moveTo(hx(-XL), hy(z)); sctx.lineTo(hx(XL), hy(z)); sctx.stroke(); }
+    sctx.fillStyle = C.muted; sctx.font = `${11 * k}px system-ui`;
+    sctx.textAlign = "right"; sctx.fillText("横から見た高度 (km)", SW - 4, 12 * k); sctx.textAlign = "left";
+    for (let z = 0; z <= AMAX; z += 5000) sctx.fillText(String(z / 1000), 2, hy(z) - 2);
+    const f = frames[fi];
+    for (const m of f.m) { sctx.fillStyle = m[1] === 0 ? C.blue : C.red; sctx.fillRect(hx(m[2]) - 1.5 * k, hy(m[4]) - 1.5 * k, 3 * k, 3 * k); }
+    for (let i = 0; i < ac.length; i++) {
+      const a = f.a[i]; if (!a[4]) continue;
+      sctx.fillStyle = ac[i].team === 0 ? C.blue : C.red;
+      sctx.beginPath(); sctx.arc(hx(a[0]), hy(a[2]), (ac[i].escort ? 5 : 3.5) * k, 0, 2 * Math.PI); sctx.fill();
+    }
+  }
+
+  let fi = 0, playing = false, last = 0, acc = 0;
+  const seek = $("seek");
+  seek.max = String(N - 1);
+  function render() {
+    drawTop(fi);
+    if (R.mode === "3d") drawSide(fi); else side.style.display = "none";
+    const t = frames[fi].t;
+    $("clock").textContent = `${t.toFixed(0)} / ${frames[N - 1].t.toFixed(0)} 秒`;
+    seek.value = String(fi);
+    let lastPast = null;
+    for (const [et, el] of evEls) { el.classList.toggle("future", et > t); if (et <= t) lastPast = el; }
+    if (lastPast) log.scrollTop = Math.max(0, lastPast.offsetTop - log.offsetTop - log.clientHeight + lastPast.offsetHeight);
+    else log.scrollTop = 0;
+  }
+  function tick(now) {
+    if (!playing) return;
+    const dt = (now - last) / 1000; last = now;
+    acc += dt * Number($("speed").value) / R.dt;
+    const adv = Math.floor(acc); acc -= adv;
+    if (adv > 0) { fi = Math.min(N - 1, fi + adv); render(); }
+    if (fi >= N - 1) { playing = false; $("play").textContent = "再生"; return; }
+    requestAnimationFrame(tick);
+  }
+  $("play").addEventListener("click", () => {
+    if (fi >= N - 1) fi = 0;
+    playing = !playing; $("play").textContent = playing ? "一時停止" : "再生";
+    if (playing) { last = performance.now(); acc = 0; requestAnimationFrame(tick); }
+  });
+  seek.addEventListener("input", () => { fi = Number(seek.value); render(); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  addEventListener("resize", render);
+  render();
+})();
+</script>
+</body>
+</html>

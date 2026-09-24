@@ -1,0 +1,26 @@
+{
+  "env": {
+    "scenario": {"mode": "3d"}
+  },
+  "train": {
+    "iterations": 300,
+    "episodes_per_iter": 32,
+    "num_workers": 3,
+    "envs_per_worker": 4,
+    "gamma": 0.995,
+    "gae_lambda": 0.95,
+    "hidden": 128,
+    "snapshot_interval": 10,
+    "eval_interval": 10,
+    "eval_episodes": 16,
+    "eval_opponents": ["rule", "rule_defensive"],
+    "replay_interval": 50,
+    "ppo": {"lr": 0.0003, "epochs": 4, "minibatch_size": 512, "entropy_coef": 0.01},
+    "league": {
+      "self_play_prob": 0.35,
+      "pfsp_alpha": 2.0,
+      "max_snapshots": 20,
+      "initial_opponents": ["rule", "rule_aggressive", "rule_defensive", "random", "straight"]
+    }
+  }
+}
