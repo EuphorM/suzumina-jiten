@@ -172,3 +172,20 @@ def test_rewards_are_zero_sum_for_missile_kills():
             assert r.sum() == pytest.approx(0.0, abs=1e-9)
         total += r
     assert np.isfinite(total).all()
+
+
+def test_2d_mode_masks_pitch_and_keeps_altitude():
+    env = AirCombatEnv(EnvConfig.from_dict({"scenario": {"mode": "2d", "fixed_altitude": 9_000}}))
+    obs = env.reset(seed=0)
+    d_turn, d_pitch = action_dims(env.nf)[:2]
+    pitch_mask = obs[0].action_mask[:, d_turn : d_turn + d_pitch]
+    assert pitch_mask.sum(axis=1).tolist() == [1] * env.nf and pitch_mask[:, 2].all()
+    agents = [make_agent("rule"), make_agent("rule")]
+    for k in (0, 1):
+        agents[k].reset(k, env.cfg, seed=0)
+    for _ in range(200):
+        obs, _, done, _ = env.step({k: agents[k].act(obs[k]) for k in (0, 1)})
+        if done:
+            break
+    np.testing.assert_allclose(env.sim.pos[:, 2], 9_000.0)
+    assert np.all(env.sim.gamma == 0.0)

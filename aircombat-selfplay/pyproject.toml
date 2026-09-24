@@ -13,6 +13,7 @@ dependencies = ["numpy>=1.24"]
 
 [project.optional-dependencies]
 train = ["torch>=2.1"]
+gym = ["gymnasium>=0.29"]
 dev = ["pytest>=7"]
 
 [project.scripts]

@@ -34,7 +34,7 @@ pip install -e .
 
 # 学習もする場合（PyTorch。GPU が無ければ CPU 版で十分動きます）
 pip install torch --index-url https://download.pytorch.org/whl/cpu
-pip install -e ".[train,dev]"
+pip install -e ".[train,gym,dev]"
 ```
 
 ## クイックスタート
@@ -155,6 +155,18 @@ print(info["outcome"].to_dict())          # 勝者・理由・スコア・発射
 
 終局時に `2 × (スコア − 0.5)`、途中で敵戦闘機の撃墜 +0.05・味方戦闘機の喪失 −0.05（`reward` 設定で変更可）。スコアそのものではなく学習用の値です。
 
+### 他の強化学習ライブラリから使う（Gymnasium 互換）
+
+`SingleTeamEnv` は片方の陣営だけを外から操作し、相手は固定のエージェントが動かす Gymnasium 互換の環境です（`pip install -e ".[gym]"`）。Stable-Baselines3 などにそのまま渡せ、`action_masks()` は sb3-contrib の MaskablePPO が使う形の行動マスクを返します。
+
+```python
+from aircombat.wrappers import SingleTeamEnv
+
+env = SingleTeamEnv(opponent="rule", team="random")   # 相手はエージェント名・モデルのパス・Agent インスタンス
+obs, info = env.reset(seed=0)                          # obs は "self" / "ally" / "enemy" / "mws" / "action_mask" の辞書
+obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
+```
+
 ## 自己対戦学習の仕組み
 
 ### 模倣学習による初期化（`aircombat pretrain`）
@@ -251,7 +263,7 @@ aircombat eval my_agents:Kamikaze rule rule_defensive -n 10
 ## 開発
 
 ```bash
-pytest            # 37 件、約 20 秒
+pytest            # 42 件、約 20 秒（gymnasium が無ければラッパーのテストは飛ばす）
 ```
 
 ```
@@ -266,6 +278,7 @@ aircombat/
 ├── obs.py               # 観測・行動の定義
 ├── env.py               # 二陣営の対戦環境
 ├── match.py             # 対戦の実行・リプレイ記録
+├── wrappers.py          # Gymnasium 互換ラッパー
 ├── evaluate.py          # 総当たり戦・Glicko-2
 ├── agents/              # ランダム・直進・ルールベース
 ├── selfplay/            # 自己対戦学習（モデル・PPO・ロールアウト・リーグ・Glicko-2・模倣学習・学習ループ）
