@@ -183,3 +183,16 @@ def test_deterministic_eval_specs_use_greedy_actions():
     specs = [EpisodeSpec(seed=7, opponent="straight", learner_team=0, collect=False, deterministic=True)] * 2
     _, results = worker.run(specs)
     assert results[0].outcome == results[1].outcome  # 決定的なので同じシードなら同じ結果
+
+
+def test_init_checkpoint_network_config_takes_precedence(tmp_path):
+    from aircombat.selfplay.model import save_checkpoint
+
+    env_cfg = EnvConfig()
+    src = PolicyNet(ModelConfig(hidden=16))
+    save_checkpoint(tmp_path / "init.pt", src, env_cfg.to_dict())
+    cfg = TrainConfig.from_dict({"hidden": 64, "num_workers": 0, "init_checkpoint": str(tmp_path / "init.pt")})
+    trainer = SelfPlayTrainer(env_cfg, cfg, tmp_path / "run", log=lambda *_: None)
+    assert trainer.model_cfg.hidden == 16
+    for k, v in src.state_dict().items():
+        assert torch.equal(v, trainer.model.state_dict()[k])

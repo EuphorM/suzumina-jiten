@@ -91,7 +91,18 @@ class SelfPlayTrainer:
             (self.run_dir / sub).mkdir(parents=True, exist_ok=True)
         torch.manual_seed(cfg.seed)
         self.rng = np.random.default_rng(cfg.seed)
+        ckpt_path = self.run_dir / "checkpoint.pt"
+        resuming = resume and ckpt_path.exists()
         self.model_cfg = ModelConfig(num_fighters=env_cfg.scenario.num_fighters, hidden=cfg.hidden)
+        # 再開・初期化に使うチェックポイントのネットワーク構成を優先する（hidden の食い違いで読み込めない事故を防ぐ）
+        source = ckpt_path if resuming else cfg.init_checkpoint
+        if source:
+            saved = ModelConfig(**torch.load(source, map_location="cpu", weights_only=False)["model_cfg"])
+            if saved != self.model_cfg:
+                self.log(f"using network config from {source}: {saved.to_dict()}")
+                if saved.num_fighters != env_cfg.scenario.num_fighters:
+                    raise ValueError("checkpoint was trained for a different number of fighters")
+            self.model_cfg = saved
         self.model = PolicyNet(self.model_cfg)
         self.model.eval()
         self.ppo = PPO(self.model, cfg.ppo)
@@ -101,8 +112,7 @@ class SelfPlayTrainer:
         self._pool = None
         self._local: RolloutWorker | None = None
 
-        ckpt_path = self.run_dir / "checkpoint.pt"
-        if resume and ckpt_path.exists():
+        if resuming:
             self._load(ckpt_path)
             self.log(f"resumed from {ckpt_path} (iteration {self.iteration})")
         elif cfg.init_checkpoint:

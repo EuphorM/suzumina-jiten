@@ -263,7 +263,7 @@ aircombat eval my_agents:Kamikaze rule rule_defensive -n 10
 ## 開発
 
 ```bash
-pytest            # 42 件、約 20 秒（gymnasium が無ければラッパーのテストは飛ばす）
+pytest            # 44 件、約 20 秒（gymnasium が無ければラッパーのテストは飛ばす）
 ```
 
 ```
