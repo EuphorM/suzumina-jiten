@@ -126,9 +126,12 @@ class SelfPlayTrainer:
                 self.env_cfg.to_dict(), self.model_cfg.to_dict(), c.gamma, c.gae_lambda, c.envs_per_worker
             )
 
-    def close(self) -> None:
+    def close(self, terminate: bool = False) -> None:
         if self._pool is not None:
-            self._pool.close()
+            if terminate:
+                self._pool.terminate()
+            else:
+                self._pool.close()
             self._pool.join()
             self._pool = None
 
@@ -166,6 +169,7 @@ class SelfPlayTrainer:
     # ------------------------------------------------------------ 学習
     def train(self) -> None:
         c = self.cfg
+        ok = False
         try:
             while self.iteration < c.iterations:
                 t0 = time.time()
@@ -204,8 +208,10 @@ class SelfPlayTrainer:
                 with open(self.run_dir / "metrics.jsonl", "a", encoding="utf-8") as f:
                     f.write(json.dumps(entry, ensure_ascii=False) + "\n")
                 self.log(self._format(entry))
+            ok = True
         finally:
-            self.close()
+            # 中断（Ctrl+C など）のときは実行中の対戦を待たずにワーカーを止める
+            self.close(terminate=not ok)
 
     def evaluate(self, opponents: list[str] | None = None, episodes: int | None = None) -> dict:
         """固定の相手と対戦して平均スコア・勝率を返す（乱数シードは毎回同じ）。"""

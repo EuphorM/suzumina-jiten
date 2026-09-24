@@ -13,6 +13,7 @@
 | コマンド | 内容 |
 |---|---|
 | `aircombat match` | 2 つのエージェントを対戦させ、結果とリプレイ（HTML）を出す |
+| `aircombat pretrain` | ルールベースの行動を真似る模倣学習で、自己対戦の初期モデルを作る |
 | `aircombat train` | 自己対戦で学習する（マルチプロセスで対戦を収集、途中から再開可） |
 | `aircombat eval` | 総当たり戦で Glicko-2 レーティング・平均スコア・対戦表を出す |
 | `aircombat replay` | 保存したリプレイ JSON を HTML ビューアにする |
@@ -45,9 +46,13 @@ aircombat match rule rule_aggressive -n 4 --swap --replay replays/demo.html
 # 組み込みエージェントの総当たり戦（1 組 10 戦、4 プロセス並列）
 aircombat eval rule rule_aggressive rule_defensive random straight -n 10 --workers 4
 
-# 自己対戦で学習（Ctrl+C で止めても --resume で続きから再開できる）
-aircombat train --config configs/default.json --out runs/exp1
-aircombat train --config configs/default.json --out runs/exp1 --resume
+# おすすめ: ルールベースの模倣学習で初期化してから自己対戦で強化する
+aircombat pretrain --out runs/bc.pt --episodes 120 --workers 4
+aircombat train --config configs/finetune.json --init runs/bc.pt --out runs/exp1
+
+# ゼロから自己対戦で学習（時間はかかる）。Ctrl+C で止めても --resume で続きから再開できる
+aircombat train --config configs/default.json --out runs/exp0
+aircombat train --config configs/default.json --out runs/exp0 --resume
 
 # 学習したモデルをルールベースと対戦させる・レーティングを測る
 aircombat match runs/exp1/latest.pt rule -n 10 --swap --replay replays/learned.html
@@ -152,6 +157,13 @@ print(info["outcome"].to_dict())          # 勝者・理由・スコア・発射
 
 ## 自己対戦学習の仕組み
 
+### 模倣学習による初期化（`aircombat pretrain`）
+
+ゼロから始めた方策は、最初のうち遠距離から誘導弾を撃ち尽くしてしまい、勝ち方を見つけるまでに長い時間がかかります。
+`pretrain` は教師（既定は `rule`）をいろいろな相手と対戦させて教師側の観測と行動を記録し、同じネットワークに行動を真似させます（各行動ヘッドの交差エントロピー）。価値関数も割引収益で同時に学習するので、そのまま `train --init` に渡すと、ルールベース並みの強さから自己対戦を始められます（`selfplay/imitation.py`）。
+
+### 自己対戦の強化学習（`aircombat train`）
+
 `aircombat train` は次を繰り返します（`aircombat/selfplay/`）。
 
 1. **マッチメイク**（`league.py`）: 1 イテレーションあたり `episodes_per_iter` 戦分の相手を抽選
@@ -178,7 +190,8 @@ print(info["outcome"].to_dict())          # 勝者・理由・スコア・発射
 
 | ファイル | 用途 |
 |---|---|
-| `configs/default.json` | オープン部門相当（3D）の標準設定 |
+| `configs/default.json` | オープン部門相当（3D）の標準設定（ゼロから学習） |
+| `configs/finetune.json` | 模倣学習の重みから始める設定（学習率・エントロピー係数を小さく） |
 | `configs/youth_2d.json` | ユース部門相当（2D） |
 | `configs/quick.json` | 動作確認用の小さい設定（数分で終わる） |
 
@@ -255,7 +268,7 @@ aircombat/
 ├── match.py             # 対戦の実行・リプレイ記録
 ├── evaluate.py          # 総当たり戦・Glicko-2
 ├── agents/              # ランダム・直進・ルールベース
-├── selfplay/            # 自己対戦学習（モデル・PPO・ロールアウト・リーグ・Glicko-2・学習ループ）
+├── selfplay/            # 自己対戦学習（モデル・PPO・ロールアウト・リーグ・Glicko-2・模倣学習・学習ループ）
 ├── viewer/              # リプレイ HTML
 └── cli.py               # コマンドライン
 ```

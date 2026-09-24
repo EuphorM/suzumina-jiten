@@ -114,3 +114,30 @@ def test_trainer_runs_saves_and_resumes(tmp_path):
     assert set(resumed.league.members) == set(trainer.league.members)
     resumed.train()
     assert resumed.iteration == 3
+
+
+def test_imitation_pretraining_produces_usable_model(tmp_path):
+    from aircombat.selfplay.imitation import ImitationConfig, collect_demonstrations, pretrain
+
+    env_cfg = EnvConfig.from_dict({"scenario": {"time_limit": 60, "fighter_x_range": [-25_000, -20_000]}})
+    cfg = ImitationConfig(opponents=["straight"], episodes=2, epochs=1, workers=0, hidden=32, stride=3)
+    data = collect_demonstrations(env_cfg, cfg, log=lambda *_: None)
+    n = len(data["act"])
+    # 60 ステップを 3 ステップおきに記録（2 戦で 40）し、教師が撃った場面はそれに加えて必ず記録する
+    fired = np.any(data["act"][..., 3] > 0, axis=1)
+    assert fired.any()
+    assert 2 * 20 <= n <= 2 * 60
+    assert data["self"].dtype == np.float16 and data["act"].shape == (n, 4, 4)
+    out = pretrain(env_cfg, cfg, tmp_path / "bc.pt", log=lambda *_: None)
+    env = AirCombatEnv(env_cfg)
+    r = run_match(env, make_agent(str(out)), make_agent("straight"), seed=0)
+    assert r.steps > 0
+    # 模倣学習の重みから強化学習を始められる
+    tcfg = TrainConfig.from_dict(
+        {"iterations": 1, "episodes_per_iter": 1, "num_workers": 0, "hidden": 32, "init_checkpoint": str(out),
+         "snapshot_interval": 0, "eval_interval": 0, "replay_interval": 0, "ppo": {"minibatch_size": 32, "epochs": 1}}
+    )
+    trainer = SelfPlayTrainer(env_cfg, tcfg, tmp_path / "run", log=lambda *_: None)
+    loaded = torch.load(out, weights_only=False)["state_dict"]
+    assert all(torch.equal(v, trainer.model.state_dict()[k]) for k, v in loaded.items())
+    trainer.train()

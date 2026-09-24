@@ -9,6 +9,7 @@ from __future__ import annotations
 import itertools
 import multiprocessing as mp
 from collections import defaultdict
+from pathlib import Path
 
 import numpy as np
 
@@ -112,24 +113,36 @@ def round_robin(
     return {"leaderboard": rows, "matrix": mat, "games": games}
 
 
+def display_names(specs: list[str]) -> dict[str, str]:
+    """表示用の短い名前。モデルのパスはファイル名（重複するときは親ディレクトリ名/ファイル名）にする。"""
+    short = {s: Path(s).stem if s.endswith(".pt") else s for s in specs}
+    if len(set(short.values())) < len(specs):
+        short = {s: f"{Path(s).parent.name}/{Path(s).stem}" if s.endswith(".pt") else s for s in specs}
+    if len(set(short.values())) < len(specs):
+        short = {s: s for s in specs}
+    return short
+
+
 def format_leaderboard(result: dict) -> str:
     rows = result["leaderboard"]
-    width = max(len(r["agent"]) for r in rows)
+    names = [r["agent"] for r in rows]
+    disp = display_names(names)
+    width = max(max(len(disp[n]) for n in names), 5)
     lines = [f"{'agent':<{width}}  rating    rd   score   W/D/L     hit"]
     for r in rows:
         wdl = f"{r['wins']}/{r['draws']}/{r['losses']}"
         lines.append(
-            f"{r['agent']:<{width}}  {r['rating']:6.1f} {r['rd']:5.1f}  {r['mean_score']:.3f}  {wdl:>8}  {r['hit_rate']:.2f}"
+            f"{disp[r['agent']]:<{width}}  {r['rating']:6.1f} {r['rd']:5.1f}  {r['mean_score']:.3f}  {wdl:>8}  {r['hit_rate']:.2f}"
         )
-    names = [r["agent"] for r in rows]
     lines.append("")
     lines.append("対戦スコア（行の視点）")
-    short = [n if len(n) <= 14 else n[:13] + "…" for n in names]
-    lines.append(" " * (width + 2) + " ".join(f"{s:>14}" for s in short))
+    col = max(8, min(16, max(len(disp[n]) for n in names)))
+    short = [disp[n] if len(disp[n]) <= col else disp[n][: col - 1] + "…" for n in names]
+    lines.append(" " * (width + 2) + " ".join(f"{s:>{col}}" for s in short))
     for a in names:
         cells = []
         for b in names:
             v = result["matrix"].get(a, {}).get(b)
-            cells.append(f"{'-' if v is None else f'{v:.3f}':>14}")
-        lines.append(f"{a:<{width}}  " + " ".join(cells))
+            cells.append(f"{'-' if v is None else f'{v:.3f}':>{col}}")
+        lines.append(f"{disp[a]:<{width}}  " + " ".join(cells))
     return "\n".join(lines)

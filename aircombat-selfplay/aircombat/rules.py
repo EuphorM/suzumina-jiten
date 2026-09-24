@@ -51,7 +51,7 @@ def winner_score(score_cfg: ScoreConfig, hits: int, launched: int, win_time: flo
         + score_cfg.hit_bonus * hit_rate
         + score_cfg.speed_bonus * speed_factor(score_cfg, win_time, time_limit)
     )
-    return float(np.clip(s, 0.0, 1.0))
+    return round(float(np.clip(s, 0.0, 1.0)), 12)
 
 
 def compute_scores(
@@ -60,7 +60,8 @@ def compute_scores(
     if winner < 0:
         return (score_cfg.draw_score, score_cfg.draw_score)
     w = winner_score(score_cfg, int(hits[winner]), int(launched[winner]), time, time_limit)
-    return (w, 1.0 - w) if winner == 0 else (1.0 - w, w)
+    lose = round(1.0 - w, 12)
+    return (w, lose) if winner == 0 else (lose, w)
 
 
 def judge(sim: Simulation, cfg: EnvConfig) -> Outcome | None:

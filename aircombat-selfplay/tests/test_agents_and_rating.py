@@ -105,3 +105,11 @@ def test_league_snapshot_eviction_and_state_roundtrip():
     assert league.ratings.get(LEARNER).rating > 1500
     restored = League.from_state_dict(json.loads(json.dumps(league.state_dict())))
     assert restored.table() == league.table()
+
+
+def test_display_names_shorten_model_paths():
+    from aircombat.evaluate import display_names
+
+    assert display_names(["rule", "/x/runs/bc.pt"]) == {"rule": "rule", "/x/runs/bc.pt": "bc"}
+    names = display_names(["/a/run1/latest.pt", "/a/run2/latest.pt"])
+    assert names["/a/run1/latest.pt"] == "run1/latest" and names["/a/run2/latest.pt"] == "run2/latest"

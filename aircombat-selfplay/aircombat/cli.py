@@ -1,6 +1,7 @@
 """コマンドライン: python -m aircombat <command> ...
 
   match   BLUE RED       2 つのエージェントを対戦させる（リプレイ保存可）
+  pretrain               ルールベースの模倣学習で初期モデルを作る
   train                  自己対戦で学習する
   eval    AGENT...       総当たり戦で Glicko-2 レーティングを出す
   replay  JSON -o HTML   保存したリプレイ JSON を HTML ビューアにする
@@ -79,6 +80,28 @@ def cmd_train(args) -> int:
     print(f"学習を開始します: {run_dir}（イテレーション {trainer.iteration} → {cfg.iterations}）")
     trainer.train()
     print(f"完了しました。モデル: {run_dir / 'latest.pt'}")
+    return 0
+
+
+def cmd_pretrain(args) -> int:
+    from .config import EnvConfig
+    from .selfplay.imitation import ImitationConfig, pretrain
+    from .selfplay.trainer import load_settings
+
+    env_cfg = load_settings(args.config)[0] if args.config else EnvConfig()
+    if args.mode:
+        env_cfg.scenario.mode = args.mode
+    cfg = ImitationConfig(
+        teacher=args.teacher,
+        episodes=args.episodes,
+        epochs=args.epochs,
+        workers=args.workers,
+        hidden=args.hidden,
+        seed=args.seed,
+    )
+    if args.opponents:
+        cfg.opponents = args.opponents
+    pretrain(env_cfg.validate(), cfg, args.out)
     return 0
 
 
@@ -162,6 +185,18 @@ def build_parser() -> argparse.ArgumentParser:
     t.add_argument("--episodes-per-iter", dest="episodes_per_iter", type=int)
     t.add_argument("--seed", type=int)
     t.set_defaults(func=cmd_train)
+
+    pt = sub.add_parser("pretrain", help="ルールベースの模倣学習で初期モデルを作る")
+    pt.add_argument("--out", required=True, help="保存先（*.pt）。train --init に渡す")
+    pt.add_argument("--teacher", default="rule", help="真似る教師エージェント")
+    pt.add_argument("--opponents", nargs="+", help="教師の対戦相手（既定: rule 系と random / straight）")
+    pt.add_argument("--episodes", type=int, default=120)
+    pt.add_argument("--epochs", type=int, default=6)
+    pt.add_argument("--hidden", type=int, default=128, help="ネットワークの幅（train の hidden と揃える）")
+    pt.add_argument("--workers", type=int, default=3)
+    pt.add_argument("--seed", type=int, default=0)
+    common(pt)
+    pt.set_defaults(func=cmd_pretrain)
 
     e = sub.add_parser("eval", help="総当たり戦で評価する")
     e.add_argument("agents", nargs="+")
