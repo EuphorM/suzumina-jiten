@@ -32,7 +32,7 @@ from ..config import EnvConfig, merge_into_dataclass
 from ..env import AirCombatEnv
 from ..match import run_match, save_replay
 from .league import LEARNER, League, LeagueConfig
-from .model import ModelConfig, PolicyNet, save_checkpoint
+from .model import ModelConfig, PolicyNet, load_checkpoint, save_checkpoint
 from .policy_agent import PolicyAgent
 from .ppo import PPO, PPOConfig
 from .rollout import EpisodeResult, EpisodeSpec, RolloutWorker, _init_worker, _run_task
@@ -52,6 +52,7 @@ class TrainConfig:
     eval_interval: int = 10
     eval_episodes: int = 16  # 評価相手 1 体あたりの対戦数（陣営を交互に入れ替える）
     eval_opponents: list[str] = field(default_factory=lambda: ["rule"])
+    eval_deterministic: bool = False  # 評価で学習者に最も確率の高い行動を取らせる
     replay_interval: int = 50
     init_checkpoint: str | None = None  # 学習済みモデルから始める場合のパス
     ppo: PPOConfig = field(default_factory=PPOConfig)
@@ -108,6 +109,9 @@ class SelfPlayTrainer:
             ckpt = torch.load(cfg.init_checkpoint, map_location="cpu", weights_only=False)
             self.model.load_state_dict(ckpt["state_dict"])
             self.log(f"initialized weights from {cfg.init_checkpoint}")
+        if cfg.init_checkpoint and (cfg.ppo.anchor_coef > 0 or cfg.ppo.anchor_coef_final > 0):
+            anchor, _ = load_checkpoint(cfg.init_checkpoint)
+            self.ppo.set_anchor(anchor)
         with open(self.run_dir / "config.json", "w", encoding="utf-8") as f:
             json.dump({"env": env_cfg.to_dict(), "train": asdict(cfg)}, f, ensure_ascii=False, indent=2)
 
@@ -177,7 +181,7 @@ class SelfPlayTrainer:
                 trajs, results = self._run(specs)
                 t_collect = time.time() - t0
                 self.league.record([(names[r.opponent], r.learner_score) for r in results])
-                stats = self.ppo.update(trajs, self.rng)
+                stats = self.ppo.update(trajs, self.rng, self.iteration)
                 self.iteration += 1
                 it = self.iteration
                 entry = {
@@ -218,7 +222,13 @@ class SelfPlayTrainer:
         opponents = opponents or self.cfg.eval_opponents
         episodes = episodes or self.cfg.eval_episodes
         specs = [
-            EpisodeSpec(seed=10_000 + i // 2, opponent=o, learner_team=i % 2, collect=False)
+            EpisodeSpec(
+                seed=10_000 + i // 2,
+                opponent=o,
+                learner_team=i % 2,
+                collect=False,
+                deterministic=self.cfg.eval_deterministic,
+            )
             for o in opponents
             for i in range(episodes)
         ]
@@ -231,7 +241,7 @@ class SelfPlayTrainer:
 
     def save_replay(self, path: Path, opponent: str | None = None, seed: int = 10_000) -> Path:
         env = AirCombatEnv(self.env_cfg)
-        me = PolicyAgent(self.model, deterministic=False, name=f"learner@{self.iteration}")
+        me = PolicyAgent(self.model, deterministic=self.cfg.eval_deterministic, name=f"learner@{self.iteration}")
         opp_name = opponent or self.cfg.eval_opponents[0]
         opp = make_agent(opp_name)
         result = run_match(env, me, opp, seed=seed, record=True, blue_name=me.name, red_name=opp_name)
@@ -286,7 +296,9 @@ class SelfPlayTrainer:
         line = (
             f"it {e['iteration']:4d} | {e['episodes']:3d} ep {e['team_steps'] / 1000:5.1f}k steps "
             f"{e['total_sec']:5.1f}s | self {n_self} | {opp} | "
-            f"ent {p['entropy']:.2f} kl {p['approx_kl']:.3f} ev {p['explained_var']:.2f} | "
+            f"ent {p['entropy']:.2f} kl {p['approx_kl']:.3f} ev {p['explained_var']:.2f}"
+            + (f" akl {p['anchor_kl']:.3f}" if p.get("anchor_coef") else "")
+            + " | "
             f"rating {learner.rating:.0f}±{learner.rd:.0f}"
         )
         if "eval" in e:

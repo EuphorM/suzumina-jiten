@@ -4,15 +4,25 @@
   },
   "train": {
     "iterations": 200,
-    "episodes_per_iter": 32,
+    "episodes_per_iter": 48,
     "num_workers": 3,
     "envs_per_worker": 4,
     "snapshot_interval": 5,
     "eval_interval": 5,
-    "eval_episodes": 16,
+    "eval_episodes": 24,
     "eval_opponents": ["rule", "rule_defensive"],
+    "eval_deterministic": true,
     "replay_interval": 25,
-    "ppo": {"lr": 0.0001, "epochs": 3, "entropy_coef": 0.003, "target_kl": 0.02},
+    "ppo": {
+      "lr": 0.00005,
+      "epochs": 3,
+      "entropy_coef": 0.001,
+      "fire_entropy_scale": 0.0,
+      "target_kl": 0.02,
+      "anchor_coef": 0.3,
+      "anchor_coef_final": 0.03,
+      "anchor_decay_iters": 150
+    },
     "league": {
       "self_play_prob": 0.35,
       "initial_opponents": ["rule", "rule_aggressive", "rule_defensive"]

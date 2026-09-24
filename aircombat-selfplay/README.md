@@ -182,9 +182,9 @@ obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
    - 確率 `self_play_prob`（既定 0.35）で最新の自分自身（両陣営のデータを学習に使う）
    - それ以外はリーグ（固定のルールベース＋過去のスナップショット）から **PFSP** で抽選。重みは `(1 − 学習者の対戦スコア)^α` で、勝てていない相手ほど選ばれやすい
 2. **収集**（`rollout.py`）: ワーカープロセスが複数の環境を同時に進め、学習者の推論を環境をまたいでまとめて行う
-3. **更新**（`ppo.py`）: 陣営単位の報酬・価値から GAE で求めた利得を 4 機で共有し、方策比は機体ごとに取る PPO（MAPPO 方式）。撃墜された機体のステップは方策の損失から除く
+3. **更新**（`ppo.py`）: 陣営単位の報酬・価値から GAE で求めた利得を 4 機で共有し、方策比は機体ごとに取る PPO（MAPPO 方式）。撃墜された機体のステップは方策の損失から除く。模倣学習の重みから始めるときは、初期方策からの KL ダイバージェンスを損失に加えて（`ppo.anchor_coef`、係数は線形に減衰）、ノイズの多い更新で方策が崩れるのを防ぐ（AlphaStar の教師あり方策への KL と同じ考え方）
 4. **リーグ更新**: 対戦結果で学習者の対戦スコアの移動平均と **Glicko-2 レーティング** を更新。`snapshot_interval` ごとに現在の方策をスナップショットとしてリーグに追加（古いものから `max_snapshots` 個まで保持）
-5. **評価**: `eval_interval` ごとに固定の相手（既定 `rule`, `rule_defensive`）と同じシードで対戦して平均スコアを記録し、最良のモデルを `best.pt` に保存。`replay_interval` ごとにリプレイ HTML を保存
+5. **評価**: `eval_interval` ごとに固定の相手（既定 `rule`, `rule_defensive`）と同じシードで対戦して平均スコアを記録し、最良のモデルを `best.pt` に保存。`eval_deterministic: true` なら学習者は最も確率の高い行動で戦う。`replay_interval` ごとにリプレイ HTML を保存
 
 ネットワーク（`model.py`、約 35 万パラメータ）は自機・味方・敵・誘導弾警報をそれぞれ埋め込み、自機を query にした注意機構で集約します。陣営 4 機の埋め込みの平均を各機に足して連携させ（1 つのエージェントが 4 機すべてを操縦する前提）、射撃ヘッドは敵スロットを指すポインタ型です。
 
@@ -203,7 +203,7 @@ obs, reward, terminated, truncated, info = env.step(env.action_space.sample())
 | ファイル | 用途 |
 |---|---|
 | `configs/default.json` | オープン部門相当（3D）の標準設定（ゼロから学習） |
-| `configs/finetune.json` | 模倣学習の重みから始める設定（学習率・エントロピー係数を小さく） |
+| `configs/finetune.json` | 模倣学習の重みから始める設定（小さい学習率、初期方策への KL 正則化、射撃ヘッドのエントロピーボーナスなし、決定的評価） |
 | `configs/youth_2d.json` | ユース部門相当（2D） |
 | `configs/quick.json` | 動作確認用の小さい設定（数分で終わる） |
 

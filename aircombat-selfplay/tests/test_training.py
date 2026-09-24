@@ -141,3 +141,45 @@ def test_imitation_pretraining_produces_usable_model(tmp_path):
     loaded = torch.load(out, weights_only=False)["state_dict"]
     assert all(torch.equal(v, trainer.model.state_dict()[k]) for k, v in loaded.items())
     trainer.train()
+
+
+def test_anchor_kl_regularization():
+    from aircombat.selfplay.model import anchor_kl
+    from aircombat.selfplay.ppo import PPO, PPOConfig
+
+    torch.manual_seed(0)
+    env = AirCombatEnv()
+    obs = env.reset(seed=0)
+    t = to_tensors(stack_obs([obs_to_arrays(obs[0]), obs_to_arrays(obs[1])]))
+    model = PolicyNet(ModelConfig(hidden=32))
+    anchor = PolicyNet(ModelConfig(hidden=32))
+    anchor.load_state_dict(model.state_dict())
+    lg, _ = model(t)
+    la, _ = anchor(t)
+    assert torch.allclose(anchor_kl(la, lg), torch.zeros(2, 4), atol=1e-6)
+    with torch.no_grad():
+        model.turn.bias[0] += 1.0  # 1 つの選択肢だけ変えると分布が変わる
+    lg2, _ = model(t)
+    assert (anchor_kl(la, lg2) > 0).all()
+
+    ppo = PPO(model, PPOConfig(anchor_coef=1.0, anchor_coef_final=0.1, anchor_decay_iters=10))
+    assert ppo.anchor_coef(5) == 0.0  # アンカー未設定なら無効
+    ppo.set_anchor(anchor)
+    assert ppo.anchor_coef(0) == pytest.approx(1.0)
+    assert ppo.anchor_coef(5) == pytest.approx(0.55)
+    assert ppo.anchor_coef(20) == pytest.approx(0.1)
+
+    worker = RolloutWorker(EnvConfig.from_dict({"scenario": {"time_limit": 20}}).to_dict(), ModelConfig(hidden=32).to_dict(), 0.99, 0.95, envs=1)
+    worker.set_weights(model.state_dict(), 0)
+    trajs, _ = worker.run([EpisodeSpec(seed=0, opponent="self")])
+    stats = ppo.update(trajs, np.random.default_rng(0), iteration=0)
+    assert stats["anchor_coef"] == pytest.approx(1.0) and stats["anchor_kl"] > 0
+
+
+def test_deterministic_eval_specs_use_greedy_actions():
+    torch.manual_seed(0)
+    env_cfg = EnvConfig.from_dict({"scenario": {"time_limit": 30}})
+    worker = RolloutWorker(env_cfg.to_dict(), ModelConfig(hidden=32).to_dict(), 0.99, 0.95, envs=2)
+    specs = [EpisodeSpec(seed=7, opponent="straight", learner_team=0, collect=False, deterministic=True)] * 2
+    _, results = worker.run(specs)
+    assert results[0].outcome == results[1].outcome  # 決定的なので同じシードなら同じ結果

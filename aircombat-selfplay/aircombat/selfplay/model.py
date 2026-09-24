@@ -136,7 +136,10 @@ class PolicyNet(nn.Module):
 
     @staticmethod
     def distribution_stats(logits: list[torch.Tensor], actions: torch.Tensor | None = None):
-        """(log_prob, entropy) を機体ごと（各ヘッドの和）に返す。actions が None ならサンプルする。"""
+        """機体ごとの対数尤度（各ヘッドの和）、ヘッドごとのエントロピー (..., 4)、行動を返す。
+
+        actions が None ならサンプルする。
+        """
         logps, ents, acts = [], [], []
         for h, lg in enumerate(logits):
             logp_all = F.log_softmax(lg, dim=-1)
@@ -148,7 +151,7 @@ class PolicyNet(nn.Module):
             logps.append(logp_all.gather(-1, a.unsqueeze(-1)).squeeze(-1))
             p = logp_all.exp()
             ents.append(-(p * torch.where(p > 0, logp_all, torch.zeros_like(logp_all))).sum(-1))
-        return torch.stack(logps, -1).sum(-1), torch.stack(ents, -1).sum(-1), torch.stack(acts, -1)
+        return torch.stack(logps, -1).sum(-1), torch.stack(ents, -1), torch.stack(acts, -1)
 
     @torch.no_grad()
     def act(self, obs: dict[str, torch.Tensor], deterministic: bool = False):
@@ -160,6 +163,15 @@ class PolicyNet(nn.Module):
         else:
             logp, _, actions = self.distribution_stats(logits)
         return actions, logp, value
+
+
+def anchor_kl(anchor_logits: list[torch.Tensor], logits: list[torch.Tensor]) -> torch.Tensor:
+    """KL(アンカー方策 || 現在の方策) を機体ごと（各ヘッドの和）に返す。"""
+    total = 0.0
+    for a, lg in zip(anchor_logits, logits):
+        pa = F.softmax(a, dim=-1)
+        total = total + (pa * (F.log_softmax(a, dim=-1) - F.log_softmax(lg, dim=-1))).sum(-1)
+    return total
 
 
 def save_checkpoint(path, model: PolicyNet, env_cfg: dict, extra: dict | None = None) -> None:

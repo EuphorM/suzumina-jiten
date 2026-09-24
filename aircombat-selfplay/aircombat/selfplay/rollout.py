@@ -31,6 +31,7 @@ class EpisodeSpec:
     opponent: str
     learner_team: int = 0  # opponent が "self" のときは無視（両陣営とも学習者）
     collect: bool = True  # False なら評価用（軌跡を返さない）
+    deterministic: bool = False  # True なら学習者は最も確率の高い行動を取る（評価用）
 
 
 @dataclass
@@ -168,7 +169,12 @@ class RolloutWorker:
                 for team in st.learner_teams:
                     index.append((i, team))
                     items.append(obs_to_arrays(st.obs[team]))
-            acts, logp, values = self.model.act(to_tensors(stack_obs(items)))
+            logits, values = self.model(to_tensors(stack_obs(items)))
+            logp, _, acts = PolicyNet.distribution_stats(logits)
+            det = [slots[i].spec.deterministic for i, _ in index]
+            if any(det):
+                greedy = torch.stack([lg.argmax(-1) for lg in logits], dim=-1)
+                acts = torch.where(torch.tensor(det)[:, None, None], greedy, acts)
             acts, logp, values = acts.numpy(), logp.numpy(), values.numpy()
             per_env: dict[int, dict[int, np.ndarray]] = {}
             for j, (i, team) in enumerate(index):
